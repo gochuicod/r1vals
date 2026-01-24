@@ -1,7 +1,12 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { Inter, Orbitron } from 'next/font/google';
 import { getMessages } from 'next-intl/server';
+
+import { Inter, Orbitron } from 'next/font/google';
+
 import '@/app/globals.css';
+
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -27,9 +32,9 @@ export default async function LocaleLayout({
     <html lang={locale} className={`${inter.variable} ${orbitron.variable}`}>
       <body className={`font-body flex min-h-screen flex-col`}>
         <NextIntlClientProvider messages={messages} locale={locale}>
-          {/* Navbar here */}
+          <Navbar />
           <main className="flex-1">{children}</main>
-          {/* Footer here */}
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

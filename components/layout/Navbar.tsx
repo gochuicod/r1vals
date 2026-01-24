@@ -16,7 +16,14 @@ export default function Navbar() {
       )}
     >
       {/* Logo here */}
-      <Image src="/r1vals_logo.svg" alt="R1Vals Logo" width={113} height={37} />
+      <Link href="/">
+        <Image
+          src="/r1vals_logo.svg"
+          alt="R1Vals Logo"
+          width={113}
+          height={37}
+        />
+      </Link>
 
       {/* Links here */}
       <div
@@ -32,7 +39,7 @@ export default function Navbar() {
         <Link href="/#wild-events">wild events</Link>
         <Link href="/#legends">legends</Link>
         <Link href="/#chaos-league">chaos league</Link>
-        <Link href="/watch-live">watch live</Link>
+        <Link href="/#watch-live">watch live</Link>
         {/* Register Now Button here */}
       </div>
     </div>

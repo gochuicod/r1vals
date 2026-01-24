@@ -1,7 +1,7 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 
-import { Inter, Orbitron } from 'next/font/google';
+import { Inter, Orbitron, Space_Grotesk } from 'next/font/google';
 
 import '@/app/globals.css';
 
@@ -18,6 +18,11 @@ const orbitron = Orbitron({
   variable: '--font-orbitron',
 });
 
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+});
+
 export default async function LocaleLayout({
   children,
   params,
@@ -29,7 +34,10 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${inter.variable} ${orbitron.variable}`}>
+    <html
+      lang={locale}
+      className={`${inter.variable} ${orbitron.variable} ${spaceGrotesk.variable}`}
+    >
       <body className={`font-body flex min-h-screen flex-col`}>
         <NextIntlClientProvider messages={messages} locale={locale}>
           <Navbar />

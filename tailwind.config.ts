@@ -29,12 +29,14 @@ module.exports = {
           700: 'var(--color-red-700)',
           800: 'var(--color-red-800)',
           900: 'var(--color-red-900)',
+          textBtn: 'var(--color-red-text)',
         },
       },
     },
     fontFamily: {
       heading: ['var(--font-inter)', 'sans-serif'],
       body: ['var(--font-orbitron)', 'sans-serif'],
+      fontDisabled: ['var(--font-bebas-neue)', 'sans-serif'],
     },
     screens: {
       md: '768px',
@@ -51,12 +53,16 @@ module.exports = {
       h3: ['40px', '48px'],
       h4: ['32px', '40px'],
       h5: ['24px', '28px'],
-      h6: ['20px', '24px'],
+      h6: ['20px', { lineHeight: '24px', letterSpacing: '4%' }],
 
       // Body variations
       'body-lg': ['20px', '24px'],
       'body-md': ['16px', '19.2px'],
       'body-sm': ['14px', '16.8px'],
+
+      //Buttons
+      'btn-protocol': ['35px', { lineHeight: '100%', letterSpacing: '0%' }],
+
     },
   },
   plugins: [],

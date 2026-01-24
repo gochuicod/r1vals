@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/Button';
 import { HighlightedHeading } from '@/components/ui/HighlightedHeading';
+import { HighlightCard } from '@/components/ui/HighlightCard';
 
 export default function ComponentShowcasePage() {
   return (
@@ -48,7 +49,8 @@ export default function ComponentShowcasePage() {
               align="left"
             />
           </div>
-                    <div className="flex flex-col gap-2 items-start">
+
+        <div className="flex flex-col gap-2 items-start">
             <span className="text-xs text-gray-500 font-mono">Variant 2 Blue</span>
             <HighlightedHeading
               text="THE STAKES ARE HISTORIC.."
@@ -59,6 +61,51 @@ export default function ComponentShowcasePage() {
             />
           </div>
         </div>
+
+    </div>
+
+      <div className="mb-12 p-8 bg-white rounded-xl shadow-sm border border-gray-200">
+        <h2 className="text-xl font-bold mb-6 text-gray-700 border-b pb-2">
+          Highlight Cards: All Variants (Red & Blue)
+        </h2>
+
+        <div className="flex flex-col gap-8 md:flex-row md:flex-wrap md:gap-10">
+          <div className="w-full flex flex-col gap-10 justify-center items-center">
+            <div className="flex flex-wrap md:flex-row gap-10 items-center justify-center">
+                <HighlightCard
+                imageSrc="/highlight_card/community.webp"
+                title="CASH AWARDS"
+                description="for both players and fans."
+                variant="blue" 
+                />
+
+                <HighlightCard
+                imageSrc="/highlight_card/global.webp"
+                title="Youth Mentorship"
+                description="and elite football clinics."
+                variant="red" 
+                />
+
+                <HighlightCard
+                imageSrc="/highlight_card/global.webp"
+                title="Community Charity initiatives"
+                description="to pay it forward."
+                variant="blue" 
+                />
+
+                <HighlightCard
+                imageSrc="/highlight_card/global.webp"
+                title="Global Expansion "
+                description="creating international pathways for talent."
+                variant="red" 
+                />
+            </div>    
+         </div>
+        </div>
+
+
+
+
 
       </div>
 

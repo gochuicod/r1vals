@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/Button';
+import { HighlightedHeading } from '@/components/ui/HighlightedHeading';
 
 export default function ComponentShowcasePage() {
   return (
@@ -24,6 +25,38 @@ export default function ComponentShowcasePage() {
           <div className="flex flex-col gap-2 items-start">
             <span className="text-xs text-gray-500 font-mono">Protocol Variant</span>
             <Button variant="protocol">7x7 PROTOCOL: ASIA’S LARGEST</Button>
+          </div>
+        </div>
+
+
+
+      </div>
+
+    <div className="mb-12 p-8 bg-white rounded-xl shadow-sm border border-gray-200">
+        <h2 className="text-xl font-bold mb-6 text-gray-700 border-b pb-2">
+          Highlighted Heading
+        </h2>
+
+        <div className="flex flex-col gap-8 md:flex-row md:flex-wrap md:gap-10">
+          <div className="flex flex-col gap-2 items-start">
+            <span className="text-xs text-gray-500 font-mono">Variant 1 Red</span>
+            <HighlightedHeading
+              text="THE STAGE IS SET.."
+              highlight="SET"
+              size="xl"
+              highlightColor="red"
+              align="left"
+            />
+          </div>
+                    <div className="flex flex-col gap-2 items-start">
+            <span className="text-xs text-gray-500 font-mono">Variant 2 Blue</span>
+            <HighlightedHeading
+              text="THE STAKES ARE HISTORIC.."
+              highlight="HISTORIC"
+              size="xl"
+              highlightColor="blue"
+              align="left"
+            />
           </div>
         </div>
 

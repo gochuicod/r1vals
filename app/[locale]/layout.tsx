@@ -29,9 +29,7 @@ export default async function LocaleLayout({
     <html lang={locale} className={`${inter.variable} ${orbitron.variable}`}>
       <body className={`font-body flex min-h-screen flex-col`}>
         <NextIntlClientProvider messages={messages} locale={locale}>
-          <Navbar />
           <main className="flex-1">{children}</main>
-          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

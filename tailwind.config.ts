@@ -32,6 +32,10 @@ module.exports = {
         },
       },
     },
+    fontFamily: {
+      heading: ['var(--font-inter)', 'sans-serif'],
+      body: ['var(--font-orbitron)', 'sans-serif'],
+    },
   },
   plugins: [],
 };

@@ -5,9 +5,6 @@ import { Inter, Orbitron } from 'next/font/google';
 
 import '@/app/globals.css';
 
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/footer';
-
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',

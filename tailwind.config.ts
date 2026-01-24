@@ -40,6 +40,24 @@ module.exports = {
       md: '768px',
       lg: '1440px',
     },
+    fontSize: {
+      // format: [fontSize, { lineHeight }]
+      caption: ['12px', '16px'],
+      tag: ['20px', '24px'],
+
+      // Headings
+      h1: ['60px', '72px'],
+      h2: ['48px', '56px'],
+      h3: ['40px', '48px'],
+      h4: ['32px', '40px'],
+      h5: ['24px', '28px'],
+      h6: ['20px', '24px'],
+
+      // Body variations
+      'body-lg': ['20px', '24px'],
+      'body-md': ['16px', '19.2px'],
+      'body-sm': ['14px', '16.8px'],
+    },
   },
   plugins: [],
 };

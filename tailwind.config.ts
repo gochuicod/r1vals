@@ -36,6 +36,11 @@ module.exports = {
       heading: ['var(--font-inter)', 'sans-serif'],
       body: ['var(--font-orbitron)', 'sans-serif'],
     },
+    screens: {
+      mobile: { max: '767px' },
+      tablet: { min: '768px', max: '1439px' },
+      desktop: { min: '1440px' },
+    },
   },
   plugins: [],
 };

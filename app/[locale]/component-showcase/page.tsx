@@ -12,17 +12,22 @@ export default function ComponentShowcasePage() {
           Buttons: All Variants
         </h2>
 
-        <div className="flex flex-col md:flex-row md:flex-wrap gap-6 md:gap-10">
-          <Button variant="default">JOIN US</Button>
-          <Button variant="default" className="!text-h6 text-brandRed-textBtn">Secure my Spot</Button>
-          <Button variant="protocol" size="protocol">7x7 PROTOCOL: ASIA’S LARGEST</Button>
-
-
+        <div className="flex flex-col gap-8 md:flex-row md:flex-wrap md:gap-10">
+          <div className="flex flex-col gap-2 items-start">
+            <span className="text-xs text-gray-500 font-mono">Default Variant</span>
+            <Button variant="default">JOIN US</Button>
+          </div>
+          <div className="flex flex-col gap-2 items-start">
+            <span className="text-xs text-gray-500 font-mono">Default Variant (Custom Text Style)</span>
+            <Button variant="default" className="!text-h6 text-brandRed-textBtn">Secure my Spot</Button>
+          </div>
+          <div className="flex flex-col gap-2 items-start">
+            <span className="text-xs text-gray-500 font-mono">Protocol Variant</span>
+            <Button variant="protocol">7x7 PROTOCOL: ASIA’S LARGEST</Button>
+          </div>
         </div>
 
-
       </div>
-
 
 
 

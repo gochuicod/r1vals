@@ -1,6 +1,6 @@
 export const BrushedOfferContainer = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="relative w-full lg:max-w-[748px] md:max-w-[629px] lg:min-h-[87px] p-4 group">
+    <div className="relative w-full lg:min-h-[87px] p-4 group">
       {/* Background SVG - Acts as the frame */}
       <div className="absolute inset-0 z-0">
         <svg

@@ -83,7 +83,7 @@ export default function HistoricStakes() {
         <p
           className={cn(
             // Typography
-            'uppercase font-bold',
+            'uppercase font-black',
             'lg:text-h2 md:text-5xl text-h4',
             'md:text-end text-center',
             // Sizing
@@ -102,7 +102,7 @@ export default function HistoricStakes() {
         <p
           className={cn(
             // Typography
-            'uppercase font-bold',
+            'uppercase font-black',
             'lg:text-h2 md:text-5xl text-h4',
             // Sizing
             'lg:w-[400px] md:w-[200px] w-[300px]',

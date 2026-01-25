@@ -27,6 +27,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { motion } from 'motion/react';
+import { YouTubeEmbed } from '@next/third-parties/google';
 
 // Clip-path polygon coordinates for the bottom white overlay across devices.
 const POLYGONS = {
@@ -37,19 +38,13 @@ const POLYGONS = {
 };
 
 export default function Hero() {
-  // --- STATE MANAGEMENT ---
-  const [loadedCount, setLoadedCount] = useState(0); // Tracks image loading (0 to 2)
-  const [startAnimation, setStartAnimation] = useState(false); // Triggers the "Open" phase
-  const [showGlow, setShowGlow] = useState(false); // Triggers the "Pulse" phase
+  const [loadedCount, setLoadedCount] = useState(0);
+  const [startAnimation, setStartAnimation] = useState(false);
+  const [showGlow, setShowGlow] = useState(false);
 
-  // Increment counter when a heavy image finishes loading
   const handleImageLoad = () => setLoadedCount((prev) => prev + 1);
-
-  // Check if both curtain images are ready to prevent animation stutter
   const isReady = loadedCount >= 2;
 
-  // --- TIMING LOGIC ---
-  // Once images are loaded, wait 2 seconds before triggering the curtain reveal.
   useEffect(() => {
     if (isReady) {
       const timer = setTimeout(() => setStartAnimation(true), 2000);
@@ -57,73 +52,69 @@ export default function Hero() {
     }
   }, [isReady]);
 
-  // --- TRANSITION CONFIGURATIONS ---
-  // Cubic-bezier ease for a snappy, high-quality "mechanical" feel
-  const mainTransition = {
-    duration: 1.2,
-    ease: [0.22, 1, 0.36, 1] as const,
-  };
+  const mainTransition = { duration: 1.2, ease: [0.22, 1, 0.36, 1] as const };
 
-  // Smooth, infinite loop for the neon glow effect
   const pulseTransition = {
     duration: 1.5,
     repeat: Infinity,
-    repeatType: 'reverse' as const, // Oscillates between Min and Max shadow
+    repeatType: 'reverse' as const,
     ease: 'easeInOut' as const,
   };
 
-  // --- ANIMATION VARIANTS ---
-  // Calculates the Content Layer's state based on the current sequence phase
-  const getContentAnimation = () => {
-    // Phase 3: Curtains Open -> Shrink text and move it up to variable position
+  // --- FIXED: Renamed from getContentAnimation to getTextAnimation ---
+  const getTextAnimation = () => {
     if (startAnimation) {
       return { opacity: 1, scale: 0.5, y: 'var(--content-y)' };
     }
-    // Phase 2: Loaded -> Fade text in at normal size
     if (isReady) {
       return { opacity: 1, scale: 1, y: 0 };
     }
-    // Phase 1: Loading -> Hidden and slightly lowered
     return { opacity: 0, scale: 1, y: 20 };
+  };
+
+  const getVideoAnimation = () => {
+    if (startAnimation) {
+      return { opacity: 1, y: 'var(--video-y)' };
+    }
+    if (isReady) {
+      return { opacity: 1, y: 0 };
+    }
+    return { opacity: 0, y: 20 };
   };
 
   return (
     <section className="hero-section relative w-full h-[876px] overflow-hidden bg-black">
-      {/* --- RESPONSIVE VARIABLE INJECTION ---
-        We inject CSS variables here to handle complex responsive values (like VW units)
-        that Motion cannot automatically calculate from Tailwind classes.
-      */}
       <style jsx>{`
         .hero-section {
-          /* === MOBILE DEFAULT === */
           --hero-polygon: ${POLYGONS.mobile};
-          --content-y: -65vw; /* Distance content moves up */
-          --curtain-left: -80%; /* Distance left curtain slides out */
-          --curtain-right: 80%; /* Distance right curtain slides out */
+          --content-y: -65vw;
+          --video-y: -40vw;
+          --curtain-left: -80%;
+          --curtain-right: 75%;
         }
 
-        /* === TABLET (md: 768px) === */
         @media (min-width: 768px) {
           .hero-section {
             --hero-polygon: ${POLYGONS.tablet};
-            --content-y: -40vw;
-            --curtain-left: -50%;
-            --curtain-right: 50%;
+            --content-y: -35vw;
+            --video-y: -20vw;
+            --curtain-left: -65%;
+            --curtain-right: 65%;
           }
         }
 
-        /* === DESKTOP (lg: 1440px) === */
         @media (min-width: 1440px) {
           .hero-section {
             --hero-polygon: ${POLYGONS.desktop};
-            --content-y: -15vw;
+            --content-y: -14vw;
+            --video-y: -5vw;
             --curtain-left: -35%;
             --curtain-right: 30%;
           }
         }
       `}</style>
 
-      {/* Layer 1: Static Background Texture */}
+      {/* Layer 0: Static Background (Implicit Z-0) */}
       <Image
         src="/hero_section/football_background.png"
         alt="background"
@@ -132,33 +123,27 @@ export default function Hero() {
         priority
       />
 
-      {/* Layer 2A: Left Curtain Wrapper */}
+      {/* Layer 2: Left Curtain (Z-20) */}
       <motion.div
-        className="absolute top-0 left-0 w-[59%] h-[930px] z-0"
+        className="absolute top-0 left-0 w-[59%] h-[930px] z-20"
         initial={{
           x: '0%',
           filter: 'drop-shadow(0px 0px 0px rgba(239, 68, 68, 0))',
         }}
         animate={{
           x: startAnimation ? 'var(--curtain-left)' : '0%',
-          // Pass an array to `filter` to create a keyframe loop (Pulse)
           filter: showGlow
             ? [
-                'drop-shadow(8px 0px 20px rgba(239, 68, 68, 0.6))', // Min Glow
-                'drop-shadow(8px 0px 40px rgba(239, 68, 68, 1))', // Max Glow
+                'drop-shadow(8px 0px 20px rgba(239, 68, 68, 0.6))',
+                'drop-shadow(8px 0px 40px rgba(239, 68, 68, 1))',
               ]
             : 'drop-shadow(0px 0px 0px rgba(239, 68, 68, 0))',
         }}
-        transition={{
-          x: mainTransition,
-          filter: pulseTransition, // Apply infinite pulse only to filter
-        }}
-        // Callback: Once the curtain opens, trigger the glow state
+        transition={{ x: mainTransition, filter: pulseTransition }}
         onAnimationComplete={() => {
           if (startAnimation) setShowGlow(true);
         }}
       >
-        {/* Inner Container for Clipping & Asset */}
         <div className="relative w-full h-full">
           <div
             className="relative w-full h-full bg-black overflow-hidden"
@@ -173,9 +158,8 @@ export default function Hero() {
               fill
               className="object-cover"
               priority
-              onLoad={handleImageLoad} // Notify parent when loaded
+              onLoad={handleImageLoad}
             />
-            {/* Decorative Jagged Line SVG */}
             <svg
               className="absolute inset-0 w-full h-full pointer-events-none"
               viewBox="0 0 100 100"
@@ -191,9 +175,9 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Layer 2B: Right Curtain Wrapper */}
+      {/* Layer 2: Right Curtain (Z-20) */}
       <motion.div
-        className="absolute top-0 right-0 w-[59%] h-[930px] z-0"
+        className="absolute top-0 right-0 w-[59%] h-[930px] z-20"
         initial={{
           x: '0%',
           filter: 'drop-shadow(0px 0px 0px rgba(95, 252, 255, 0))',
@@ -202,15 +186,12 @@ export default function Hero() {
           x: startAnimation ? 'var(--curtain-right)' : '0%',
           filter: showGlow
             ? [
-                'drop-shadow(-8px 0px 20px rgba(95, 252, 255, 0.6))', // Min Glow
-                'drop-shadow(-8px 0px 40px rgba(95, 252, 255, 1))', // Max Glow
+                'drop-shadow(-8px 0px 20px rgba(95, 252, 255, 0.6))',
+                'drop-shadow(-8px 0px 40px rgba(95, 252, 255, 1))',
               ]
             : 'drop-shadow(0px 0px 0px rgba(95, 252, 255, 0))',
         }}
-        transition={{
-          x: mainTransition,
-          filter: pulseTransition,
-        }}
+        transition={{ x: mainTransition, filter: pulseTransition }}
       >
         <div className="relative w-full h-full">
           <div
@@ -243,20 +224,20 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Layer 3: White Polygon Overlay (Bottom edge) */}
+      {/* Layer 4: White Overlay (Z-40) */}
       <div
-        className="absolute inset-0 z-10 bg-white pointer-events-none"
+        className="absolute inset-0 z-40 bg-white pointer-events-none"
         style={{ clipPath: `var(--hero-polygon)` }}
       />
 
-      {/* Layer 4: Content & CTA */}
+      {/* Layer 3: Text & Button (Z-30) */}
       <motion.div
-        className="absolute inset-0 z-20 flex flex-col items-center lg:justify-center justify-end gap-4 lg:mb-0 mb-20"
+        className="absolute inset-0 z-30 flex flex-col items-center lg:justify-center justify-end gap-4 lg:mb-0 mb-20 pointer-events-none"
         initial={{ opacity: 0, y: 20, scale: 1 }}
-        animate={getContentAnimation()} // Uses helper to determine state
+        animate={getTextAnimation()}
         transition={mainTransition}
       >
-        <div className="relative w-full lg:max-w-[501px] md:max-w-[376px] max-w-[250px] h-full lg:max-h-[163px] md:max-h-[122px] max-h-[81px]">
+        <div className="relative w-full lg:max-w-[501px] md:max-w-[376px] max-w-[250px] h-full lg:max-h-[163px] md:max-h-[122px] max-h-[81px] pointer-events-auto">
           <Image
             src="/hero_section/r1vals_text.svg"
             alt="Rivals Text"
@@ -265,12 +246,32 @@ export default function Hero() {
             priority
           />
         </div>
-        <span className="text-h2 text-white text-center font-bold uppercase lg:w-full w-[80%]">
+        <span className="text-h2 text-white text-center font-bold uppercase w-full pointer-events-auto">
           win $100,000 usd cash prize
         </span>
-        <Button variant="protocol" className="font-bebas_neue w-fit">
-          7x7 PROTOCOL: ASIA’S LARGEST
-        </Button>
+        <div className="pointer-events-auto">
+          <Button variant="protocol" className="font-bebas_neue w-fit">
+            7x7 PROTOCOL: ASIA’S LARGEST
+          </Button>
+        </div>
+      </motion.div>
+
+      {/* Layer 1: Video (Z-10) */}
+      <motion.div
+        className="absolute inset-0 z-10 flex flex-col items-center justify-end lg:justify-center pointer-events-none"
+        initial={{ opacity: 0, y: 20 }}
+        animate={getVideoAnimation()}
+        transition={mainTransition}
+      >
+        {isReady && (
+          <div className="pointer-events-auto mt-[320px] md:mt-[350px] lg:mt-[280px] w-full max-w-[660px] mx-auto rounded-xl overflow-hidden border border-white/20 shadow-2xl bg-black">
+            <YouTubeEmbed
+              videoid="JokmaXB3vqI"
+              height={350}
+              params="controls=1&rel=0"
+            />
+          </div>
+        )}
       </motion.div>
     </section>
   );

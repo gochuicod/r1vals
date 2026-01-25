@@ -1,3 +1,4 @@
+"use client";
 /**
  * Button Component (shadcn/ui variant)
  *
@@ -43,6 +44,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 
 const buttonVariants = cva(
   // Base styles (Layout, Focus, Transitions)
@@ -100,6 +102,7 @@ export interface ButtonProps
   rightIcon?: React.ReactNode;
   href?: string;
   target?: string;
+  smoothScroll?: boolean;
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -107,7 +110,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     {
       className,
       variant,
-      size, // Now destructuring size
+      size,
       isLoading = false,
       leftIcon,
       rightIcon,
@@ -115,10 +118,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       target,
       children,
       type = 'button',
+      smoothScroll = false,
       ...props
     },
     ref,
   ) => {
+    const scrollTo = useSmoothScroll();
     const content = (
       <>
         {leftIcon && <span className="flex-none">{leftIcon}</span>}
@@ -156,8 +161,27 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       );
     }
 
-    // Internal link (Next.js Link)
+    // Internal link (Next.js Link) with smooth scroll
     if (href) {
+      // If smoothScroll is enabled and href is an anchor/hash or home
+      const isSmooth =
+        smoothScroll &&
+        (href === '/' || href.includes('#'));
+
+      if (isSmooth) {
+        return (
+          <a
+            href={href}
+            className={classes}
+            onClick={e => scrollTo(e, href)}
+            tabIndex={isLoading || props.disabled ? -1 : undefined}
+            {...(props as any)}
+          >
+            {content}
+          </a>
+        );
+      }
+      // Otherwise, normal Next.js Link
       return (
         <Link
           href={href}

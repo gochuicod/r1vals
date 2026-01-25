@@ -2,12 +2,14 @@
 
 import Image from "next/image";
 import ContactForm from "../ui/ContactForm";
+import { BrushedOfferContainer } from "../ui/BrushedOfferContainer";
+
 
 export default function Contact() {
-
   return (
     <section 
-      className="contact-section relative w-full min-h-[1100px] bg-black pt-[150px]"
+      id="contact-section"
+      className="relative w-full min-h-[1100px] bg-black pt-[150px]"
     >
 
       {/* --- REGISTRATION CONTENT WRAPPER --- */}
@@ -38,16 +40,21 @@ export default function Contact() {
             </div>
 
             {/* FLEX CONTENT FLOW */}
-            <div className="flex flex-col gap-6 w-full max-w-[742px] ">
-              <h2 className="text-white text-h3 text-[32px] lg:text-[40px] font-bold">
+            <div className="flex flex-col gap-6 w-full lg:max-w-[742px]  ">
+              <h2 className="text-white text-center lg:text-start text-h3 text-[32px] lg:text-[40px] font-bold tracking-[4%] leading-[48px]">
                 Are you ready to change your life?
               </h2>
 
-              <p className="text-white text-[18px] md:text-[20px] font-inter leading-relaxed opacity-90">
+              <p className="font-heading text-white text-center lg:text-start text-[18px] md:text-[20px]">
                 Whether you have a powerhouse squad ready to dominate or you're a solo player looking to join the ranks, we want to hear from you.
               </p>
 
-              {/* Offer Box */}
+              {/* Offer Box Added Here */}
+              <BrushedOfferContainer>
+                 <p className="font-heading tracking-widest text-lg text-center lg:text-start">
+                    <span className="font-bold">FooLIMITED OFFER:</span> Register your team early to unlock a Tiered Registration Discount. Secure your spot before the bracket fills up!
+                 </p>
+              </BrushedOfferContainer>
 
                 {/* Contact Form */}
                 <ContactForm />

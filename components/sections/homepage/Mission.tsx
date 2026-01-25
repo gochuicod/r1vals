@@ -263,6 +263,11 @@ export default function Mission() {
           <polyline points="0,18 250,18 300,2 750,2 800,18 900,18 950,2 1150,2 1200,2" />
         </svg>
       </div>
+
+      {/* Final Message */}
+      <h5 className="uppercase font-bold text-center lg:text-h5 text-h6">
+        leave a legacy.
+      </h5>
     </section>
   );
 }

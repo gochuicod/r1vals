@@ -120,8 +120,7 @@ export default function ComponentShowcasePage() {
             title="Winner-Take-All"
             description="$100,000 USD on the line. One team takes the glory; the rest take notes."
             imageSrc="/highlight_card/cash-awards.webp"
-            backgroundImg="/ui/feature_card/featured-card-1.svg"
-            mobileBackgroundImg="/ui/feature_card/featured-card-1-mobile.svg"
+            variant='1'
           />
 
           {/* Example 2: Blue Variant */}
@@ -129,8 +128,7 @@ export default function ComponentShowcasePage() {
             title="Star Power"
             description="Featuring elite professionals and global celebrities."
             imageSrc="/highlight_card/cash-awards.webp"
-            backgroundImg="/ui/feature_card/featured-card-2.svg"
-            mobileBackgroundImg="/ui/feature_card/featured-card-2-mobile.svg"
+            variant='2'
             
           />
           
@@ -139,8 +137,7 @@ export default function ComponentShowcasePage() {
             title="Winner-Take-All"
             description="Built to be the #1 most-streamed 7-aside competition worldwide."
             imageSrc="/highlight_card/cash-awards.webp"
-            backgroundImg="/ui/feature_card/featured-card-3.svg"
-            mobileBackgroundImg="/ui/feature_card/featured-card-3-mobile.svg"
+            variant='3'
           />
         </div>    
       </div>

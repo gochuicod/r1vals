@@ -26,6 +26,7 @@ export default function HistoricStakes() {
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
 
+  // Initialize Autoplay plugin via useRef
   const plugin = useRef(Autoplay({ delay: 3000, stopOnInteraction: true }));
 
   // --- API LISTENERS ---
@@ -43,8 +44,11 @@ export default function HistoricStakes() {
   return (
     <div
       className={cn(
-        // Layout & Sizing
-        'flex flex-col md:min-h-[885px] relative',
+        // Layout
+        'flex flex-col relative',
+        // Sizing
+        'md:min-h-[885px]',
+        // Behavior
         'overflow-hidden',
       )}
     >
@@ -52,9 +56,11 @@ export default function HistoricStakes() {
       <div
         className={cn(
           // Layout
-          'flex flex-col md:flex-row items-center justify-center md:min-h-[557px]',
+          'flex flex-col md:flex-row items-center justify-center',
+          // Sizing
+          'md:min-h-[557px]',
           // Positioning
-          'relative z-15',
+          'relative z-10', // Fixed typo: z-15 is not a default Tailwind class, used z-10
         )}
       >
         <Image
@@ -65,9 +71,11 @@ export default function HistoricStakes() {
           className={cn(
             // Positioning
             'absolute w-full h-full',
-            'lg:top-[18%] md:top-[10%] top-[7%] lg:left-[4%] md:left-[6%] left-[-5%]',
-            // Visuals
-            'object-contain lg:scale-[115%] md:scale-[130%] scale-[180%]',
+            'lg:top-[18%] md:top-[10%] top-[7%]',
+            'lg:left-[4%] md:left-[6%] left-[-5%]',
+            // Visuals (Scaling)
+            'object-contain',
+            'lg:scale-[115%] md:scale-[130%] scale-[180%]',
           )}
         />
 
@@ -75,14 +83,16 @@ export default function HistoricStakes() {
         <p
           className={cn(
             // Typography
-            'uppercase font-bold lg:text-h2 md:text-5xl text-h4 md:text-end text-center',
+            'uppercase font-bold',
+            'lg:text-h2 md:text-5xl text-h4',
+            'md:text-end text-center',
             // Sizing
             'lg:w-[350px] md:w-[150px] w-[250px]',
-            // Positioning
-            'relative z-20',
             // Spacing
             'lg:mr-[20%] md:mr-[30%]',
             'md:mb-0 mb-[65%]',
+            // Positioning
+            'relative z-20',
           )}
         >
           the stage is <span className="text-brandRed-400">set</span>.
@@ -92,7 +102,8 @@ export default function HistoricStakes() {
         <p
           className={cn(
             // Typography
-            'uppercase font-bold lg:text-h2 md:text-5xl text-h4',
+            'uppercase font-bold',
+            'lg:text-h2 md:text-5xl text-h4',
             // Sizing
             'lg:w-[400px] md:w-[200px] w-[300px]',
             // Positioning
@@ -102,17 +113,25 @@ export default function HistoricStakes() {
           the stakes are <span className="text-primary-600">historic</span>.
         </p>
       </div>
+
       {/* --- CAROUSEL SECTION --- */}
       <div
-        className={cn('w-full mb-10 relative z-20')}
+        className={cn(
+          // Layout
+          'w-full relative',
+          // Spacing
+          'mb-10',
+          // Positioning
+          'z-20',
+        )}
         onMouseEnter={() => plugin.current.stop()}
         onMouseLeave={() => plugin.current.reset()}
       >
         <Carousel
           setApi={setApi}
+          plugins={[plugin.current]}
           opts={{ align: 'center', loop: true }}
           className={cn('w-full relative')}
-          plugins={[plugin.current]}
         >
           <CarouselContent className="-ml-4">
             {Array.from({ length: 15 }).map((_, index) => {
@@ -124,7 +143,7 @@ export default function HistoricStakes() {
                   className={cn(
                     // Spacing
                     'pl-4',
-                    // Responsive Sizing (Items per screen)
+                    // Responsive Sizing (Items visible per screen)
                     'lg:basis-[22%] md:basis-[40%] basis-[60%]',
                   )}
                 >
@@ -139,7 +158,10 @@ export default function HistoricStakes() {
                     >
                       <CardContent
                         className={cn(
-                          'flex aspect-video items-center justify-center relative p-0',
+                          // Layout
+                          'flex items-center justify-center relative',
+                          // Sizing
+                          'aspect-video p-0',
                         )}
                       >
                         <Image
@@ -147,7 +169,10 @@ export default function HistoricStakes() {
                           alt={`Carousel Item ${index + 1}`}
                           fill
                           className={cn(
-                            'object-contain transition-transform duration-500',
+                            // Visuals
+                            'object-contain',
+                            // Animation
+                            'transition-transform duration-500',
                           )}
                         />
                       </CardContent>
@@ -162,26 +187,30 @@ export default function HistoricStakes() {
           <div
             className={cn(
               // Layout & Positioning
-              'absolute top-0 left-0 w-1/4 h-full z-10',
+              'absolute top-0 left-0 h-full z-10',
+              // Sizing
+              'w-1/4',
               // Visuals
               'bg-[radial-gradient(circle_at_left,_var(--tw-gradient-stops))] from-white to-transparent',
+              // Visibility
+              'md:block hidden',
               // Interaction
               'pointer-events-none',
-              // Visuals
-              'md:block hidden',
             )}
           />
 
           <div
             className={cn(
               // Layout & Positioning
-              'absolute top-0 right-0 w-1/4 h-full z-10',
+              'absolute top-0 right-0 h-full z-10',
+              // Sizing
+              'w-1/4',
               // Visuals
               'bg-[radial-gradient(circle_at_right,_var(--tw-gradient-stops))] from-white to-transparent',
+              // Visibility
+              'md:block hidden',
               // Interaction
               'pointer-events-none',
-              // Visuals
-              'md:block hidden',
             )}
           />
         </Carousel>
@@ -194,18 +223,32 @@ export default function HistoricStakes() {
               onClick={() => api?.scrollTo(index)}
               aria-label={`Go to slide ${index + 1}`}
               className={cn(
-                // Base Layout & Animation
-                'md:h-5 md:w-5 h-3 w-3 transition-all duration-300',
+                // Sizing
+                'md:h-5 md:w-5 h-3 w-3',
+                // Animation
+                'transition-all duration-300',
                 // Conditional Styling
                 index === current - 1
-                  ? 'bg-primary-600' // Active
-                  : 'bg-white/30 hover:bg-white/50 border border-2 border-primary-600', // Inactive
+                  ? 'bg-primary-600' // Active State
+                  : 'bg-white/30 hover:bg-white/50 border border-2 border-primary-600', // Inactive State
               )}
             />
           ))}
         </div>
 
-        <div className="flex flex-col gap-4 font-heading lg:w-[42%] md:w-[85%] w-[80%] mx-auto mt-9">
+        {/* --- DESCRIPTION TEXT --- */}
+        <div
+          className={cn(
+            // Layout
+            'flex flex-col gap-4 mx-auto',
+            // Typography
+            'font-heading',
+            // Sizing
+            'lg:w-[42%] md:w-[85%] w-[80%]',
+            // Spacing
+            'mt-9',
+          )}
+        >
           <span className="text-center">
             R1VALS is coming to <b>BGC</b> on <b>May 29-31, 2026.</b> This isn't
             just a tournament; it’s a revolution in 7-aside football. We are
@@ -221,6 +264,7 @@ export default function HistoricStakes() {
           </span>
         </div>
       </div>
+
       {/* --- BOTTOM GRADIENT OVERLAY --- */}
       <div
         className={cn(

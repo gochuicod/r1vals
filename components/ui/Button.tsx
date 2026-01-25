@@ -77,7 +77,7 @@ const buttonVariants = cva(
         sm: 'px-5 py-3 text-h7 text-lg',
 
         // Large (Prominent)
-        lg: 'px-8 py-4 text-h2 md:text-lg',
+        lg: 'px-8 py-4',
 
         // Protocol Specific (Matches your original 'protocol' logic)
         protocol:

@@ -38,6 +38,7 @@ module.exports = {
       body: ['var(--font-orbitron)', 'sans-serif'],
       fontDisabled: ['var(--font-bebas-neue)', 'sans-serif'],
       space_grotesk: ['var(--font-space-grotesk)', 'sans-serif'],
+      bebas_neue: ['var(--font-bebas-neue)', 'sans-serif'],
     },
     screens: {
       md: '768px',
@@ -63,7 +64,6 @@ module.exports = {
 
       //Buttons
       'btn-protocol': ['35px', { lineHeight: '100%', letterSpacing: '0%' }],
-
     },
   },
   plugins: [],

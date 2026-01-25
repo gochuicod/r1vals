@@ -138,7 +138,11 @@ export default function Hero() {
         <span className="text-h2 text-white text-center font-bold uppercase lg:w-full w-[80%]">
           win $100,000 usd cash prize
         </span>
-        <Button variant="protocol" className="font-bebas_neue w-fit">
+        <Button
+          variant="protocol"
+          className="font-bebas_neue w-fit"
+          size="protocol"
+        >
           7x7 PROTOCOL: ASIA’S LARGEST
         </Button>
       </div>

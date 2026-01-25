@@ -4,30 +4,11 @@ import Image from "next/image";
 import ContactForm from "../ui/ContactForm";
 
 export default function Contact() {
-  const POLYGONS = {
-    mobile: 'polygon(0% 10%, 25% 3%, 50% 12%, 75% 5%, 100% 15%, 100% 100%, 0% 100%)',
-    tablet: 'polygon(0% 12%, 20% 5%, 45% 15%, 65% 4%, 85% 12%, 100% 8%, 100% 100%, 0% 100%)',
-    desktop: 'polygon(0% 15%, 18% 4%, 38% 14%, 55% 2%, 72% 12%, 88% 5%, 100% 15%, 100% 100%, 0% 100%)',
-  };
 
   return (
     <section 
-      className="contact-section relative w-full min-h-[1100px] bg-black" 
-      style={{ clipPath: 'var(--contact-polygon)' }}
+      className="contact-section relative w-full min-h-[1100px] bg-black pt-[150px]"
     >
-      <style jsx>{`
-        .contact-section {
-          --contact-polygon: ${POLYGONS.mobile};
-          padding-top: 150px; 
-          margin-top: -100px; 
-        }
-        @media (min-width: 768px) {
-          .contact-section { --contact-polygon: ${POLYGONS.tablet}; }
-        }
-        @media (min-width: 1440px) {
-          .contact-section { --contact-polygon: ${POLYGONS.desktop}; }
-        }
-      `}</style>
 
       {/* --- REGISTRATION CONTENT WRAPPER --- */}
       <div className="container mx-auto bg-[#020023] min-w-full max-h-[840px] mt-10 relative overflow-visible">

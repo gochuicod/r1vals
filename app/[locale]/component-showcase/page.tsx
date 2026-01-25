@@ -25,7 +25,7 @@ export default function ComponentShowcasePage() {
           </div>
           <div className="flex flex-col gap-2 items-start">
             <span className="text-xs text-gray-500 font-mono">Protocol Variant</span>
-            <Button variant="protocol">7x7 PROTOCOL: ASIA’S LARGEST</Button>
+            <Button variant="protocol" className='text-[35px]'>7x7 PROTOCOL: ASIA’S LARGEST</Button>
           </div>
         </div>
 
@@ -102,16 +102,7 @@ export default function ComponentShowcasePage() {
             </div>    
          </div>
         </div>
-
-
-
-
-
       </div>
-
-
-
-
     </div>
   );
 }

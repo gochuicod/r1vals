@@ -64,7 +64,8 @@ const buttonVariants = cva(
           'border border-solid border-[#FF1B1B]',
           'shadow-[0px_0px_15.6256px_#0022FF,_3.12513px_3.12513px_0px_#0022FF]',
           'text-white text-center',
-          'font-bebas font-bold leading-none',
+          'font-bebas_neue font-bold leading-none',
+          'hover:cursor-default',
         ].join(' '),
       },
       // DIMENSIONS (Padding, Font Sizes)

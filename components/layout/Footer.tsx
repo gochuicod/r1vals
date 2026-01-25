@@ -23,7 +23,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full">
+    <footer className="w-full bg-black">
       {/* 2. Responsive Shape Container */}
       <div
         className={cn(

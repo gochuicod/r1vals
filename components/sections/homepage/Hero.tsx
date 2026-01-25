@@ -246,12 +246,12 @@ export default function Hero() {
             priority
           />
         </div>
-        <span className="text-h2 text-white text-center font-bold uppercase w-full pointer-events-auto">
+        <span className="text-h2 text-white text-center font-black uppercase w-full pointer-events-auto">
           win $100,000 cash prize
         </span>
-          <Button variant="protocol" className='text-[35px]' size="lg">
-            7x7 PROTOCOL: ASIA’S LARGEST
-          </Button>
+        <Button variant="protocol" className="text-[35px]" size="lg">
+          7x7 PROTOCOL: ASIA’S LARGEST
+        </Button>
       </motion.div>
 
       {/* Layer 1: Video (Z-10) */}

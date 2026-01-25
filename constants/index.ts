@@ -18,3 +18,30 @@
 //     description: "This is card 3"
 //   }
 // ]
+
+export const HIGHLIGHT_CARDS_DATA = [
+  {
+    imageSrc: '/highlight_card/community.webp',
+    title: 'CASH AWARDS',
+    description: 'for both players and fans.',
+    variant: 'blue',
+  },
+  {
+    imageSrc: '/highlight_card/global.webp',
+    title: 'Youth Mentorship',
+    description: 'and elite football clinics.',
+    variant: 'red',
+  },
+  {
+    imageSrc: '/highlight_card/global.webp',
+    title: 'Community Charity',
+    description: 'initiatives to pay it forward.',
+    variant: 'blue',
+  },
+  {
+    imageSrc: '/highlight_card/global.webp',
+    title: 'Global Expansion',
+    description: 'creating international pathways.',
+    variant: 'red',
+  },
+] as const;

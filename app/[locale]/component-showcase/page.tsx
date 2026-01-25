@@ -1,6 +1,8 @@
 import { Button } from '@/components/ui/Button';
 import { HighlightedHeading } from '@/components/ui/HighlightedHeading';
 import { HighlightCard } from '@/components/ui/HighlightCard';
+import { FeatureCard } from '@/components/ui/FeatureCard';
+import FeatureCardFrame1 from '@/components/ui/feature-card-1.svg';
 
 export default function ComponentShowcasePage() {
   return (
@@ -25,7 +27,7 @@ export default function ComponentShowcasePage() {
           </div>
           <div className="flex flex-col gap-2 items-start">
             <span className="text-xs text-gray-500 font-mono">Protocol Variant</span>
-            <Button variant="protocol">7x7 PROTOCOL: ASIA’S LARGEST</Button>
+            <Button variant="protocol" className='text-[35px]'>7x7 PROTOCOL: ASIA’S LARGEST</Button>
           </div>
         </div>
 
@@ -102,16 +104,47 @@ export default function ComponentShowcasePage() {
             </div>    
          </div>
         </div>
-
-
-
-
-
+        
       </div>
 
+    <div className="mb-12 p-8 bg-black rounded-xl shadow-sm border border-gray-200">
+      <h2 className="text-xl font-bold mb-6 text-white border-b pb-2">
+        Feature Cards: All Variants
+      </h2>
 
+      <div className="w-full flex flex-col justify-center items-center">
+        <div className="flex flex-col flex-wrap gap-0 items-center justify-center">
+          
+          {/* Example 1: Red Variant */}
+          <FeatureCard
+            title="Winner-Take-All"
+            description="$100,000 USD on the line. One team takes the glory; the rest take notes."
+            imageSrc="/highlight_card/cash-awards.webp"
+            backgroundImg="/ui/feature_card/featured-card-1.svg"
+            mobileBackgroundImg="/ui/feature_card/featured-card-1-mobile.svg"
+          />
 
-
+          {/* Example 2: Blue Variant */}
+          <FeatureCard
+            title="Star Power"
+            description="Featuring elite professionals and global celebrities."
+            imageSrc="/highlight_card/cash-awards.webp"
+            backgroundImg="/ui/feature_card/featured-card-2.svg"
+            mobileBackgroundImg="/ui/feature_card/featured-card-2-mobile.svg"
+            
+          />
+          
+                    {/* Example 2: Blue Variant */}
+          <FeatureCard
+            title="Winner-Take-All"
+            description="Built to be the #1 most-streamed 7-aside competition worldwide."
+            imageSrc="/highlight_card/cash-awards.webp"
+            backgroundImg="/ui/feature_card/featured-card-3.svg"
+            mobileBackgroundImg="/ui/feature_card/featured-card-3-mobile.svg"
+          />
+        </div>    
+      </div>
+    </div>
     </div>
   );
 }

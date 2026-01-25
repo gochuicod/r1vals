@@ -249,11 +249,9 @@ export default function Hero() {
         <span className="text-h2 text-white text-center font-bold uppercase w-full pointer-events-auto">
           win $100,000 cash prize
         </span>
-        <div className="pointer-events-auto">
-          <Button variant="protocol" className="font-bebas_neue w-fit">
+          <Button variant="protocol" className='text-[35px]' size="lg">
             7x7 PROTOCOL: ASIA’S LARGEST
           </Button>
-        </div>
       </motion.div>
 
       {/* Layer 1: Video (Z-10) */}

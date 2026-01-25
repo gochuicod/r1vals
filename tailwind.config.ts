@@ -36,7 +36,6 @@ module.exports = {
     fontFamily: {
       heading: ['var(--font-inter)', 'sans-serif'],
       body: ['var(--font-orbitron)', 'sans-serif'],
-      fontDisabled: ['var(--font-bebas-neue)', 'sans-serif'],
       space_grotesk: ['var(--font-space-grotesk)', 'sans-serif'],
       bebas_neue: ['var(--font-bebas-neue)', 'sans-serif'],
     },

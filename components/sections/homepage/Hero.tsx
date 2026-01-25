@@ -88,7 +88,7 @@ export default function Hero() {
         .hero-section {
           --hero-polygon: ${POLYGONS.mobile};
           --content-y: -65vw;
-          --video-y: -40vw;
+          --video-y: -55vw;
           --curtain-left: -80%;
           --curtain-right: 75%;
         }
@@ -246,12 +246,12 @@ export default function Hero() {
             priority
           />
         </div>
-        <span className="text-h2 text-white text-center font-bold uppercase w-full pointer-events-auto">
-          win $100,000 usd cash prize
+        <span className="text-h2 text-white text-center font-black uppercase w-full pointer-events-auto">
+          win $100,000 cash prize
         </span>
-          <Button variant="protocol" className='text-[35px]' size="lg">
-            7x7 PROTOCOL: ASIA’S LARGEST
-          </Button>
+        <Button variant="protocol" className="text-[35px]" size="lg">
+          7x7 PROTOCOL: ASIA’S LARGEST
+        </Button>
       </motion.div>
 
       {/* Layer 1: Video (Z-10) */}
@@ -262,10 +262,10 @@ export default function Hero() {
         transition={mainTransition}
       >
         {isReady && (
-          <div className="pointer-events-auto mt-[320px] md:mt-[350px] lg:mt-[280px] w-full max-w-[660px] mx-auto rounded-xl overflow-hidden border border-white/20 shadow-2xl bg-black">
+          <div className="pointer-events-auto mt-[320px] md:mt-[350px] lg:mt-[280px] w-full max-w-[660px] mx-auto rounded-xl overflow-hidden border border-white/20 shadow-2xl bg-black aspect-video">
             <YouTubeEmbed
               videoid="JokmaXB3vqI"
-              height={350}
+              style="width: 100%; height: 100%;"
               params="controls=1&rel=0"
             />
           </div>

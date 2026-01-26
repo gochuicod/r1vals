@@ -224,10 +224,13 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Layer 4: White Overlay (Z-40) */}
-      <div
-        className="absolute inset-0 z-40 bg-black pointer-events-none"
-        style={{ clipPath: `var(--hero-polygon)` }}
+      {/* Layer 4: Vector Image (Z-40) */}
+      <Image
+        src="/hero_section/bottom_vector.svg"
+        alt="Vector"
+        width={1920}
+        height={1080}
+        className="absolute bottom-0 left-0 w-full h-auto z-40 pointer-events-none translate-y-[70%]"
       />
 
       {/* Layer 3: Text & Button (Z-30) */}

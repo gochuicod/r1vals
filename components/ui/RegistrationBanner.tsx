@@ -3,7 +3,7 @@ import React from 'react';
 export const RegistrationBanner = () => {
   return (
     /* Container size matches the Figma Group (424x113) */
-    <div className="relative w-full  max-w-[424px] h-[113px] flex items-center justify-center shrink-0">
+    <div className="relative w-full lg:scale-110 md:scale-8 scale-75 max-w-[424px] h-[113px] flex items-center justify-center shrink-0">
       
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
         <svg

@@ -43,12 +43,11 @@ export default function Navbar() {
         <Link href="/#chaos-league">chaos league</Link>
         <Link href="/#watch-live">watch live</Link>
         <Button
-          href='#contact-section'
-          variant="default"
-          className="font-bebas_neue w-fit uppercase text-brandRed-400 font-body"
-          size="sm"
+          href='#contact'
+          variant="yellow"
+          size="lg"
         >
-          join us
+          Register Now!
         </Button>
       </div>
     </div>

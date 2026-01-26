@@ -1,150 +1,222 @@
 "use client";
 
-
-import { Button } from '@/components/ui/Button';
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
+import { FormsModal } from '@/components/ui/FormsModal';
+import { contactSchema, type ContactFormData } from '@/lib/validators/contact.schema';
+import { cn } from '@/lib/utils';
+import { TechDivider } from './TechDivider';
 
 const ContactForm = () => {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    interest: '',
-    teamName: '',
-    social: ''
+  const [modalState, setModalState] = useState<{
+    isOpen: boolean;
+    type: 'success' | 'error';
+  }>({
+    isOpen: false,
+    type: 'success',
   });
 
+  const formFields = {
+    fullName: { label: "Full Name", placeholder: "e.g., Alex Smith" },
+    email: { label: "Email Address", placeholder: "name@example.com" },
+    phone: { label: "Phone Number", placeholder: "(555) 000-0000" },
+    teamName: { label: "Team Name (If Applicable)", placeholder: "-" },
+    social: { label: "Social Media / Website", placeholder: "-" },
+  };
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    reset,
+    formState: { errors, isSubmitting }
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      fullName: '',
+      email: '',
+      phone: '',
+      interest: '' as any,
+      teamName: '',
+      social: ''
+    }
+  });
+
+  const currentInterest = watch('interest');
+
+  // 3. Submit Logic matches reference
+  const onSubmit = async (data: ContactFormData) => {
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        reset();
+        setModalState({ isOpen: true, type: 'success' });
+      } else {
+        setModalState({ isOpen: true, type: 'error' });
+      }
+    } catch (error) {
+      console.error(error);
+      setModalState({ isOpen: true, type: 'error' });
+    }
+  };
+
   return (
-    <form className="flex flex-col items-start p-0 gap-[14px] w-full h-auto md:h-[259px] bg-transparent text-white font-['Inter']">
-        {/* Place Polygon here */}
-        <p className="w-full text-white text-[20px] font-inter leading-relaxed opacity-90 text-center">Complete the form below to be considered for the R1VALS Protocol.</p>
+    <section className="w-full max-w-5xl mx-auto font-['Inter'] text-white">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 w-full bg-transparent p-2 md:p-0 font-heading">
 
-      {/* Frame 143726084: Top Row (Name, Email, Phone) */}
-      <div className="flex flex-col md:flex-row items-start px-2 gap-2 w-full self-stretch flex-none">
-        <InputGroup 
-          label="Full Name:" 
-          placeholder="e.g., Alex Smith" 
-          value={formData.fullName}
-          onChange={(v: string) => setFormData({...formData, fullName: v})}
-        />
-        <InputGroup 
-          label="Email Address:" 
-          placeholder="name@example.com" 
-          value={formData.email}
-          onChange={(v: string) => setFormData({...formData, email: v})}
-        />
-        <InputGroup 
-          label="Phone Number:" 
-          placeholder="(555) 000-0000" 
-          value={formData.phone}
-          onChange={(v: string) => setFormData({...formData, phone: v})}
-        />
-      </div>
-
-      {/* Frame 143726085: Bottom Row */}
-      <div className="flex flex-col md:flex-row items-start px-2 gap-2 w-full self-stretch flex-none">
+      {/* --- CUSTOM DIVIDER (TOP) --- */}
+      <TechDivider variant='top'/>
         
-        {/* Interests Section */}
-        <div className="flex flex-col justify-center items-start p-2 gap-4 w-full md:w-[482px] flex-grow">
-          <label className="text-[14px] font-bold leading-[19px]">I am interested in:</label>
-          
-          <div className="flex flex-col items-start p-0 gap-2 w-full">
-            <CheckboxOption 
-              id="team"
-              label="Registering a full team (Early Bird Discount applies!)" 
-              checked={formData.interest === 'team'}
-              onChange={() => setFormData({...formData, interest: 'team'})}
-            />
-            <CheckboxOption 
-              id="individual"
-              label="Joining as an individual player (No team yet)" 
-              checked={formData.interest === 'individual'}
-              onChange={() => setFormData({...formData, interest: 'individual'})}
-            />
-            <CheckboxOption 
-              id="sponsor"
-              label="Partnering / Sponsoring the event" 
-              checked={formData.interest === 'sponsor'}
-              onChange={() => setFormData({...formData, interest: 'sponsor'})}
-            />
-          </div>
+        {/* Header Section */}
+        <div className="text-center justify-center">
+            <p className="text-base md:text-lg text-white/90 leading-relaxed">
+                Complete the form below to be considered for the R1VALS Protocol.
+            </p>
         </div>
 
-        {/* Team & Social Section */}
-        <div className="flex flex-col justify-center items-start p-0 gap-2 w-full md:w-[236px] max-w-[236px] flex-none">
-          <InputGroup 
-            label="Team Name (If Applicable):" 
-            placeholder="-" 
-            value={formData.teamName}
-            onChange={(v: string) => setFormData({...formData, teamName: v})}
-          />
-          <InputGroup 
-            label="Social Media / Website" 
-            placeholder="-" 
-            value={formData.social}
-            onChange={(v: string) => setFormData({...formData, social: v})}
-          />
+        {/* --- FLEX ROW 1: Contact Details --- */}
+        <div className="flex flex-col md:flex-row gap-4 w-full">
+            <div className="flex-1">
+                <Input 
+                    label={formFields.fullName.label}
+                    placeholder={formFields.fullName.placeholder}
+                    {...register('fullName')}
+                    error={errors.fullName?.message}
+                />
+            </div>
+            <div className="flex-1">
+                <Input 
+                    label={formFields.email.label}
+                    type="email"
+                    placeholder={formFields.email.placeholder}
+                    {...register('email')}
+                    error={errors.email?.message}
+                />
+            </div>
+            <div className="flex-1">
+                <Input 
+                    label={formFields.phone.label}
+                    type="tel"
+                    placeholder={formFields.phone.placeholder}
+                    {...register('phone')}
+                    error={errors.phone?.message}
+                />
+            </div>
         </div>
-      </div>
 
-    {/* Place Polygon here */}
+        {/* --- FLEX ROW 2: Interests & Extra Info --- */}
+        <div className="flex flex-col md:flex-row gap-6 w-full">
+            
+            {/* Interest Selection */}
+            <div className="flex flex-col gap-3 md:flex-[2]">
+                <label className="text-sm font-bold tracking-wide text-white/80">I AM INTERESTED IN:</label>
+                
+                {errors.interest && (
+                   <span className="text-red-400 text-xs font-semibold">{errors.interest.message}</span>
+                )}
 
-      <div className="w-full flex justify-end mt-4">
-        <Button type="submit" variant="default" size="lg">
-          Secure My Spot
-        </Button>
-      </div>
-      
-      <div className="flex flex-col gap-2">
-        <p className="text-[12px] text-white text-body font-heading">
-          Why Register Now? </p>
-        <ul className="list-disc list-inside text-[12px] text-white text-body font-heading">
-          <li>Priority Selection: R1VALS is a curated tournament; early applicants get first priority.</li>
-          <li>Tiered Pricing: The registration fee increases as we get closer to the event.</li>
-          <li>Scout Visibility: Get your team on the radar of our global streaming partners and scouts early.</li>
-          </ul>
-      </div>
-    </form>
-    
+                <div className="flex flex-col gap-1">
+                    <RadioOption 
+                        id="team"
+                        label="Registering a full team (Early Bird Discount applies!)" 
+                        checked={currentInterest === 'team'}
+                        onClick={() => setValue('interest', 'team', { shouldValidate: true })}
+                    />
+                    <RadioOption 
+                        id="individual"
+                        label="Joining as an individual player (No team yet)" 
+                        checked={currentInterest === 'individual'}
+                        onClick={() => setValue('interest', 'individual', { shouldValidate: true })}
+                    />
+                    <RadioOption 
+                        id="sponsor"
+                        label="Partnering / Sponsoring the event" 
+                        checked={currentInterest === 'sponsor'}
+                        onClick={() => setValue('interest', 'sponsor', { shouldValidate: true })}
+                    />
+                </div>
+            </div>
+
+            {/* Extra Details */}
+            <div className="flex flex-col gap-4 md:flex-[1]">
+                 <Input 
+                    label={formFields.teamName.label}
+                    placeholder={formFields.teamName.placeholder}
+                    {...register('teamName')}
+                    error={errors.teamName?.message}
+                />
+                <Input 
+                    label={formFields.social.label}
+                    placeholder={formFields.social.placeholder}
+                    {...register('social')}
+                    error={errors.social?.message}
+                />
+            </div>
+            </div>
+
+                  {/* --- CUSTOM DIVIDER (BOTTOM) --- */}
+            <TechDivider variant='bottom'/>
+
+
+            <div className="flex mt-auto pt-2 w-full items-end justify-end">
+              <Button 
+                type="submit" 
+                variant="yellow"
+                size="lg"
+                className='w-[272px] text-[20px] text-center '
+                disabled={isSubmitting}
+                >
+                      {isSubmitting ? 'Sending...' : 'Secure My Spot'}
+              </Button>
+             </div>
+
+        {/* Modal Logic Integration */}
+        <FormsModal
+            isOpen={modalState.isOpen}
+            onClose={() => setModalState({ ...modalState, isOpen: false })}
+            type={modalState.type}
+        />
+      </form>
+    </section>
   );
 };
 
-/* --- Sub-Components --- */
-
-const InputGroup = ({ label, placeholder, value, onChange }: any) => (
-  <div className="flex flex-col justify-center items-start p-2 gap-2 w-full md:w-[236.67px] flex-grow">
-    <label className="text-[14px] font-bold leading-[19px] whitespace-nowrap">{label}</label>
-    <div className="box-border flex flex-row items-center px-4 py-2 gap-2 w-full h-[35px] border border-white flex-none self-stretch">
-      <input 
-        type="text"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-        className="w-full bg-transparent border-none outline-none italic font-normal text-[16px] leading-[19px] text-[#797979] placeholder:text-[#797979]"
-      />
-    </div>
-  </div>
-);
-
-const CheckboxOption = ({ label, id, checked, onChange }: any) => (
-  <label className="flex flex-row justify-center items-start px-4 py-0 gap-2 w-full md:w-[466px] h-auto cursor-pointer group">
-    <div className="relative flex-none">
+/* --- Local Sub-Component --- */
+// Kept local as it's specific to this form's design logic
+const RadioOption = ({ label, id, checked, onClick }: any) => (
+  <div 
+    onClick={onClick}
+    className="group flex items-start gap-3 cursor-pointer select-none hover:bg-white/5 p-2 -ml-2 rounded-md transition-colors"
+  >
+    <div className="relative flex-none mt-0.5">
       <input 
         type="radio" 
-        name="interest"
         id={id}
         checked={checked}
-        onChange={onChange}
+        readOnly
         className="sr-only" 
       />
-      <div className={`box-border w-5 h-5 border border-white transition-colors ${checked ? 'bg-white/20' : 'bg-transparent'}`}>
-        {checked && <div className="w-full h-full flex items-center justify-center text-[10px]">✓</div>}
+      <div className={`w-5 h-5 border border-white transition-all flex items-center justify-center ${checked ? 'bg-white text-black' : 'bg-transparent'}`}>
+        {checked && (
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+        )}
       </div>
     </div>
-    <span className="flex-grow font-normal text-[14px] leading-[17px] text-white">
+    <span className={`text-sm leading-snug transition-opacity ${checked ? 'opacity-100 font-medium' : 'opacity-80'}`}>
       {label}
     </span>
-  </label>
+  </div>
 );
 
 export default ContactForm;

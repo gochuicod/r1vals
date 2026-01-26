@@ -63,11 +63,13 @@ export default function Mission() {
         // Sizing
         'min-h-[708px]',
         // Spacing
-        'py-20',
+        'py-[20vh]',
         'gap-8',
         // Behavior
         'overflow-hidden',
-        'bg-[#00033E]',
+        // Background
+        'bg-[url("/mission_section/background.svg")]',
+        'bg-no-repeat bg-cover bg-center',
       )}
     >
       {/* --- HEADING SECTION --- */}
@@ -232,8 +234,8 @@ export default function Mission() {
                   'transition-all duration-300',
                   // Conditional Visuals
                   index === current - 1
-                    ? 'bg-primary-600' // Active
-                    : 'bg-white/30 hover:bg-black/10 border border-2 border-primary-600', // Inactive
+                    ? 'bg-white' // Active
+                    : 'border-2 border-white', // Inactive
                 )}
               />
             ))}
@@ -266,7 +268,7 @@ export default function Mission() {
       </div> */}
 
       {/* Final Message */}
-      <h5 className="!text-white font-bold font-body text-center lg:text-h5 text-h6">
+      <h5 className="!text-white font-bold font-body text-center lg:text-h5 text-h6 uppercase">
         leave a legacy.
       </h5>
     </section>

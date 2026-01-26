@@ -226,7 +226,7 @@ export default function Hero() {
 
       {/* Layer 4: White Overlay (Z-40) */}
       <div
-        className="absolute inset-0 z-40 bg-white pointer-events-none"
+        className="absolute inset-0 z-40 bg-black pointer-events-none"
         style={{ clipPath: `var(--hero-polygon)` }}
       />
 

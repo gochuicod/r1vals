@@ -19,18 +19,19 @@ export const FeatureCard = ({
 }: FeatureCardProps) => {
   return (
     // Outer dimensions wrapper
-    <div className={`w-full max-w-[350px] md:max-w-none md:w-[560px] min-h-[155px] ${className}`}>
+    <div className={`w-full max-w-[350px] md:max-w-none md:w-[560px] min-h-[155px] -mt-6 ${className}`}>
       
       <FeatureCardContainer variant={variant}>
         {/* INNER CONTENT WRAPPER */}
-          <div className="flex flex-col md:flex-row items-center md:items-center w-full h-full p-6 gap-2 md:gap-7 justify-center md:justify-center">
+          <div className="flex flex-col md:flex-row items-center p-8 md:items-center w-full h-full gap-7 justify-center md:justify-center">
           
           {/* LEFT IMAGE */}
-          <div className="relative w-[293px] h-[120px] md:w-[183px] md:h-[122px] shrink-0">
+          <div className="relative w-[293px] h-[120px] md:w-[180px] md:max-h-[120px] shrink-0">
             <Image
               src={imageSrc}
               alt={title}
-              fill
+              width={293}
+              height={120}
               className="object-cover rounded-lg w-full h-full"
             />
           </div>

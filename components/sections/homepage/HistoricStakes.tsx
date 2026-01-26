@@ -44,6 +44,8 @@ export default function HistoricStakes() {
         'md:min-h-[885px]',
         // Behavior
         'overflow-hidden',
+        // Spacing
+        'md:pt-0 pt-[50px]',
       )}
     >
       {/* --- HEADER SECTION --- */}
@@ -118,6 +120,7 @@ export default function HistoricStakes() {
             // Typography
             'uppercase font-black',
             'lg:text-h2 md:text-h4 text-h4',
+            'md:text-start text-center',
             'text-white',
             // Sizing
             'lg:w-[400px] md:w-[200px] w-[300px]',

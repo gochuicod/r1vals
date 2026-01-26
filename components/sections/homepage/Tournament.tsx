@@ -61,6 +61,25 @@ export default function Tournament() {
             </defs>
           </svg>
 
+          {/* Glow Layer */}
+          <motion.div
+            className="absolute inset-0 z-0"
+            style={{
+              backgroundColor: 'rgba(0, 34, 255, 1)',
+              filter: 'blur(40px)',
+              transform: 'scaleX(1.5) scaleY(0.7)',
+            }}
+            animate={{
+              scaleY: [0.6, 0.8, 0.6],
+              opacity: [0.2, 0.6, 0.2],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+
           {/* Background Border Layer */}
           <div
             className="absolute inset-0 bg-primary-600"

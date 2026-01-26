@@ -19,6 +19,21 @@
 //   }
 // ]
 
+export const FEATURE_CARD_VARIANTS = [
+  {
+    desktop: '/ui/feature_card/frame-1-new.svg', // Ensure these files exist in /public
+    mobile: '/ui/feature_card/frame-1-mobile.svg',
+  },
+  {
+    desktop: '/ui/feature_card/frame-2-new.svg',
+    mobile: '/ui/feature_card/frame-2-mobile.svg',
+  },
+  {
+    desktop: '/ui/feature_card/frame-3-new.svg',
+    mobile: '/ui/feature_card/frame-3-mobile.svg',
+  },
+] as const;
+
 export const HIGHLIGHT_CARDS_DATA = [
   {
     imageSrc: '/highlight_card/cash-awards.webp',

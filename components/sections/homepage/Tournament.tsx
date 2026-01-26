@@ -132,24 +132,29 @@ export default function Tournament() {
             </div>
 
             <div className="flex flex-col w-full lg:w-fit items-center lg:items-end justify-center">
-              <FeatureCard
-                title="Winner-Take-All"
-                description="$100,000 USD on the line. One team takes the glory; the rest take notes."
-                imageSrc="/tournament_section/item_1.png"
-                variant="1"
-              />
-              <FeatureCard
-                title="Star Power"
-                description="Featuring elite professionals and global celebrities."
-                imageSrc="/tournament_section/item_2.png"
-                variant="2"
-              />
-              <FeatureCard
-                title="Global Reach"
-                description="Built to be the #1 most-streamed 7-aside competition worldwide."
-                imageSrc="/tournament_section/item_3.png"
-                variant="3"
-              />
+            {/* Card 1 (Index 0) */}
+            <FeatureCard
+              variantIndex={0}
+              title="Winner-Take-All"
+              description="$100,000 USD on the line. One team takes the glory; the rest take notes."
+              thumbnailSrc="/tournament_section/item_1.png"
+            />
+
+            {/* Card 2 (Index 1) */}
+            <FeatureCard
+              variantIndex={1}
+              title="Star Power"
+              description="Featuring elite professionals and global celebrities."
+              thumbnailSrc="/tournament_section/item_2.png"
+            />
+
+            {/* Card 3 (Index 2) */}
+            <FeatureCard
+              variantIndex={2}
+              title="Global Reach"
+              description="Built to be the #1 most-streamed 7-aside competition worldwide."
+              thumbnailSrc="/tournament_section/item_3.png"
+            />
             </div>
           </div>
         </div>

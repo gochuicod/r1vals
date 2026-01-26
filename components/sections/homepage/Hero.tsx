@@ -194,7 +194,7 @@ export default function Hero() {
             }}
           >
             <Image
-              src="/hero_section/right_image.png"
+              src="/hero_section/v2/right_image.png"
               alt="right"
               fill
               className="object-cover"

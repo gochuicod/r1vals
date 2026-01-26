@@ -32,13 +32,15 @@ const bebasNeue = Bebas_Neue({
 
 export const metadata: Metadata = {
   title: 'R1vals - Reimagining Football for the Digital Age',
-  description: 'R1VALS is a stage built to crown champions and change lives. Powered by 30+ years of sports and entertainment experience, we have reimagined football for the digital age.',
+  description:
+    'R1VALS is a stage built to crown champions and change lives. Powered by 30+ years of sports and entertainment experience, we have reimagined football for the digital age.',
   icons: {
     icon: '/favicon.png',
   },
   openGraph: {
     title: 'R1VALS - Reimagining Football for the Digital Age',
-    description: 'R1VALS is a stage built to crown champions and change lives. Powered by 30+ years of sports and entertainment experience, we have reimagined football for the digital age.',
+    description:
+      'R1VALS is a stage built to crown champions and change lives. Powered by 30+ years of sports and entertainment experience, we have reimagined football for the digital age.',
     url: 'https://www.r1vals.com/en',
     siteName: 'R1VALS',
     images: [
@@ -54,7 +56,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'R1VALS',
-    description: 'R1VALS is a stage built to crown champions and change lives. Powered by 30+ years of sports and entertainment experience, we have reimagined football for the digital age.',
+    description:
+      'R1VALS is a stage built to crown champions and change lives. Powered by 30+ years of sports and entertainment experience, we have reimagined football for the digital age.',
     images: ['/twitter-card/opengraph.webp'],
   },
 };
@@ -77,7 +80,7 @@ export default async function LocaleLayout({
       <body className={`font-body flex min-h-screen flex-col`}>
         <NextIntlClientProvider messages={messages} locale={locale}>
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 bg-black">{children}</main>
           <Footer />
         </NextIntlClientProvider>
       </body>

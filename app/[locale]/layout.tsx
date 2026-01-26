@@ -1,6 +1,7 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import type { Metadata } from 'next';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 import { Inter, Orbitron, Space_Grotesk, Bebas_Neue } from 'next/font/google';
 
@@ -83,6 +84,7 @@ export default async function LocaleLayout({
           <main className="flex-1 bg-black">{children}</main>
           <Footer />
         </NextIntlClientProvider>
+        <GoogleAnalytics gaId="G-7B5583VFKD" />
       </body>
     </html>
   );

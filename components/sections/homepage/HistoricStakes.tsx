@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import Autoplay from 'embla-carousel-autoplay';
+import { CAROUSEL_IMAGES } from '@/constants';
 
 import { Card, CardContent } from '@/components/ui/card';
 import {
@@ -12,13 +13,6 @@ import {
   CarouselItem,
   type CarouselApi,
 } from '@/components/ui/carousel';
-
-// Define your 3 images here
-const CAROUSEL_IMAGES = [
-  '/historic_stakes_section/carousel/item_1.png',
-  '/historic_stakes_section/carousel/item_2.png',
-  '/historic_stakes_section/carousel/item_3.png',
-];
 
 export default function HistoricStakes() {
   // --- CAROUSEL STATE ---
@@ -60,11 +54,12 @@ export default function HistoricStakes() {
           // Sizing
           'md:min-h-[557px]',
           // Positioning
-          'relative z-10', // Fixed typo: z-15 is not a default Tailwind class, used z-10
+          'relative z-15', // Fixed typo: z-15 is not a default Tailwind class, used z-10
         )}
       >
+        {/* Football Player Image */}
         <Image
-          src="/historic_stakes_section/football_player_bg.png"
+          src="/historic_stakes_section/football_player.png"
           alt="Historic Stakes"
           width={1920}
           height={1080}
@@ -73,9 +68,27 @@ export default function HistoricStakes() {
             'absolute w-full h-full',
             'lg:top-[18%] md:top-[10%] top-[7%]',
             'lg:left-[4%] md:left-[6%] left-[-5%]',
+            'z-10',
             // Visuals (Scaling)
             'object-contain',
             'lg:scale-[115%] md:scale-[130%] scale-[180%]',
+          )}
+        />
+
+        {/* Football Player Background */}
+        <Image
+          src="/historic_stakes_section/football_player_background.png"
+          alt="Historic Stakes"
+          width={1920}
+          height={1080}
+          className={cn(
+            // Positioning
+            'absolute w-full h-full',
+            'lg:top-[18%] md:top-[10%] top-[7%]',
+            'lg:left-[4%] md:left-[6%] left-[5%]',
+            // Visuals (Scaling)
+            'object-contain',
+            'lg:scale-[80%] md:scale-[130%] scale-[150%]',
           )}
         />
 
@@ -84,8 +97,9 @@ export default function HistoricStakes() {
           className={cn(
             // Typography
             'uppercase font-black',
-            'lg:text-h2 md:text-5xl text-h4',
+            'lg:text-h2 md:text-h4 text-h4',
             'md:text-end text-center',
+            'text-white',
             // Sizing
             'lg:w-[350px] md:w-[150px] w-[250px]',
             // Spacing
@@ -103,7 +117,8 @@ export default function HistoricStakes() {
           className={cn(
             // Typography
             'uppercase font-black',
-            'lg:text-h2 md:text-5xl text-h4',
+            'lg:text-h2 md:text-h4 text-h4',
+            'text-white',
             // Sizing
             'lg:w-[400px] md:w-[200px] w-[300px]',
             // Positioning
@@ -121,6 +136,7 @@ export default function HistoricStakes() {
           'w-full relative',
           // Spacing
           'mb-10',
+          'lg:-mt-10 md:-mt-[130px]',
           // Positioning
           'z-20',
         )}
@@ -134,7 +150,7 @@ export default function HistoricStakes() {
           className={cn('w-full relative')}
         >
           <CarouselContent className="-ml-4">
-            {Array.from({ length: 15 }).map((_, index) => {
+            {Array.from({ length: 8 }).map((_, index) => {
               const imageSrc = CAROUSEL_IMAGES[index % CAROUSEL_IMAGES.length];
 
               return (
@@ -191,7 +207,7 @@ export default function HistoricStakes() {
               // Sizing
               'w-1/4',
               // Visuals
-              'bg-[radial-gradient(circle_at_left,_var(--tw-gradient-stops))] from-white to-transparent',
+              'bg-[radial-gradient(circle_at_left,_var(--tw-gradient-stops))] from-black to-transparent',
               // Visibility
               'md:block hidden',
               // Interaction
@@ -206,7 +222,7 @@ export default function HistoricStakes() {
               // Sizing
               'w-1/4',
               // Visuals
-              'bg-[radial-gradient(circle_at_right,_var(--tw-gradient-stops))] from-white to-transparent',
+              'bg-[radial-gradient(circle_at_right,_var(--tw-gradient-stops))] from-black to-transparent',
               // Visibility
               'md:block hidden',
               // Interaction
@@ -224,13 +240,13 @@ export default function HistoricStakes() {
               aria-label={`Go to slide ${index + 1}`}
               className={cn(
                 // Sizing
-                'md:h-5 md:w-5 h-3 w-3',
+                'h-4 w-4',
                 // Animation
                 'transition-all duration-300',
                 // Conditional Styling
                 index === current - 1
-                  ? 'bg-primary-600' // Active State
-                  : 'bg-white/30 hover:bg-white/50 border border-2 border-primary-600', // Inactive State
+                  ? 'bg-white' // Active State
+                  : 'bg-transparent border-2 border-white', // Inactive State
               )}
             />
           ))}
@@ -247,6 +263,7 @@ export default function HistoricStakes() {
             'lg:w-[42%] md:w-[85%] w-[80%]',
             // Spacing
             'mt-9',
+            'text-white',
           )}
         >
           <span className="text-center">
@@ -258,7 +275,7 @@ export default function HistoricStakes() {
           </span>
           <span className="text-center font-bold">
             More details to follow—but the{' '}
-            <span className="text-primary-600">
+            <span className="text-yellow-400">
               hunt for champions starts now.
             </span>
           </span>
@@ -271,7 +288,7 @@ export default function HistoricStakes() {
           // Positioning
           'absolute inset-0 z-10',
           // Visuals
-          'bg-gradient-to-t from-white from-0% to-transparent to-70%',
+          'bg-gradient-to-t from-black md:from-20% from-50% to-transparent to-90%',
           // Interaction
           'pointer-events-none',
         )}

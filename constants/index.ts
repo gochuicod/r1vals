@@ -45,3 +45,9 @@ export const HIGHLIGHT_CARDS_DATA = [
     variant: 'red',
   },
 ] as const;
+
+export const CAROUSEL_IMAGES = [
+  '/historic_stakes_section/carousel/item_1_v2.png',
+  '/historic_stakes_section/carousel/item_2_v2.png',
+  '/historic_stakes_section/carousel/item_3_v2.png',
+] as const;

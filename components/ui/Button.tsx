@@ -11,21 +11,9 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: [
-          'bg-black border border-[#FF1B1B] text-[#FF0055]',
-          'shadow-[0px_0px_15.6256px_#0022FF,3.12513px_3.12513px_0px_#0022FF]',
-          'hover:shadow-[0px_0px_20px_#0022FF,4px_4px_0px_#0022FF]',
-          'active:shadow-[0px_0px_10px_#0022FF,2px_2px_0px_#0022FF]',
-        ].join(' '),
-        protocol: [
-          'bg-black border border-[#FF1B1B] text-white text-center font-bebas_neue font-bold leading-none',
-          'shadow-[0px_0px_15.6256px_#0022FF,3.12513px_3.12513px_0px_#0022FF]',
-          'hover:cursor-default',
-        ].join(' '),
-        yellow: [
-          'bg-black border-[1.9532px] border-[#FCC800] text-[#FCC800] font-bold text-center',
-          'shadow-[0px_0px_15.6256px_#FCC800]',
-        ].join(' '),
+        default: 'bg-black border border-[#FF1B1B] text-[#FF0055] shadow-[0px_0px_15.6256px_#0022FF,3.12513px_3.12513px_0px_#0022FF] hover:shadow-[0px_0px_20px_#0022FF,4px_4px_0px_#0022FF] active:shadow-[0px_0px_10px_#0022FF,2px_2px_0px_#0022FF]',
+        protocol: 'bg-black border border-[#FF1B1B] text-white text-center font-bebas_neue font-bold leading-none shadow-[0px_0px_15.6256px_#0022FF,3.12513px_3.12513px_0px_#0022FF] hover:cursor-default',
+        yellow: 'bg-black border-[1.9532px] border-[#FCC800] text-[#FCC800] font-bold text-center shadow-[0px_0px_15.6256px_#FCC800]',
       },
       size: {
         default: 'px-4 py-2 text-xs md:px-8 md:py-4 md:text-sm',
@@ -41,6 +29,7 @@ const buttonVariants = cva(
   },
 );
 
+// Use a more flexible interface to avoid "href" conflicts on buttons
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
@@ -52,16 +41,14 @@ export interface ButtonProps
   smoothScroll?: boolean;
 }
 
-const Button = React.forwardRef<HTMLButtonElement & HTMLAnchorElement, ButtonProps>(
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, isLoading, leftIcon, rightIcon, href, target, children, smoothScroll, ...props }, ref) => {
     const scrollTo = useSmoothScroll();
     
-    // 1. Determine the component type
     const isExternal = href && /^(http|mailto:|tel:)/.test(href);
     const isSmooth = smoothScroll && (href === '/' || href?.includes('#'));
     const isDisabled = isLoading || props.disabled;
 
-    // 2. Render content logic
     const renderContent = (
       <>
         {isLoading && (
@@ -82,34 +69,33 @@ const Button = React.forwardRef<HTMLButtonElement & HTMLAnchorElement, ButtonPro
 
     const commonClasses = cn(buttonVariants({ variant, size }), className);
 
-    // 3. Handle Smooth Scroll clicks
+    // Handle Smooth Scroll clicks
     const handleSmoothClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
       if (isSmooth && href) {
         scrollTo(e, href);
       }
-      props.onClick?.(e as any);
+      // Cast to MouseEvent to satisfy common usage
+      if (props.onClick) props.onClick(e as unknown as React.MouseEvent<HTMLButtonElement>);
     };
 
-    // 4. Return appropriate Element
+    // 1. If it's a link (external or hash)
     if (href) {
       const linkProps = {
         className: commonClasses,
-        tabIndex: isDisabled ? -1 : undefined,
-        'aria-disabled': isDisabled,
         target: target || (isExternal ? '_blank' : undefined),
         rel: target === '_blank' || isExternal ? 'noopener noreferrer' : undefined,
       };
 
       if (isExternal || isSmooth) {
         return (
-          <a href={href} ref={ref} onClick={handleSmoothClick} {...linkProps} {...(props as any)}>
+          <a href={href} onClick={handleSmoothClick} {...linkProps}>
             {renderContent}
           </a>
         );
       }
 
       return (
-        <Link href={href} ref={ref} {...linkProps} {...(props as any)}>
+        <Link href={href} {...linkProps}>
           {renderContent}
         </Link>
       );

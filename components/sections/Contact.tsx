@@ -7,24 +7,16 @@ import { RegistrationBanner } from "../ui/RegistrationBanner";
 
 export default function Contact() {
   return (
-    <section id="contact-section" className="relative w-full h-full min-h-[1100px] bg-black pt-[150px] overflow-x-hidden flex flex-col items-center">
-      
-      {/* OUTER CONTAINER (The Background): 
-         1. Changed 'max-w-7xl' to 'w-full'. This makes the blue background stretch edge-to-edge.
-         2. Kept height and margin properties here.
-      */}
-      <div className="w-full bg-[#020023] h-auto lg:max-h-[840px] my-auto relative overflow-visible mb-[250px]">
-        
-        {/* INNER CONTAINER (The Content):
-           1. Added 'max-w-7xl mx-auto'. This constrains the columns so they stay centered 
-              and don't stretch to the far edges of ultra-wide screens.
-           2. Added 'h-full' to ensure it fills the blue parent.
-        */}
-        <div className="w-full max-w-7xl mx-auto h-full flex flex-col lg:flex-row justify-center">
+    // CHANGE 1: h-screen, max-h-screen, overflow-hidden enforces one view (no scroll)
+    <section id="contact-section" className="relative w-full h-screen max-h-screen bg-black overflow-hidden flex flex-col items-center justify-center">
+              
+        {/* INNER CONTAINER (The Content) */}
+        <div className="w-full max-w-7xl mx-auto h-full flex flex-col lg:flex-row justify-center items-center">
 
-          {/* LEFT COLUMN (40%) */}
-          <div className="hidden lg:flex lg:w-[40%] relative items-end justify-center min-h-[400px]">
-            <div className="relative w-[517px] h-[784px] -bottom-28">
+          {/* LEFT COLUMN (40%) - Image */}
+          {/* Adjusted alignment to center/bottom without pushing layout out */}
+          <div className="hidden lg:flex lg:w-[40%] h-full relative items-end justify-center">
+            <div className="relative w-[500px] h-[750px] bottom-40 scale-[1]">
               <Image
                 src="/contact/contact-img.png"
                 alt="Registration Player"
@@ -36,27 +28,30 @@ export default function Contact() {
           </div>
 
           {/* RIGHT COLUMN (60%) */}
-          <div className="flex flex-col flex-1 w-full lg:w-[60%] lg:max-w-[742px] items-start pt-[140px] pb-20 px-4 sm:px-6 relative">
+          {/* Added h-full and justify-center to center form vertically */}
+          <div className="flex flex-col flex-1 w-full lg:w-[60%] lg:max-w-[742px] h-full justify-center px-4 sm:px-6 relative pt-16">
             
             {/* BANNER */}
-            <div className="absolute w-full top-10 left-0 lg:-left-4">
+            {/* Positioned relative to the column padding */}
+            <div className="absolute w-full top-10 left-2 lg:-left-12">
                <RegistrationBanner />
             </div>
 
             {/* FLEX CONTENT FLOW */}
-            <div className="flex flex-col gap-6 w-full flex-1">
-              <h2 className="text-white text-center lg:text-start text-[32px] lg:text-[40px] font-bold tracking-[4%] leading-[48px]">
-                Are you ready to change your life?
-              </h2>
+            <div className="flex flex-col gap-4 w-full mt-20">
+              <div className="space-y-2">
+                <h2 className="text-white text-center lg:text-start text-[32px] lg:text-[40px] font-bold tracking-[4%] leading-tight">
+                    Are you ready to change your life?
+                </h2>
 
-              <p className="font-heading text-[#DDE2FF] text-center lg:text-start text-[18px] md:text-[20px]">
-                Whether you have a powerhouse squad ready to dominate or you're a solo player looking to join the ranks, we want to hear from you.
-              </p>
+                <p className="font-heading text-[#DDE2FF] text-center lg:text-start text-[16px] md:text-[18px]">
+                    Whether you have a powerhouse squad ready to dominate or you're a solo player looking to join the ranks, we want to hear from you.                </p>
+              </div>
 
               <BrushedOfferContainer>
-                 <p className="font-heading tracking-widest text-lg text-center text-white">
-                    <span className="font-bold">FooLIMITED OFFER:</span> FooLIMITED OFFER: Register your team early to unlock a Tiered Registration Discount. Secure your spot before the bracket fills up!
-                 </p>
+                  <p className="font-heading tracking-widest text-sm md:text-base text-center text-white py-1">
+                     <span className="font-bold">FooLIMITED OFFER:</span> Register your team early to unlock a Tiered Registration Discount. Secure your spot before the bracket fills up!
+                  </p>
               </BrushedOfferContainer>
 
               <ContactForm />
@@ -64,7 +59,6 @@ export default function Contact() {
 
           </div>
         </div>
-      </div>
     </section>
   );
 }

@@ -1,5 +1,6 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import type { Metadata } from 'next';
 
 import { Inter, Orbitron, Space_Grotesk, Bebas_Neue } from 'next/font/google';
 
@@ -28,6 +29,35 @@ const bebasNeue = Bebas_Neue({
   subsets: ['latin'],
   variable: '--font-bebas-neue',
 });
+
+export const metadata: Metadata = {
+  title: 'R1vals - Reimagining Football for the Digital Age',
+  description: 'R1VALS is a stage built to crown champions and change lives. Powered by 30+ years of sports and entertainment experience, we have reimagined football for the digital age.',
+  icons: {
+    icon: '/favicon.png',
+  },
+  openGraph: {
+    title: 'R1VALS - Reimagining Football for the Digital Age',
+    description: 'R1VALS is a stage built to crown champions and change lives. Powered by 30+ years of sports and entertainment experience, we have reimagined football for the digital age.',
+    url: 'https://www.r1vals.com/en',
+    siteName: 'R1VALS',
+    images: [
+      {
+        url: '/opengraph/opengraph.webp',
+        width: 1200,
+        height: 630,
+        alt: 'R1VALS',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'R1VALS',
+    description: 'R1VALS is a stage built to crown champions and change lives. Powered by 30+ years of sports and entertainment experience, we have reimagined football for the digital age.',
+    images: ['/twitter-card/opengraph.webp'],
+  },
+};
 
 export default async function LocaleLayout({
   children,

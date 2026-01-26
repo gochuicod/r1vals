@@ -119,7 +119,7 @@ export default function Tournament() {
       <section className="tournament-clips relative z-10">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-11 justify-center items-start">
-            <div className="flex flex-col gap-6 text-white w-full lg:w-[40%] lg:text-left text-center">
+            <div className="flex flex-col gap-6 text-white w-full lg:w-[40%] lg:text-left lg:items-start text-center items-center md:items-center">
               <span className="font-black text-h4 md:text-h3 lg:text-h3 uppercase leading-tight">
                 ASIA’S FIRST <span className="text-yellow-400">$100,000</span>{' '}
                 WINNER-TAKE-ALL TOURNAMENT

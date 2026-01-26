@@ -36,28 +36,20 @@ export const FEATURE_CARD_VARIANTS = [
 
 export const HIGHLIGHT_CARDS_DATA = [
   {
-    imageSrc: '/highlight_card/cash-awards.webp',
-    title: 'CASH AWARDS',
-    description: 'for both players and fans.',
-    variant: 'blue',
+    imageSrc: '/highlight_card/Frame1.svg',
+    alt: 'Cash Awards',
   },
   {
-    imageSrc: '/highlight_card/youth.webp',
-    title: 'Youth Mentorship',
-    description: 'and elite football clinics.',
-    variant: 'red',
+    imageSrc: '/highlight_card/Frame2.svg',
+    alt: 'Cash Awards',
   },
   {
-    imageSrc: '/highlight_card/global.webp',
-    title: 'Community Charity',
-    description: 'initiatives to pay it forward.',
-    variant: 'blue',
+    imageSrc: '/highlight_card/Frame3.svg',
+    alt: 'Cash Awards',
   },
   {
-    imageSrc: '/highlight_card/community.webp',
-    title: 'Global Expansion',
-    description: 'creating international pathways.',
-    variant: 'red',
+    imageSrc: '/highlight_card/Frame4.svg',
+    alt: 'Cash Awards',
   },
 ] as const;
 

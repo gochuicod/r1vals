@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { HighlightCard } from '@/components/ui/HighlightCard';
 import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
 import Autoplay from 'embla-carousel-autoplay';
 
+// --- IMPORTS ---
+import Highlights from '@/components/ui/Highlights'; 
 import { HIGHLIGHT_CARDS_DATA } from '@/constants/index';
 
 import {
@@ -48,7 +49,6 @@ export default function Mission() {
       height: 'auto',
       transition: {
         duration: 1,
-        // FIX: Added 'as const' here so TS recognizes it as a Bezier Tuple, not a number[]
         ease: [0.22, 1, 0.36, 1] as const,
         when: 'beforeChildren',
       },
@@ -61,7 +61,7 @@ export default function Mission() {
         // Layout
         'flex flex-col justify-center items-center',
         // Sizing
-        'min-h-dvh',
+        'min-h-[708px]',
         // Spacing
         'py-[20vh]',
         'gap-8',
@@ -97,30 +97,6 @@ export default function Mission() {
         </span>
       </div>
 
-      {/* --- CUSTOM DIVIDER (TOP) --- */}
-      {/* <div
-        className={cn(
-          // Sizing
-          'w-full max-w-[1200px] h-[20px]',
-          // Spacing
-          'mt-6',
-          'lg:px-0 md:px-10 px-6',
-        )}
-      >
-        <svg
-          width="100%"
-          height="100%"
-          viewBox="0 0 1200 20"
-          preserveAspectRatio="none"
-          className={cn(
-            // Visuals
-            'stroke-black stroke-[3px] fill-none',
-          )}
-        >
-          <polyline points="0,2 250,2 300,18 750,18 800,2 900,2 950,18 1150,18 1200,2" />
-        </svg>
-      </div> */}
-
       {/* --- ANIMATED CONTENT SECTION --- */}
       <motion.div
         className={cn(
@@ -146,18 +122,16 @@ export default function Mission() {
             // Layout
             'flex-row flex-wrap justify-center',
             // Spacing
-            'gap-10 px-4',
+            'lg:gap-7 md:gap-4 px-4',
             // Sizing
             'max-w-[1200px] mx-auto',
           )}
         >
           {HIGHLIGHT_CARDS_DATA.map((card, index) => (
             <div key={index} className="flex justify-center">
-              <HighlightCard
-                imageSrc={card.imageSrc}
-                title={card.title}
-                description={card.description}
-                variant={card.variant as 'blue' | 'red'}
+              <Highlights 
+                imageSrc={card.imageSrc} 
+                altText={card.alt} 
               />
             </div>
           ))}
@@ -203,15 +177,15 @@ export default function Mission() {
                       // Spacing
                       'pl-4',
                       // Responsive Sizing
-                      'md:basis-[35%] basis-[70%]',
+                      'md:basis-[40%] basis-[75%]',
                     )}
                   >
-                    <div className={cn('p-2 flex justify-center h-full')}>
-                      <HighlightCard
-                        imageSrc={cardData.imageSrc}
-                        title={cardData.title}
-                        description={cardData.description}
-                        variant={cardData.variant as 'blue' | 'red'}
+                    <div className={cn('p-2 flex justify-center h-full w-full')}>
+                      {/* Using the new Highlights component */}
+                      <Highlights 
+                        imageSrc={cardData.imageSrc} 
+                        altText={cardData.alt}
+                        maxWidth="100%" // Ensure it fills the carousel slide
                       />
                     </div>
                   </CarouselItem>
@@ -242,30 +216,6 @@ export default function Mission() {
           </div>
         </div>
       </motion.div>
-
-      {/* --- CUSTOM DIVIDER (BOTTOM) --- */}
-      {/* <div
-        className={cn(
-          // Sizing
-          'w-full max-w-[1200px] h-[20px]',
-          // Spacing
-          'mt-6',
-          'lg:px-0 md:px-10 px-6',
-        )}
-      >
-        <svg
-          width="100%"
-          height="100%"
-          viewBox="0 0 1200 20"
-          preserveAspectRatio="none"
-          className={cn(
-            // Visuals
-            'stroke-black stroke-[3px] fill-none',
-          )}
-        >
-          <polyline points="0,18 250,18 300,2 750,2 800,18 900,18 950,2 1150,2 1200,2" />
-        </svg>
-      </div> */}
 
       {/* Final Message */}
       <h5 className="!text-white font-bold font-body text-center lg:text-h5 text-h6 uppercase">

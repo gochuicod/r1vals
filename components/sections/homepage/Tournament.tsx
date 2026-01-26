@@ -48,33 +48,12 @@ export default function Tournament() {
           - It has its own white background clipped to the shape.
          ========================================================= */}
       <div className="tournament-clips relative w-full h-[400px] lg:h-[600px] z-0">
-        {/* The White Background (Clipped) */}
-        <div
-          className="absolute inset-0 w-full h-full bg-white"
-          style={{ clipPath: 'var(--top-clip)' }}
-        />
-
-        {/* The Image (Clipped) */}
-        {/* We place it INSIDE the clipped area. No negative top needed here. */}
-        <div
-          className="absolute inset-0 w-full h-full"
-          style={{ clipPath: 'var(--top-clip)' }}
-        >
-          <Image
-            src="/tournament_section/football_field.png"
-            alt="Football Field"
-            fill
-            className="object-contain object-bottom opacity-90"
-          />
-        </div>
-
-        {/* Background Decoration (Floating B/C letters) */}
         <Image
-          src="/tournament_section/bc.svg"
-          width={1080}
-          height={720}
-          alt=""
-          className="w-fit absolute top-10 right-0 -z-10 opacity-50"
+          src="/tournament_section/football_field.png"
+          alt="Football Field"
+          fill
+          className="object-cover object-bottom opacity-90"
+          style={{ clipPath: 'var(--top-clip)' }}
         />
       </div>
 
@@ -83,37 +62,32 @@ export default function Tournament() {
           - Negative margin pulls this whole section UP over the image.
           - It contains the dark gradient and text.
          ========================================================= */}
-      <section className="tournament-clips relative z-10 -mt-[200px] lg:-mt-[300px] pb-20">
+      <section className="tournament-clips relative z-10 -mt-[100px] lg:-mt-[100px]">
         {/* Dark Background Wrapper */}
         <div className="absolute inset-0 w-full h-full pointer-events-none -z-10">
           {/* Dark Gradient (Top Clip) */}
           <div
-            className="absolute inset-0 w-full h-full bg-gradient-to-t from-primary-800 from-0% to-black to-60%"
+            className="absolute inset-0 w-full h-full bg-black"
             style={{ clipPath: 'var(--top-clip)' }}
-          />
-          {/* White Bottom Overlay (Bottom Clip) */}
-          <div
-            className="absolute inset-0 w-full h-full bg-white z-40"
-            style={{ clipPath: 'var(--bottom-clip)' }}
           />
         </div>
 
         {/* Content Container */}
         <div className="max-w-[1280px] mx-auto px-6 pt-32 lg:pt-48">
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-17 justify-center items-center">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-11 justify-center items-start">
             <div className="flex flex-col gap-6 text-white w-full lg:w-[40%] lg:text-left text-center">
-              <span className="font-black text-h4 md:text-h3 lg:text-h2 uppercase leading-tight">
-                ASIA’S FIRST <span className="text-brandRed-400">$100,000</span>{' '}
+              <span className="font-black text-h4 md:text-h3 lg:text-h3 uppercase leading-tight">
+                ASIA’S FIRST <span className="text-yellow-400">$100,000</span>{' '}
                 WINNER-TAKE-ALL TOURNAMENT
               </span>
-              <span className="text-lg md:text-xl font-normal font-heading opacity-90 text-primary-100 lg:w-full md:w-[80%] mx-auto">
+              <span className="text-lg md:text-xl font-normal font-heading opacity-90 text-primary-100 lg:w-[75%] md:w-[80%]">
                 R1VALS is a stage built to crown champions and change lives.
                 Powered by 30+ years of sports and entertainment experience, we
                 have reimagined football for the digital age.
               </span>
             </div>
 
-            <div className="flex flex-col w-full lg:w-1/2 items-center lg:items-end justify-center">
+            <div className="flex flex-col w-full lg:w-fit items-center lg:items-end justify-center">
               <FeatureCard
                 title="Winner-Take-All"
                 description="$100,000 USD on the line. One team takes the glory; the rest take notes."

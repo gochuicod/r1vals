@@ -22,7 +22,7 @@ const ContactForm = () => {
       <form className="flex flex-col gap-6 w-full bg-transparent p-2 md:p-0 font-heading">
         
         {/* Header Section */}
-        <div className="text-center md:text-left">
+        <div className="text-center justify-center">
             <p className="text-base md:text-lg text-white/90 leading-relaxed">
                 Complete the form below to be considered for the R1VALS Protocol.
             </p>

@@ -63,39 +63,40 @@ export default function Mission() {
         // Sizing
         'min-h-[708px]',
         // Spacing
-        'py-19',
+        'py-20',
+        'gap-8',
         // Behavior
         'overflow-hidden',
+        'bg-[#00033E]',
       )}
     >
       {/* --- HEADING SECTION --- */}
-      <h4
-        className={cn(
-          // Typography
-          'uppercase font-black text-center',
-          'lg:text-h4 text-h5',
-        )}
-      >
-        more than football -{' '}
-        <span className="text-primary-600">we change lives</span>
-      </h4>
-
-      <span
-        className={cn(
-          // Typography
-          'text-center font-heading font-normal',
-          // Sizing
-          'max-w-[800px]',
-          // Spacing
-          'px-4',
-        )}
-      >
-        Our mission extends beyond the pitch. R1VALS is dedicated to
-        transforming the community through:
-      </span>
+      <div className="flex flex-col w-full">
+        <h4
+          className={cn(
+            // Typography
+            '!text-white uppercase font-black text-center',
+            'lg:text-h4 text-h5',
+          )}
+        >
+          more than football -{' '}
+          <span className="text-[#FCC800]">we change lives</span>
+        </h4>
+        <span
+          className={cn(
+            // Typography
+            'text-white text-center !text-[20px] font-heading font-normal leading-12',
+            // Spacing
+            'px-4',
+          )}
+        >
+          Our mission extends beyond the pitch. R1VALS is dedicated to
+          transforming the community through:
+        </span>
+      </div>
 
       {/* --- CUSTOM DIVIDER (TOP) --- */}
-      <div
+      {/* <div
         className={cn(
           // Sizing
           'w-full max-w-[1200px] h-[20px]',
@@ -116,7 +117,7 @@ export default function Mission() {
         >
           <polyline points="0,2 250,2 300,18 750,18 800,2 900,2 950,18 1150,18 1200,2" />
         </svg>
-      </div>
+      </div> */}
 
       {/* --- ANIMATED CONTENT SECTION --- */}
       <motion.div
@@ -241,7 +242,7 @@ export default function Mission() {
       </motion.div>
 
       {/* --- CUSTOM DIVIDER (BOTTOM) --- */}
-      <div
+      {/* <div
         className={cn(
           // Sizing
           'w-full max-w-[1200px] h-[20px]',
@@ -262,10 +263,10 @@ export default function Mission() {
         >
           <polyline points="0,18 250,18 300,2 750,2 800,18 900,18 950,2 1150,2 1200,2" />
         </svg>
-      </div>
+      </div> */}
 
       {/* Final Message */}
-      <h5 className="uppercase font-bold text-center lg:text-h5 text-h6">
+      <h5 className="!text-white font-bold font-body text-center lg:text-h5 text-h6">
         leave a legacy.
       </h5>
     </section>

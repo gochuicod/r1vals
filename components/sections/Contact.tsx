@@ -9,7 +9,7 @@ export default function Contact() {
   return (
     // FIX: Changed h-screen to min-h-screen and removed overflow-hidden 
     // to allow scrolling on mobile devices.
-    <section id="contact-section" className="relative w-full min-h-screen bg-black flex flex-col items-center justify-center py-12 lg:py-20 overflow-x-hidden">              
+    <section id="contact" className="relative w-full min-h-screen bg-black flex flex-col items-center justify-center py-12 lg:py-20 overflow-x-hidden">              
         {/* INNER CONTAINER */}
         <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row justify-center items-center px-4 md:px-8">
 
@@ -57,6 +57,42 @@ export default function Contact() {
               {/* Form Container */}
               <div className="w-full">
                 <ContactForm />
+              </div>
+
+              <div className="flex flex-col items-start p-0 gap-2 w-full">
+                {/* Header */}
+                <h3 className="text-white/90 text-sm font-heading">
+                  Why Register Now?
+                </h3>
+
+                {/* List Container - Fixed with text-sm and antialiasing */}
+                <ul className="flex flex-col items-start p-0 gap-0 w-full self-stretch text-[14px] antialiased font-heading">
+                  
+                  {/* Bullet Item 1 */}
+                  <li className="flex items-center gap-2 text-white/80 leading-10">
+                    {/* Centered Bullet Dot */}
+                    <span className="h-1 w-1 rounded-full bg-white shrink-0" />
+                    <p>
+                      <span >Priority Selection:</span> R1VALS is a curated tournament; early applicants get first priority.
+                    </p>
+                  </li>
+
+                  {/* Bullet Item 2 */}
+                  <li className="flex items-center gap-2 text-white/80 leading-10">
+                    <span className="h-1 w-1 rounded-full bg-white shrink-0" />
+                    <p>
+                      <span>Tiered Pricing:</span> The registration fee increases as we get closer to the event.
+                    </p>
+                  </li>
+
+                  {/* Bullet Item 3 */}
+                  <li className="flex items-center gap-2 text-white/80 leading-10">
+                    <span className="h-1 w-1 rounded-full bg-white shrink-0" />
+                    <p>
+                      <span>Scout Visibility:</span> Get your team on the radar of our global streaming partners and scouts early.
+                    </p>
+                  </li>
+                </ul>
               </div>
             </div>
 

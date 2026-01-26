@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { FormsModal } from '@/components/ui/FormsModal';
 import { contactSchema, type ContactFormData } from '@/lib/validators/contact.schema';
+import { cn } from '@/lib/utils';
+import { TechDivider } from './TechDivider';
 
 const ContactForm = () => {
   const [modalState, setModalState] = useState<{
@@ -70,6 +72,9 @@ const ContactForm = () => {
   return (
     <section className="w-full max-w-5xl mx-auto font-['Inter'] text-white">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 w-full bg-transparent p-2 md:p-0 font-heading">
+
+      {/* --- CUSTOM DIVIDER (TOP) --- */}
+      <TechDivider variant='top'/>
         
         {/* Header Section */}
         <div className="text-center justify-center">
@@ -155,19 +160,24 @@ const ContactForm = () => {
                     {...register('social')}
                     error={errors.social?.message}
                 />
-                
-                <div className="mt-auto pt-2">
-                    <Button 
-                      type="submit" 
-                      variant="default" 
-                      className='w-full whitespace-nowrap'
-                      disabled={isSubmitting}
-                    >
-                        {isSubmitting ? 'Sending...' : 'Secure My Spot'}
-                    </Button>
-                </div>
             </div>
-        </div>
+            </div>
+
+                  {/* --- CUSTOM DIVIDER (BOTTOM) --- */}
+            <TechDivider variant='bottom'/>
+
+
+            <div className="flex mt-auto pt-2 w-full items-end justify-end">
+              <Button 
+                type="submit" 
+                variant="yellow"
+                size="lg"
+                className='w-[272px] text-[20px] text-center '
+                disabled={isSubmitting}
+                >
+                      {isSubmitting ? 'Sending...' : 'Secure My Spot'}
+              </Button>
+             </div>
 
         {/* Modal Logic Integration */}
         <FormsModal

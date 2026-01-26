@@ -1,89 +1,37 @@
 "use client";
-/**
- * Button Component (shadcn/ui variant)
- *
- * Usage:
- *
- * import { Button } from '@/components/ui/Button';
- *
- * // --- VARIANTS (Colors & Visuals) ---
- * // Default button (Pink text, blue shadow)
- * <Button variant="default">JOIN US</Button>
- *
- * // Protocol variant (White text, Bebas font, centered)
- * <Button variant="protocol">7x7 PROTOCOL</Button>
- *
- * // --- SIZES (Padding & Text) ---
- * // Small button
- * <Button size="sm">Small Action</Button>
- *
- * // Large button
- * <Button size="lg">Big Action</Button>
- *
- * // Protocol Size (Responsive text matching the specific design)
- * <Button variant="protocol" size="protocol">ASIA’S LARGEST</Button>
- *
- * // --- ADVANCED ---
- * // Custom override
- * <Button variant="default" className="!text-h6">Custom Font</Button>
- *
- * // As a link
- * <Button href="/about" size="lg">About</Button>
- *
- * // With loading state
- * <Button isLoading>Loading…</Button>
- *
- * Props:
- * - variant: 'default' | 'protocol'
- * - size: 'default' | 'sm' | 'lg' | 'protocol'
- * - isLoading: boolean
- * - href: string
- * - leftIcon, rightIcon: ReactNode
- */
+
 import * as React from 'react';
+import Link from 'next/link';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
-import Link from 'next/link';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 
 const buttonVariants = cva(
-  // Base styles (Layout, Focus, Transitions)
-  'flex w-fit items-center justify-center gap-2 whitespace-normal rounded-none font-black uppercase transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 font-body h-auto min-h-10',
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-none font-black uppercase transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 font-body h-auto min-h-10',
   {
     variants: {
-      // VISUAL STYLE (Colors, Borders, Shadows, Fonts)
       variant: {
         default: [
-          'bg-black',
-          'border border-solid border-[#FF1B1B]',
-          'text-[#FF0055]',
-          'shadow-[0px_0px_15.6256px_#0022FF,_3.12513px_3.12513px_0px_#0022FF]',
-          'hover:shadow-[0px_0px_20px_#0022FF,_4px_4px_0px_#0022FF]',
-          'active:shadow-[0px_0px_10px_#0022FF,_2px_2px_0px_#0022FF]',
+          'bg-black border border-[#FF1B1B] text-[#FF0055]',
+          'shadow-[0px_0px_15.6256px_#0022FF,3.12513px_3.12513px_0px_#0022FF]',
+          'hover:shadow-[0px_0px_20px_#0022FF,4px_4px_0px_#0022FF]',
+          'active:shadow-[0px_0px_10px_#0022FF,2px_2px_0px_#0022FF]',
         ].join(' '),
         protocol: [
-          'bg-black',
-          'border border-solid border-[#FF1B1B]',
-          'shadow-[0px_0px_15.6256px_#0022FF,_3.12513px_3.12513px_0px_#0022FF]',
-          'text-white text-center',
-          'font-bebas_neue font-bold leading-none',
+          'bg-black border border-[#FF1B1B] text-white text-center font-bebas_neue font-bold leading-none',
+          'shadow-[0px_0px_15.6256px_#0022FF,3.12513px_3.12513px_0px_#0022FF]',
           'hover:cursor-default',
         ].join(' '),
+        yellow: [
+          'bg-black border-[1.9532px] border-[#FCC800] text-[#FCC800] font-bold text-center',
+          'shadow-[0px_0px_15.6256px_#FCC800]',
+        ].join(' '),
       },
-      // DIMENSIONS (Padding, Font Sizes)
       size: {
-        // Standard Responsive (Matches your original 'default' logic)
         default: 'px-4 py-2 text-xs md:px-8 md:py-4 md:text-sm',
-
-        // Small (Compact)
-        sm: 'px-5 py-3 text-h7 text-lg',
-
-        // Large (Prominent)
+        sm: 'px-5 py-3 text-lg',
         lg: 'px-8 py-4',
-
-        // Protocol Specific (Matches your original 'protocol' logic)
-        protocol:
-          'w-full px-4 py-3 text-lg md:w-fit md:px-8 md:py-4 md:text-btn-protocol',
+        protocol: 'w-full px-4 py-3 text-lg md:w-fit md:px-8 md:py-4 md:text-btn-protocol',
       },
     },
     defaultVariants: {
@@ -94,8 +42,7 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends
-    React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   isLoading?: boolean;
   leftIcon?: React.ReactNode;
@@ -105,110 +52,82 @@ export interface ButtonProps
   smoothScroll?: boolean;
 }
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      className,
-      variant,
-      size,
-      isLoading = false,
-      leftIcon,
-      rightIcon,
-      href,
-      target,
-      children,
-      type = 'button',
-      smoothScroll = false,
-      ...props
-    },
-    ref,
-  ) => {
+const Button = React.forwardRef<HTMLButtonElement & HTMLAnchorElement, ButtonProps>(
+  ({ className, variant, size, isLoading, leftIcon, rightIcon, href, target, children, smoothScroll, ...props }, ref) => {
     const scrollTo = useSmoothScroll();
-    const content = (
+    
+    // 1. Determine the component type
+    const isExternal = href && /^(http|mailto:|tel:)/.test(href);
+    const isSmooth = smoothScroll && (href === '/' || href?.includes('#'));
+    const isDisabled = isLoading || props.disabled;
+
+    // 2. Render content logic
+    const renderContent = (
       <>
-        {leftIcon && <span className="flex-none">{leftIcon}</span>}
-        <span className="leading-none">{children}</span>
-        {rightIcon && <span className="flex-none">{rightIcon}</span>}
         {isLoading && (
-          <span className="ml-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent inline-block align-middle" />
+          <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
         )}
+        {!isLoading && leftIcon && <span className="shrink-0">{leftIcon}</span>}
+        
+        <span className={cn(
+          "leading-none", 
+          variant === 'yellow' && "flex items-center justify-center"
+        )}>
+          {children}
+        </span>
+        
+        {!isLoading && rightIcon && <span className="shrink-0">{rightIcon}</span>}
       </>
     );
 
-    // Combine variant and size into classes
-    const classes = cn(buttonVariants({ variant, size }), className);
+    const commonClasses = cn(buttonVariants({ variant, size }), className);
 
-    // External link
-    const isExternal =
-      href &&
-      (href.startsWith('http') ||
-        href.startsWith('mailto:') ||
-        href.startsWith('tel:'));
+    // 3. Handle Smooth Scroll clicks
+    const handleSmoothClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (isSmooth && href) {
+        scrollTo(e, href);
+      }
+      props.onClick?.(e as any);
+    };
 
-    if (isExternal && href) {
-      return (
-        <a
-          href={href}
-          className={classes}
-          target={target || (href.startsWith('http') ? '_blank' : undefined)}
-          rel={target === '_blank' ? 'noopener noreferrer' : undefined}
-          aria-disabled={isLoading || props.disabled}
-          tabIndex={isLoading || props.disabled ? -1 : undefined}
-          {...(props as any)}
-        >
-          {content}
-        </a>
-      );
-    }
-
-    // Internal link (Next.js Link) with smooth scroll
+    // 4. Return appropriate Element
     if (href) {
-      // If smoothScroll is enabled and href is an anchor/hash or home
-      const isSmooth =
-        smoothScroll &&
-        (href === '/' || href.includes('#'));
+      const linkProps = {
+        className: commonClasses,
+        tabIndex: isDisabled ? -1 : undefined,
+        'aria-disabled': isDisabled,
+        target: target || (isExternal ? '_blank' : undefined),
+        rel: target === '_blank' || isExternal ? 'noopener noreferrer' : undefined,
+      };
 
-      if (isSmooth) {
+      if (isExternal || isSmooth) {
         return (
-          <a
-            href={href}
-            className={classes}
-            onClick={e => scrollTo(e, href)}
-            tabIndex={isLoading || props.disabled ? -1 : undefined}
-            {...(props as any)}
-          >
-            {content}
+          <a href={href} ref={ref} onClick={handleSmoothClick} {...linkProps} {...(props as any)}>
+            {renderContent}
           </a>
         );
       }
-      // Otherwise, normal Next.js Link
+
       return (
-        <Link
-          href={href}
-          className={classes}
-          tabIndex={isLoading || props.disabled ? -1 : undefined}
-          {...(props as any)}
-        >
-          {content}
+        <Link href={href} ref={ref} {...linkProps} {...(props as any)}>
+          {renderContent}
         </Link>
       );
     }
 
-    // Button
     return (
       <button
         ref={ref}
-        type={type}
-        className={classes}
-        disabled={isLoading || props.disabled}
+        className={commonClasses}
+        disabled={isDisabled}
         {...props}
       >
-        {content}
+        {renderContent}
       </button>
     );
-  },
+  }
 );
 
 Button.displayName = 'Button';
 
-export { buttonVariants };
+export { Button, buttonVariants };

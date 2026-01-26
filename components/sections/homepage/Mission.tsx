@@ -61,7 +61,7 @@ export default function Mission() {
         // Layout
         'flex flex-col justify-center items-center',
         // Sizing
-        'min-h-[708px]',
+        'min-h-dvh',
         // Spacing
         'py-[20vh]',
         'gap-8',

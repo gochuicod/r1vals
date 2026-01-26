@@ -1,79 +1,104 @@
 'use client';
 
+import { useRef } from 'react';
 import { FeatureCard } from '@/components/ui/FeatureCard';
 import Image from 'next/image';
+import { motion, useScroll, useTransform } from 'motion/react';
 
-const TOP_POLYGONS = {
-  mobile:
-    'polygon(0% 10%, 20% 5%, 50% 12%, 80% 5%, 100% 10%, 100% 100%, 0% 100%)',
-  tablet:
-    'polygon(0% 7%, 5% 6%, 15% 7%, 40% 4%, 80% 8%, 100% 5%, 100% 100%, 0% 100%)',
-  desktop:
-    'polygon(0% 15%, 18% 10%, 22% 13%, 50% 7%, 68% 14%, 90% 8%, 100% 13%, 100% 100%, 0% 100%)',
-};
-
-const BOTTOM_POLYGONS = {
-  mobile:
-    'polygon(0% 90%, 20% 95%, 50% 88%, 80% 95%, 100% 90%, 100% 100%, 0% 100%)',
-  tablet: 'polygon(0% 92%, 30% 90%, 65% 95%, 100% 92%, 100% 100%, 0% 100%)',
-  desktop:
-    'polygon(0% 95%, 15% 90%, 20% 93%, 50% 85%, 70% 95%, 90% 90%, 100% 95%, 100% 100%, 0% 100%)',
-};
+const DESKTOP_CLIP = `
+  polygon(
+    0% 22%, 4% 14%, 10% 17%, 18% 19%, 26% 18%, 34% 19%, 42% 17%, 50% 19%,
+    58% 21%, 66% 19%, 74% 20%, 82% 18%, 90% 20%, 100% 18%,
+    100% 78%, 96% 88%, 90% 84%, 82% 81%, 74% 82%, 66% 80%, 58% 84%,
+    50% 82%, 42% 80%, 34% 83%, 26% 82%, 18% 84%, 10% 82%, 0% 82%
+  )
+`;
 
 export default function Tournament() {
+  const containerRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '-20%']);
+
   return (
     <div className="relative w-full">
-      <style jsx>{`
-        .tournament-clips {
-          --top-clip: ${TOP_POLYGONS.mobile};
-          --bottom-clip: ${BOTTOM_POLYGONS.mobile};
-        }
-        @media (min-width: 768px) {
-          .tournament-clips {
-            --top-clip: ${TOP_POLYGONS.tablet};
-            --bottom-clip: ${BOTTOM_POLYGONS.tablet};
-          }
-        }
-        @media (min-width: 1440px) {
-          .tournament-clips {
-            --top-clip: ${TOP_POLYGONS.desktop};
-            --bottom-clip: ${BOTTOM_POLYGONS.desktop};
-          }
-        }
-      `}</style>
+      {/* WRAPPER:
+        1. overflow-hidden: Hides the parts of the wide image that stick out.
+        2. flex justify-center: Ensures the wide image stays dead center on small screens.
+      */}
+      <div className="relative w-full overflow-hidden flex justify-center">
+        {/* CONTAINER:
+          1. min-w-[1280px]: Forces the "Desktop" width even on mobile.
+          2. lg:w-full: On actual desktops, it reverts to fluid full width.
+          3. flex-shrink-0: Prevents the flex parent from squishing it.
+        */}
+        <div
+          ref={containerRef}
+          className="relative min-w-[1280px] lg:w-full flex-shrink-0 h-[400px] lg:h-[700px] z-0"
+        >
+          {/* SVG Filter (Unchanged) */}
+          <svg width="0" height="0">
+            <defs>
+              <filter id="roughEdges">
+                <feTurbulence
+                  type="turbulence"
+                  baseFrequency="0.02"
+                  numOctaves="8"
+                  result="noise"
+                />
+                <feDisplacementMap
+                  in="SourceGraphic"
+                  in2="noise"
+                  scale="10"
+                  xChannelSelector="R"
+                  yChannelSelector="G"
+                />
+              </filter>
+            </defs>
+          </svg>
 
-      {/* =========================================================
-          PART 1: THE IMAGE LAYER (Sits behind/above)
-          - This container holds the football field image.
-          - It has its own white background clipped to the shape.
-         ========================================================= */}
-      <div className="tournament-clips relative w-full h-[400px] lg:h-[600px] z-0">
-        <Image
-          src="/tournament_section/football_field.png"
-          alt="Football Field"
-          fill
-          className="object-cover object-bottom opacity-90"
-          style={{ clipPath: 'var(--top-clip)' }}
-        />
+          {/* Background Border Layer */}
+          <div
+            className="absolute inset-0 bg-primary-600"
+            style={{
+              clipPath: DESKTOP_CLIP,
+              zIndex: 0,
+              filter: 'url(#roughEdges)',
+            }}
+          />
+
+          {/* Parallax Image Wrapper */}
+          <div
+            className="absolute inset-0 z-1"
+            style={{
+              clipPath: DESKTOP_CLIP,
+              transform: 'scaleY(0.98)',
+              zIndex: 1,
+            }}
+          >
+            <motion.div
+              style={{ y }}
+              className="relative w-full h-[120%] -top-[10%]"
+            >
+              <Image
+                src="/tournament_section/football_field.png"
+                alt="Football Field"
+                fill
+                className="object-cover object-bottom opacity-90"
+                priority
+              />
+            </motion.div>
+          </div>
+        </div>
       </div>
 
-      {/* =========================================================
-          PART 2: THE CONTENT LAYER (Sits on top)
-          - Negative margin pulls this whole section UP over the image.
-          - It contains the dark gradient and text.
-         ========================================================= */}
-      <section className="tournament-clips relative z-10 -mt-[100px] lg:-mt-[100px]">
-        {/* Dark Background Wrapper */}
-        <div className="absolute inset-0 w-full h-full pointer-events-none -z-10">
-          {/* Dark Gradient (Top Clip) */}
-          <div
-            className="absolute inset-0 w-full h-full bg-black"
-            style={{ clipPath: 'var(--top-clip)' }}
-          />
-        </div>
-
-        {/* Content Container */}
-        <div className="max-w-[1280px] mx-auto px-6 pt-32 lg:pt-48">
+      {/* Content Section (Remains responsive/fluid) */}
+      <section className="tournament-clips relative z-10">
+        <div className="max-w-[1280px] mx-auto px-6">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-11 justify-center items-start">
             <div className="flex flex-col gap-6 text-white w-full lg:w-[40%] lg:text-left text-center">
               <span className="font-black text-h4 md:text-h3 lg:text-h3 uppercase leading-tight">

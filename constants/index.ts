@@ -47,7 +47,12 @@ export const HIGHLIGHT_CARDS_DATA = [
 ] as const;
 
 export const CAROUSEL_IMAGES = [
-  '/historic_stakes_section/carousel/item_1_v2.png',
-  '/historic_stakes_section/carousel/item_2_v2.png',
-  '/historic_stakes_section/carousel/item_3_v2.png',
+  '/historic_stakes_section/carousel/v3/item_1.png',
+  '/historic_stakes_section/carousel/v3/item_2.png',
+  '/historic_stakes_section/carousel/v3/item_3.png',
+  '/historic_stakes_section/carousel/v3/item_4.png',
+  '/historic_stakes_section/carousel/v3/item_5.png',
+  '/historic_stakes_section/carousel/v3/item_6.png',
+  '/historic_stakes_section/carousel/v3/item_7.png',
+  '/historic_stakes_section/carousel/v3/item_8.png',
 ] as const;

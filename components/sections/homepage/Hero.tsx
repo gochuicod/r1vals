@@ -1,41 +1,10 @@
 'use client';
 
-/**
- * @component Hero
- * @description
- * A high-impact Hero section featuring a dramatic "Shutter Reveal" animation.
- *
- * @architecture
- * The component is built using a Z-index layered approach:
- * 1. Background Layer: A static, low-opacity football texture.
- * 2. Curtain Layer (Left/Right): Two high-res images that slide outwards.
- * 3. Overlay Layer: A white polygon shape that clips the bottom edge.
- * 4. Content Layer: The text/CTA that fades in and repositions itself.
- *
- * @animation_sequence
- * 1. Preload: Waits for both Left & Right images to fully load via `onLoad`.
- * 2. Stage 1 (Wait): Content fades in at center position.
- * 3. Stage 2 (Open): After 2s, curtains slide out (X-axis) and Content shrinks/moves up.
- * 4. Stage 3 (Glow): Once curtains finish opening, a pulsing neon glow activates.
- *
- * @responsive_strategy
- * Uses CSS Variables (--var) injected via <style jsx> to bridge the gap between
- * Tailwind's media queries and Framer Motion's JavaScript animations.
- */
-
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { motion } from 'motion/react';
 import { YouTubeEmbed } from '@next/third-parties/google';
-
-// Clip-path polygon coordinates for the bottom white overlay across devices.
-const POLYGONS = {
-  mobile: 'polygon(0% 90.5%, 2% 90%, 45% 100%, 100% 93%, 100% 100%, 0% 100%)',
-  tablet:
-    'polygon(0% 95%, 25% 92%, 40% 100%, 90% 90%, 100% 93%, 100% 100%, 0% 100%)',
-  desktop: 'polygon(0% 100%, 55% 90%, 63% 97%, 85% 90%, 100% 100%, 0% 100%)',
-};
 
 export default function Hero() {
   const [loadedCount, setLoadedCount] = useState(0);
@@ -86,7 +55,6 @@ export default function Hero() {
     <section className="hero-section relative w-full h-[876px] overflow-hidden bg-black">
       <style jsx>{`
         .hero-section {
-          --hero-polygon: ${POLYGONS.mobile};
           --content-y: -65vw;
           --video-y: -55vw;
           --curtain-left: -80%;
@@ -95,7 +63,6 @@ export default function Hero() {
 
         @media (min-width: 768px) {
           .hero-section {
-            --hero-polygon: ${POLYGONS.tablet};
             --content-y: -35vw;
             --video-y: -20vw;
             --curtain-left: -65%;
@@ -105,7 +72,6 @@ export default function Hero() {
 
         @media (min-width: 1440px) {
           .hero-section {
-            --hero-polygon: ${POLYGONS.desktop};
             --content-y: -14vw;
             --video-y: -5vw;
             --curtain-left: -35%;
@@ -149,11 +115,11 @@ export default function Hero() {
             className="relative w-full h-full bg-black overflow-hidden"
             style={{
               clipPath:
-                'polygon(0% 0%, 95.5% 0%, 82% 48%, 91% 48%, 83% 78%, 76% 100%, 0% 100%)',
+                'polygon(0% 0%, 99.5% 0%, 79.5% 51.5%, 90.5% 51.5%, 82% 78%, 76% 100%, 0% 100%)',
             }}
           >
             <Image
-              src="/hero_section/left_image.png"
+              src="/hero_section/v2/left_image.png"
               alt="left"
               fill
               className="object-cover"
@@ -165,10 +131,36 @@ export default function Hero() {
               viewBox="0 0 100 100"
               preserveAspectRatio="none"
             >
+              <defs>
+                <filter
+                  id="roughStroke"
+                  x="-10%"
+                  y="-10%"
+                  width="100%"
+                  height="100%"
+                >
+                  <feTurbulence
+                    type="fractalNoise"
+                    baseFrequency="0.3"
+                    numOctaves="8"
+                    result="noise"
+                  />
+                  <feDisplacementMap
+                    in="SourceGraphic"
+                    in2="noise"
+                    scale="2"
+                    xChannelSelector="R"
+                    yChannelSelector="G"
+                  />
+                </filter>
+              </defs>
               <polyline
-                points="96,0 82,48 91.5,48 83.5,78 76,100"
+                points="99,0 80,52 91.5,52 82.5,78 76,100"
                 fill="none"
                 className="stroke-brandRed-400 lg:stroke-[3px] stroke-[5px]"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{ filter: 'url(#roughStroke)' }}
               />
             </svg>
           </div>
@@ -202,7 +194,7 @@ export default function Hero() {
             }}
           >
             <Image
-              src="/hero_section/right_image.png"
+              src="/hero_section/v2/right_image.png"
               alt="right"
               fill
               className="object-cover"
@@ -214,20 +206,49 @@ export default function Hero() {
               viewBox="0 0 100 100"
               preserveAspectRatio="none"
             >
+              <defs>
+                <filter
+                  id="roughStrokePrimary"
+                  x="-10%"
+                  y="-10%"
+                  width="100%"
+                  height="100%"
+                >
+                  <feTurbulence
+                    type="fractalNoise"
+                    baseFrequency="0.3"
+                    numOctaves="8"
+                    result="noise"
+                  />
+                  <feDisplacementMap
+                    in="SourceGraphic"
+                    in2="noise"
+                    scale="2"
+                    xChannelSelector="R"
+                    yChannelSelector="G"
+                  />
+                </filter>
+              </defs>
               <polyline
                 points="26,-1 14,47 23,47 14,78 7,100"
                 fill="none"
                 className="stroke-primary-600 lg:stroke-[3px] stroke-[5px]"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{ filter: 'url(#roughStrokePrimary)' }}
               />
             </svg>
           </div>
         </div>
       </motion.div>
 
-      {/* Layer 4: White Overlay (Z-40) */}
-      <div
-        className="absolute inset-0 z-40 bg-white pointer-events-none"
-        style={{ clipPath: `var(--hero-polygon)` }}
+      {/* Layer 4: Vector Image (Z-40) */}
+      <Image
+        src="/hero_section/bottom_vector.svg"
+        alt="Vector"
+        width={1920}
+        height={1080}
+        className="absolute bottom-0 left-0 w-full h-auto z-40 pointer-events-none translate-y-[70%]"
       />
 
       {/* Layer 3: Text & Button (Z-30) */}

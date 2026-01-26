@@ -44,6 +44,8 @@ export default function HistoricStakes() {
         'md:min-h-[885px]',
         // Behavior
         'overflow-hidden',
+        // Spacing
+        'md:pt-0 pt-[50px]',
       )}
     >
       {/* --- HEADER SECTION --- */}
@@ -57,6 +59,7 @@ export default function HistoricStakes() {
           'relative z-15', // Fixed typo: z-15 is not a default Tailwind class, used z-10
         )}
       >
+        {/* Football Player Image */}
         <Image
           src="/historic_stakes_section/football_player.png"
           alt="Historic Stakes"
@@ -67,6 +70,7 @@ export default function HistoricStakes() {
             'absolute w-full h-full',
             'lg:top-[18%] md:top-[10%] top-[7%]',
             'lg:left-[4%] md:left-[6%] left-[-5%]',
+            'z-10',
             // Visuals (Scaling)
             'object-contain',
             'lg:scale-[115%] md:scale-[130%] scale-[180%] z-10',
@@ -89,12 +93,29 @@ export default function HistoricStakes() {
           )}
         />
 
+        {/* Football Player Background */}
+        <Image
+          src="/historic_stakes_section/football_player_background.png"
+          alt="Historic Stakes"
+          width={1920}
+          height={1080}
+          className={cn(
+            // Positioning
+            'absolute w-full h-full',
+            'lg:top-[18%] md:top-[10%] top-[7%]',
+            'lg:left-[4%] md:left-[6%] left-[5%]',
+            // Visuals (Scaling)
+            'object-contain',
+            'lg:scale-[80%] md:scale-[130%] scale-[150%]',
+          )}
+        />
+
         {/* Left Text */}
         <p
           className={cn(
             // Typography
             'uppercase font-black',
-            'lg:text-h2 md:text-h4 text-h2',
+            'lg:text-h2 md:text-h4 text-h4',
             'md:text-end text-center',
             'text-white',
             // Sizing
@@ -114,7 +135,8 @@ export default function HistoricStakes() {
           className={cn(
             // Typography
             'uppercase font-black',
-            'lg:text-h2 md:text-h4 text-h2',
+            'lg:text-h2 md:text-h4 text-h4',
+            'md:text-start text-center',
             'text-white',
             // Sizing
             'lg:w-[400px] md:w-[200px] w-[300px]',
@@ -135,6 +157,7 @@ export default function HistoricStakes() {
           // Spacing
           'lg:-mt-0 md:-mt-20',
           'mb-10',
+          'lg:-mt-10 md:-mt-[130px]',
           // Positioning
           'z-20',
         )}
@@ -148,7 +171,7 @@ export default function HistoricStakes() {
           className={cn('w-full relative')}
         >
           <CarouselContent className="-ml-4">
-            {Array.from({ length: 15 }).map((_, index) => {
+            {Array.from({ length: 8 }).map((_, index) => {
               const imageSrc = CAROUSEL_IMAGES[index % CAROUSEL_IMAGES.length];
 
               return (
@@ -238,7 +261,7 @@ export default function HistoricStakes() {
               aria-label={`Go to slide ${index + 1}`}
               className={cn(
                 // Sizing
-                'md:h-5 md:w-5 h-3 w-3',
+                'h-4 w-4',
                 // Animation
                 'transition-all duration-300',
                 // Conditional Styling
@@ -262,6 +285,7 @@ export default function HistoricStakes() {
             'lg:w-[42%] md:w-[85%] w-[80%]',
             // Spacing
             'mt-9',
+            'text-white',
           )}
         >
           <span className="text-center">
@@ -286,7 +310,7 @@ export default function HistoricStakes() {
           // Positioning
           'absolute inset-0 z-10',
           // Visuals
-          'bg-gradient-to-t from-black md:from-30% from-60% to-transparent to-90%',
+          'bg-gradient-to-t from-black md:from-20% from-50% to-transparent to-90%',
           // Interaction
           'pointer-events-none',
         )}

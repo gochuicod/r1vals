@@ -31,8 +31,8 @@ export async function POST(req: Request) {
     // 3. Define the Tasks
     // We wrap them in promises so we can run them in parallel
     const emailAdminTask = resend.emails.send({
-      from: 'R1VALS <no-reply@wisedrive.my>',
-      to: ['nurhafiz.zubir@wisedrive.com'],
+      from: 'R1VALS <no-reply@r1vals.com>',
+      to: ['darelle@infigroup.co'],
       subject: `New Registration: ${data.interest.toUpperCase()} - ${data.fullName}`,
       html: `
         <h2>New R1VALS Protocol Entry</h2>
@@ -46,7 +46,7 @@ export async function POST(req: Request) {
     });
 
     const emailUserTask = resend.emails.send({
-      from: 'R1VALS <no-reply@wisedrive.my>',
+      from: 'R1VALS <no-reply@r1vals.com>',
       to: [data.email],
       subject: 'We received your R1VALS application',
       html: `

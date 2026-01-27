@@ -41,15 +41,15 @@ export default function Contact() {
                     Are you ready to change your life?
                 </h2>
 
-                <p className="font-heading text-[#DDE2FF] text-center lg:text-start text-[16px] md:text-[18px] opacity-90">
+                <p className="font-heading text-[#DDE2FF] text-center lg:text-start text-[16px] lg:text-[20px] opacity-90">
                     Whether you have a powerhouse squad ready to dominate or you're a solo player looking to join the ranks, we want to hear from you.
                 </p>
               </div>
 
-              <div className="w-full">
+              <div className="w-full flex justify-center items-center">
                 <BrushedOfferContainer>
-                    <p className="font-heading tracking-widest text-xs md:text-sm lg:text-base text-center text-white py-2 px-4">
-                       <span className="font-bold">FooLIMITED OFFER:</span> Register your team early to unlock a Tiered Registration Discount. Secure your spot before the bracket fills up!
+                    <p className="font-heading font-normal tracking-[0%] text-[16px] lg:text-[20px] text-center text-white p-4">
+                       FooLIMITED OFFER: Register your team early to unlock a Tiered Registration Discount. Secure your spot before the bracket fills up!
                     </p>
                 </BrushedOfferContainer>
               </div>

@@ -1,5 +1,25 @@
 "use client";
 
+/**
+ * BUTTON COMPONENT DOCUMENTATION
+ * * This is a multi-purpose button component that automatically switches between 
+ * a <button>, a Next.js <Link>, or a smooth-scrolling <a> tag based on props.
+ * * @example Standard Button
+ * <Button onClick={() => console.log("clicked")}>Click Me</Button>
+ * * @example Smooth Scroll Link (Anchor)
+ * <Button href="#features" smoothScroll variant="yellow">Go to Features</Button>
+ * * @example Navigation Link (Internal)
+ * <Button href="/about">About Us</Button>
+ * * @example External Link
+ * <Button href="https://google.com" target="_blank">External</Button>
+ * * @props
+ * - variant: 'default' | 'protocol' | 'yellow'
+ * - size: 'default' | 'sm' | 'lg' | 'protocol'
+ * - isLoading: Boolean - Shows a spinner and disables the button
+ * - smoothScroll: Boolean - Enables the custom smooth scroll hook logic
+ * - leftIcon/rightIcon: ReactNode - Slots for icons
+ */
+
 import * as React from 'react';
 import Link from 'next/link';
 import { cva, type VariantProps } from 'class-variance-authority';
@@ -7,13 +27,13 @@ import { cn } from '@/lib/utils';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-none font-black uppercase transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 font-body h-auto min-h-10',
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-none font-black uppercase transition-all duration-300 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 font-body h-auto min-h-10',
   {
     variants: {
       variant: {
         default: 'bg-black border border-[#FF1B1B] text-[#FF0055] shadow-[0px_0px_15.6256px_#0022FF,3.12513px_3.12513px_0px_#0022FF] hover:shadow-[0px_0px_20px_#0022FF,4px_4px_0px_#0022FF] active:shadow-[0px_0px_10px_#0022FF,2px_2px_0px_#0022FF]',
         protocol: 'bg-black border border-[#FF1B1B] text-white text-center font-heading uppercase font-bold leading-none shadow-[0px_0px_15.6256px_#0022FF,3.12513px_3.12513px_0px_#0022FF] hover:cursor-default',
-        yellow: 'bg-black border-[1.9532px] border-[#FCC800] normal-case text-[#FCC800] font-bold text-center shadow-[0px_0px_15.6256px_#FCC800]',
+        yellow: 'bg-black border-2 border-[#FCC800] normal-case text-[#FCC800] hover:text-black hover:bg-[#FCC800] hover:border-black hover:scale-[1.05] font-bold text-center shadow-[0px_0px_15.6256px_#FCC800] will-change-transform',
       },
       size: {
         default: 'px-4 py-2 text-xs md:px-8 md:py-4 md:text-sm',
@@ -29,7 +49,6 @@ const buttonVariants = cva(
   },
 );
 
-// Use a more flexible interface to avoid "href" conflicts on buttons
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
@@ -69,16 +88,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const commonClasses = cn(buttonVariants({ variant, size }), className);
 
-    // Handle Smooth Scroll clicks
     const handleSmoothClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
       if (isSmooth && href) {
         scrollTo(e, href);
       }
-      // Cast to MouseEvent to satisfy common usage
       if (props.onClick) props.onClick(e as unknown as React.MouseEvent<HTMLButtonElement>);
     };
 
-    // 1. If it's a link (external or hash)
     if (href) {
       const linkProps = {
         className: commonClasses,

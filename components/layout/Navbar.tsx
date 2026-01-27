@@ -43,9 +43,10 @@ export default function Navbar() {
         <Link href="/#chaos-league">chaos league</Link>
         <Link href="/#watch-live">watch live</Link>
         <Button
-          href='#contact'
+          href="#contact"
           variant="yellow"
           size="lg"
+          smoothScroll={true}
         >
           Register Now!
         </Button>

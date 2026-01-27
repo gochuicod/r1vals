@@ -22,10 +22,13 @@ export default function Navbar() {
 
   // Define navigation links
   const navlinks = [
-    { href: '/#wild-events', hash: '#wild-events', label: 'wild events' },
-    { href: '/#legends', hash: '#legends', label: 'legends' },
-    { href: '/#chaos-league', hash: '#chaos-league', label: 'chaos league' },
-    { href: '/#watch-live', hash: '#watch-live', label: 'watch live' },
+    {
+      href: '/#tournament-info',
+      hash: '#tournament-info',
+      label: 'tournament info',
+    },
+    { href: '/#about', hash: '#about', label: 'about' },
+    { href: '/#Mission', hash: '#Mission', label: 'mission' },
   ];
 
   return (

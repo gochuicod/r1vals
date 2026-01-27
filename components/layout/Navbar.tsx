@@ -52,15 +52,14 @@ export default function Navbar() {
                 'transition-all duration-200 hover:text-[#FCC800]',
                 isActive
                   ? 'text-[#FCC800] underline underline-offset-4 decoration-[#FCC800]'
-                  : 'text-[#E8F5E8]',
+                  : 'text-inherit',
               )}
             >
               {link.label}
             </Link>
           );
         })}
-
-        <Button href="#contact" variant="yellow" size="lg" smoothScroll={true}>
+        <Button href="#contact" variant="yellow" size="sm" smoothScroll={true}>
           Register Now!
         </Button>
       </div>

@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
 /**
  * BUTTON COMPONENT DOCUMENTATION
- * * A versatile button that handles standard actions, internal routing, 
+ * * A versatile button that handles standard actions, internal routing,
  * and smooth-scrolling for anchor links.
  * * @example Standard Action
  * <Button onClick={() => doSomething()}>Click Me</Button>
@@ -28,15 +28,19 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-black border border-[#FF1B1B] text-[#FF0055] shadow-[0px_0px_15.6256px_#0022FF,3.12513px_3.12513px_0px_#0022FF] hover:shadow-[0px_0px_20px_#0022FF,4px_4px_0px_#0022FF] active:shadow-[0px_0px_10px_#0022FF,2px_2px_0px_#0022FF]',
-        protocol: 'bg-black border border-[#FF1B1B] text-white text-center font-heading uppercase font-bold leading-none shadow-[0px_0px_15.6256px_#0022FF,3.12513px_3.12513px_0px_#0022FF] hover:cursor-default',
-        yellow: 'bg-black/50 border-2 border-[#FCC800] normal-case text-[#FCC800] hover:text-black hover:bg-[#FCC800] hover:border-black hover:scale-[1.05] active:scale-[0.95] font-bold text-center shadow-[0px_0px_15.6256px_#FCC800] will-change-transform',
+        default:
+          'bg-black border border-[#FF1B1B] text-[#FF0055] shadow-[0px_0px_15.6256px_#0022FF,3.12513px_3.12513px_0px_#0022FF] hover:shadow-[0px_0px_20px_#0022FF,4px_4px_0px_#0022FF] active:shadow-[0px_0px_10px_#0022FF,2px_2px_0px_#0022FF]',
+        protocol:
+          'bg-black border border-[#FF1B1B] text-white text-center font-heading uppercase font-bold leading-none shadow-[0px_0px_15.6256px_#0022FF,3.12513px_3.12513px_0px_#0022FF] hover:cursor-default',
+        yellow:
+          'bg-black/50 border-2 border-[#FCC800] normal-case text-[#FCC800] hover:text-black hover:bg-[#FCC800] hover:border-black hover:scale-[1.05] active:scale-[0.95] font-bold text-center hover:shadow-[0px_0px_15.6256px_#FCC800] will-change-transform',
       },
       size: {
         default: 'px-4 py-2 text-xs md:px-8 md:py-4 md:text-sm',
-        sm: 'px-5 py-3 text-lg',
+        sm: 'px-4 py-2 text-lg',
         lg: 'px-8 py-4',
-        protocol: 'w-full px-4 py-3 text-lg md:w-fit md:px-8 md:py-4 md:text-btn-protocol',
+        protocol:
+          'w-full px-4 py-3 text-lg md:w-fit md:px-8 md:py-4 md:text-btn-protocol',
       },
     },
     defaultVariants: {
@@ -47,7 +51,8 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   isLoading?: boolean;
   leftIcon?: React.ReactNode;
@@ -58,9 +63,24 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, isLoading, leftIcon, rightIcon, href, target, children, smoothScroll, ...props }, ref) => {
+  (
+    {
+      className,
+      variant,
+      size,
+      isLoading,
+      leftIcon,
+      rightIcon,
+      href,
+      target,
+      children,
+      smoothScroll,
+      ...props
+    },
+    ref,
+  ) => {
     const scrollTo = useSmoothScroll();
-    
+
     const isExternal = href && /^(http|mailto:|tel:)/.test(href);
     const isSmooth = smoothScroll && (href === '/' || href?.includes('#'));
     const isDisabled = isLoading || props.disabled;
@@ -71,15 +91,19 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
         )}
         {!isLoading && leftIcon && <span className="shrink-0">{leftIcon}</span>}
-        
-        <span className={cn(
-          "leading-none", 
-          variant === 'yellow' && "flex items-center justify-center"
-        )}>
+
+        <span
+          className={cn(
+            'leading-none',
+            variant === 'yellow' && 'flex items-center justify-center',
+          )}
+        >
           {children}
         </span>
-        
-        {!isLoading && rightIcon && <span className="shrink-0">{rightIcon}</span>}
+
+        {!isLoading && rightIcon && (
+          <span className="shrink-0">{rightIcon}</span>
+        )}
       </>
     );
 
@@ -89,14 +113,16 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       if (isSmooth && href) {
         scrollTo(e, href);
       }
-      if (props.onClick) props.onClick(e as unknown as React.MouseEvent<HTMLButtonElement>);
+      if (props.onClick)
+        props.onClick(e as unknown as React.MouseEvent<HTMLButtonElement>);
     };
 
     if (href) {
       const linkProps = {
         className: commonClasses,
         target: target || (isExternal ? '_blank' : undefined),
-        rel: target === '_blank' || isExternal ? 'noopener noreferrer' : undefined,
+        rel:
+          target === '_blank' || isExternal ? 'noopener noreferrer' : undefined,
       };
 
       if (isExternal || isSmooth) {
@@ -124,7 +150,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {renderContent}
       </button>
     );
-  }
+  },
 );
 
 Button.displayName = 'Button';

@@ -52,7 +52,7 @@ export default function Navbar() {
               className={cn(
                 'transition-all duration-200 hover:text-yellow-400',
                 isActive
-                  ? 'text-yellow-400 underline underline-offset-8 decoration-yellow-400'
+                  ? 'text-yellow-400 underline underline-offset-4 decoration-yellow-400'
                   : 'text-[#E8F5E8]',
               )}
             >

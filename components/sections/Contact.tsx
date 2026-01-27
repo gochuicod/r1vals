@@ -30,7 +30,7 @@ export default function Contact() {
           <div className="flex flex-col flex-1 w-full lg:w-[60%] lg:max-w-[742px] justify-center relative lg:mt-0 overflow-visible">
             
             {/* BANNER: Positioned more safely for mobile */}
-            <div className="relative w-full -left-12 top-6 lg:top-2 lg:-left-16 z-10">
+            <div className="relative w-full top-2 lg:top-2 lg:-left-4 z-10">
                <RegistrationBanner />
             </div>
 

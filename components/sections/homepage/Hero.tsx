@@ -270,7 +270,7 @@ export default function Hero() {
         <span className="text-h2 text-white text-center font-black uppercase w-full pointer-events-auto">
           win $100,000 cash prize
         </span>
-        <Button variant="protocol" className="text-[35px]" size="lg">
+        <Button variant="protocol" className="text-[20px]" size="lg">
           7x7 PROTOCOL: ASIA’S LARGEST
         </Button>
       </motion.div>

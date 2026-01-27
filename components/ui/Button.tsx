@@ -12,7 +12,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: 'bg-black border border-[#FF1B1B] text-[#FF0055] shadow-[0px_0px_15.6256px_#0022FF,3.12513px_3.12513px_0px_#0022FF] hover:shadow-[0px_0px_20px_#0022FF,4px_4px_0px_#0022FF] active:shadow-[0px_0px_10px_#0022FF,2px_2px_0px_#0022FF]',
-        protocol: 'bg-black border border-[#FF1B1B] text-white text-center font-bebas_neue font-bold leading-none shadow-[0px_0px_15.6256px_#0022FF,3.12513px_3.12513px_0px_#0022FF] hover:cursor-default',
+        protocol: 'bg-black border border-[#FF1B1B] text-white text-center font-heading uppercase font-bold leading-none shadow-[0px_0px_15.6256px_#0022FF,3.12513px_3.12513px_0px_#0022FF] hover:cursor-default',
         yellow: 'bg-black border-[1.9532px] border-[#FCC800] text-[#FCC800] font-bold text-center shadow-[0px_0px_15.6256px_#FCC800]',
       },
       size: {

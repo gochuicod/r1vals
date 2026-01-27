@@ -59,7 +59,7 @@ export default function Navbar() {
             </Link>
           );
         })}
-        <Button href="#contact" variant="yellow" size="lg" smoothScroll={true}>
+        <Button href="#contact" variant="yellow" size="sm" smoothScroll={true}>
           Register Now!
         </Button>
       </div>

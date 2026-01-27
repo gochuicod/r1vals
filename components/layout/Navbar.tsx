@@ -49,17 +49,16 @@ export default function Navbar() {
               href={link.href}
               onClick={() => setActiveHash(link.hash)}
               className={cn(
-                'transition-all duration-200 hover:text-[#FCC800]',
+                'transition-all duration-200 hover:text-yellow-400',
                 isActive
-                  ? 'text-[#FCC800] underline underline-offset-4 decoration-[#FCC800]'
-                  : 'text-[#E8F5E8]',
+                  ? 'text-yellow-400 underline underline-offset-4 decoration-yellow-400'
+                  : 'text-inherit',
               )}
             >
               {link.label}
             </Link>
           );
         })}
-
         <Button href="#contact" variant="yellow" size="lg" smoothScroll={true}>
           Register Now!
         </Button>

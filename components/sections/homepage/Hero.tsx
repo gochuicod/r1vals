@@ -4,12 +4,27 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { motion } from 'motion/react';
-import { YouTubeEmbed } from '@next/third-parties/google';
 
 export default function Hero() {
   const [loadedCount, setLoadedCount] = useState(0);
   const [startAnimation, setStartAnimation] = useState(false);
   const [showGlow, setShowGlow] = useState(false);
+  // 1. NEW STATE: Controls when the video starts
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+
+  // Detect screen width
+  const [isMobile, setIsMobile] = useState(true);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsDesktop(window.innerWidth >= 1440);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleImageLoad = () => setLoadedCount((prev) => prev + 1);
   const isReady = loadedCount >= 2;
@@ -21,6 +36,17 @@ export default function Hero() {
     }
   }, [isReady]);
 
+  const getVar = (mobile: string, tablet: string, desktop: string) => {
+    if (isDesktop) return desktop;
+    if (isMobile) return mobile;
+    return tablet;
+  };
+
+  const contentY = getVar('-65vw', '-35vw', '-14vw');
+  const videoY = getVar('-35vw', '-20vw', '0vw');
+  const curtainLeft = getVar('-70%', '-40%', '-23%');
+  const curtainRight = getVar('65%', '35%', '18%');
+
   const mainTransition = { duration: 1.2, ease: [0.22, 1, 0.36, 1] as const };
 
   const pulseTransition = {
@@ -30,10 +56,9 @@ export default function Hero() {
     ease: 'easeInOut' as const,
   };
 
-  // --- FIXED: Renamed from getContentAnimation to getTextAnimation ---
   const getTextAnimation = () => {
     if (startAnimation) {
-      return { opacity: 1, scale: 0.5, y: 'var(--content-y)' };
+      return { opacity: [0, 1, 0], scale: 0.5, y: contentY };
     }
     if (isReady) {
       return { opacity: 1, scale: 1, y: 0 };
@@ -43,7 +68,7 @@ export default function Hero() {
 
   const getVideoAnimation = () => {
     if (startAnimation) {
-      return { opacity: 1, y: 'var(--video-y)' };
+      return { opacity: 1, y: videoY };
     }
     if (isReady) {
       return { opacity: 1, y: 0 };
@@ -52,35 +77,8 @@ export default function Hero() {
   };
 
   return (
-    <section className="hero-section relative w-full h-[876px] overflow-hidden bg-black">
-      <style jsx>{`
-        .hero-section {
-          --content-y: -65vw;
-          --video-y: -55vw;
-          --curtain-left: -80%;
-          --curtain-right: 75%;
-        }
-
-        @media (min-width: 768px) {
-          .hero-section {
-            --content-y: -35vw;
-            --video-y: -20vw;
-            --curtain-left: -65%;
-            --curtain-right: 65%;
-          }
-        }
-
-        @media (min-width: 1440px) {
-          .hero-section {
-            --content-y: -14vw;
-            --video-y: -5vw;
-            --curtain-left: -35%;
-            --curtain-right: 30%;
-          }
-        }
-      `}</style>
-
-      {/* Layer 0: Static Background (Implicit Z-0) */}
+    <section className="relative w-full h-[876px] overflow-hidden bg-black">
+      {/* Layer 0: Static Background */}
       <Image
         src="/hero_section/football_background.png"
         alt="background"
@@ -89,7 +87,7 @@ export default function Hero() {
         priority
       />
 
-      {/* Layer 2: Left Curtain (Z-20) */}
+      {/* Layer 2: Left Curtain */}
       <motion.div
         className="absolute top-0 left-0 w-[59%] h-[930px] z-20"
         initial={{
@@ -97,7 +95,7 @@ export default function Hero() {
           filter: 'drop-shadow(0px 0px 0px rgba(239, 68, 68, 0))',
         }}
         animate={{
-          x: startAnimation ? 'var(--curtain-left)' : '0%',
+          x: startAnimation ? curtainLeft : '0%',
           filter: showGlow
             ? [
                 'drop-shadow(8px 0px 20px rgba(239, 68, 68, 0.6))',
@@ -107,7 +105,11 @@ export default function Hero() {
         }}
         transition={{ x: mainTransition, filter: pulseTransition }}
         onAnimationComplete={() => {
-          if (startAnimation) setShowGlow(true);
+          if (startAnimation) {
+            setShowGlow(true);
+            // 2. TRIGGER VIDEO: Once animation is done, allow video to load/play
+            setIsVideoPlaying(true);
+          }
         }}
       >
         <div className="relative w-full h-full">
@@ -126,6 +128,7 @@ export default function Hero() {
               priority
               onLoad={handleImageLoad}
             />
+            {/* SVG overlay code remains the same */}
             <svg
               className="absolute inset-0 w-full h-full pointer-events-none"
               viewBox="0 0 100 100"
@@ -167,7 +170,7 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Layer 2: Right Curtain (Z-20) */}
+      {/* Layer 2: Right Curtain (Code remains identical) */}
       <motion.div
         className="absolute top-0 right-0 w-[59%] h-[930px] z-20"
         initial={{
@@ -175,7 +178,7 @@ export default function Hero() {
           filter: 'drop-shadow(0px 0px 0px rgba(95, 252, 255, 0))',
         }}
         animate={{
-          x: startAnimation ? 'var(--curtain-right)' : '0%',
+          x: startAnimation ? curtainRight : '0%',
           filter: showGlow
             ? [
                 'drop-shadow(-8px 0px 20px rgba(95, 252, 255, 0.6))',
@@ -201,6 +204,7 @@ export default function Hero() {
               priority
               onLoad={handleImageLoad}
             />
+            {/* SVG overlay code remains the same */}
             <svg
               className="absolute inset-0 w-full h-full pointer-events-none"
               viewBox="0 0 100 100"
@@ -242,7 +246,7 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Layer 4: Vector Image (Z-40) */}
+      {/* Layer 4: Vector Image */}
       <Image
         src="/hero_section/bottom_vector.svg"
         alt="Vector"
@@ -251,7 +255,7 @@ export default function Hero() {
         className="absolute bottom-0 left-0 w-full h-auto z-40 pointer-events-none translate-y-[70%]"
       />
 
-      {/* Layer 3: Text & Button (Z-30) */}
+      {/* Layer 3: Text & Button */}
       <motion.div
         className="absolute inset-0 z-30 flex flex-col items-center lg:justify-center justify-end gap-4 lg:mb-0 mb-20 pointer-events-none"
         initial={{ opacity: 0, y: 20, scale: 1 }}
@@ -275,7 +279,7 @@ export default function Hero() {
         </Button>
       </motion.div>
 
-      {/* Layer 1: Video (Z-10) */}
+      {/* Layer 1: Video */}
       <motion.div
         className="absolute inset-0 z-10 flex flex-col items-center justify-end lg:justify-center pointer-events-none"
         initial={{ opacity: 0, y: 20 }}
@@ -283,12 +287,30 @@ export default function Hero() {
         transition={mainTransition}
       >
         {isReady && (
-          <div className="pointer-events-auto mt-[320px] md:mt-[350px] lg:mt-[280px] w-full max-w-[660px] mx-auto rounded-xl overflow-hidden border border-white/20 shadow-2xl bg-black aspect-video">
-            <YouTubeEmbed
-              videoid="JokmaXB3vqI"
-              style="width: 100%; height: 100%;"
-              params="controls=1&rel=0"
-            />
+          <div
+            className="
+              pointer-events-auto
+              w-full max-w-[300px] mx-auto
+              rounded-xl overflow-hidden
+              border border-white/20 shadow-2xl bg-black
+              aspect-[9/16]
+              relative
+            "
+          >
+            {/* 3. CONDITIONAL RENDERING: Only render iframe if isVideoPlaying is true */}
+            {isVideoPlaying ? (
+              <iframe
+                className="w-full h-full object-cover"
+                src="https://www.youtube.com/embed/_jNYV71IBt0?autoplay=1&mute=1&controls=0&loop=1&playlist=_jNYV71IBt0&rel=0&playsinline=1&modestbranding=1"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            ) : (
+              // Optional: A placeholder so the black box isn't transparent (though bg-black handles this)
+              <div className="w-full h-full bg-black" />
+            )}
           </div>
         )}
       </motion.div>

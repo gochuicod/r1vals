@@ -27,7 +27,7 @@ export default function Footer() {
       {/* 2. Responsive Shape Container */}
       <div
         className={cn(
-          'bg-primary-700 text-white',
+          'bg-primary-deep text-white',
           'lg:px-[182px] px-[34px]',
           'md:pt-[114px] pt-[70px] pb-[51px]',
         )}
@@ -74,7 +74,7 @@ export default function Footer() {
 
           {/* 5. Legal Links Section */}
           <div className="flex items-center gap-6 text-xs font-bold uppercase">
-            {['privacy', 'terms', 'cookies'].map((link) => (
+            {['privacy', 'terms'].map((link) => (
               <Link
                 key={link}
                 href={`/#${link}`}

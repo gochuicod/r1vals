@@ -47,12 +47,11 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              // 2. Force update state on click
               onClick={() => setActiveHash(link.hash)}
               className={cn(
-                'transition-all duration-200 hover:text-yellow-400',
+                'transition-all duration-200 hover:text-[#FCC800]',
                 isActive
-                  ? 'text-yellow-400 underline underline-offset-4 decoration-yellow-400'
+                  ? 'text-[#FCC800] underline underline-offset-4 decoration-[#FCC800]'
                   : 'text-[#E8F5E8]',
               )}
             >

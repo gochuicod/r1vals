@@ -78,7 +78,7 @@ const ContactForm = () => {
         
         {/* Header Section */}
         <div className="text-center justify-center">
-            <p className="text-base md:text-lg text-white/90 leading-relaxed">
+            <p className="text-[16px] lg:text-[20px] text-white/90 leading-relaxed">
                 Complete the form below to be considered for the R1VALS Protocol.
             </p>
         </div>
@@ -118,7 +118,7 @@ const ContactForm = () => {
             
             {/* Interest Selection */}
             <div className="flex flex-col gap-3 md:flex-[2]">
-                <label className="text-sm font-bold tracking-wide text-white/80">I AM INTERESTED IN:</label>
+                <label className="text-[16px] font-bold normal-case font-heading tracking-[0%] text-white">I am Interesed in: </label>
                 
                 {errors.interest && (
                    <span className="text-red-400 text-xs font-semibold">{errors.interest.message}</span>

@@ -10,7 +10,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="flex flex-col gap-1.5 w-full">
         {/* Label on top */}
-        <label className="text-xs md:text-sm font-bold whitespace-nowrap tracking-wide text-white/80 uppercase">
+        <label className="text-[16px] font-bold font-heading normal-case whitespace-nowrap tracking-wide text-white ">
           {label}
         </label>
         

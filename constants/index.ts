@@ -63,3 +63,9 @@ export const CAROUSEL_IMAGES = [
   '/historic_stakes_section/carousel/v3/item_7.png',
   '/historic_stakes_section/carousel/v3/item_8.png',
 ] as const;
+
+export const CONTACT_DETAILS = {
+  name: 'R1VALS Sports',
+  number: '+63 917 507 4014',
+  rawNumber: '+639175074014', // Clean number for dialer/vcard
+} as const;

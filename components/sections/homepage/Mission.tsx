@@ -4,9 +4,10 @@ import { useEffect, useState, useRef } from 'react';
 import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
 import Autoplay from 'embla-carousel-autoplay';
+import Image from 'next/image';
 
 // --- IMPORTS ---
-import Highlights from '@/components/ui/Highlights'; 
+import Highlights from '@/components/ui/Highlights';
 import { HIGHLIGHT_CARDS_DATA } from '@/constants/index';
 
 import {
@@ -59,7 +60,7 @@ export default function Mission() {
     <section
       className={cn(
         // Layout
-        'flex flex-col justify-center items-center',
+        'relative flex flex-col justify-center items-center',
         // Sizing
         'min-h-[708px]',
         // Spacing
@@ -67,11 +68,24 @@ export default function Mission() {
         'gap-8',
         // Behavior
         'overflow-hidden',
-        // Background
-        'bg-[url("/mission_section/background.svg")]',
-        'bg-no-repeat bg-cover bg-center',
       )}
     >
+      {/* =========================================
+          BACKGROUND LAYER
+          Matches the logic: Forces desktop width on mobile,
+          reverts to full width on desktop.
+          ========================================= */}
+      <div className="absolute inset-0 flex justify-center items-center z-0">
+        <div className="relative h-full min-w-[1280px] lg:min-w-0 lg:w-full">
+          <Image
+            src="/mission_section/background.svg"
+            alt="Mission Background"
+            fill
+            className="object-cover object-center"
+            priority
+          />
+        </div>
+      </div>
       {/* --- HEADING SECTION --- */}
       <div className="flex flex-col w-full">
         <h4
@@ -129,10 +143,7 @@ export default function Mission() {
         >
           {HIGHLIGHT_CARDS_DATA.map((card, index) => (
             <div key={index} className="flex justify-center">
-              <Highlights 
-                imageSrc={card.imageSrc} 
-                altText={card.alt} 
-              />
+              <Highlights imageSrc={card.imageSrc} altText={card.alt} />
             </div>
           ))}
         </div>
@@ -180,10 +191,12 @@ export default function Mission() {
                       'md:basis-[40%] basis-[75%]',
                     )}
                   >
-                    <div className={cn('p-2 flex justify-center h-full w-full')}>
+                    <div
+                      className={cn('p-2 flex justify-center h-full w-full')}
+                    >
                       {/* Using the new Highlights component */}
-                      <Highlights 
-                        imageSrc={cardData.imageSrc} 
+                      <Highlights
+                        imageSrc={cardData.imageSrc}
                         altText={cardData.alt}
                         maxWidth="100%" // Ensure it fills the carousel slide
                       />

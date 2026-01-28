@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     // We wrap them in promises so we can run them in parallel
     const emailAdminTask = resend.emails.send({
       from: 'R1VALS <no-reply@r1vals.com>',
-      to: ['zeke@infigroup.co'],
+      to: ['info@r1vals.com'],
       subject: `New Registration: ${data.interest.toUpperCase()} - ${data.fullName}`,
       html: `
         <h2>New R1VALS Protocol Entry</h2>

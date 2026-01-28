@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/Button';
 import DropDown from '@/components/ui/DropDown';
+import { BrushedBorderContainer } from '../ui/BrushedBorderContainer';
 
 export default function Navbar() {
   const [activeHash, setActiveHash] = React.useState('');
@@ -79,35 +80,38 @@ export default function Navbar() {
             />
           }
           side="bottom-right"
-          className="flex flex-col w-[192px] h-[180px] border-2 border-white bg-black mt-2 p-6 gap-4 text-[#E8F5E8] text-[12px] uppercase leading-[16px]"
         >
-          {navlinks.map((link) => {
-            const isActive =
-              activeHash !== '' && link.href.includes(activeHash);
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setActiveHash(link.hash)}
-                className={cn(
-                  'transition-all duration-200 hover:text-[#FCC800]',
-                  isActive
-                    ? 'text-[#FCC800] underline underline-offset-4 decoration-[#FCC800]'
-                    : 'text-inherit',
-                )}
+          <BrushedBorderContainer className="mt-2">
+            <div className="flex flex-col w-[192px] h-[180px] p-6 gap-4 text-[#E8F5E8] text-[12px] uppercase leading-[16px]">
+              {navlinks.map((link) => {
+                const isActive =
+                  activeHash !== '' && link.href.includes(activeHash);
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setActiveHash(link.hash)}
+                    className={cn(
+                      'transition-all duration-200 hover:text-[#FCC800]',
+                      isActive
+                        ? 'text-[#FCC800] underline underline-offset-4 decoration-[#FCC800]'
+                        : 'text-inherit',
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+              <Button
+                href="#contact"
+                variant="yellow"
+                size="sm"
+                smoothScroll={true}
               >
-                {link.label}
-              </Link>
-            );
-          })}
-          <Button
-            href="#contact"
-            variant="yellow"
-            size="sm"
-            smoothScroll={true}
-          >
-            Register Now!
-          </Button>
+                Register Now!
+              </Button>
+            </div>
+          </BrushedBorderContainer>
         </DropDown>
       </div>
     </div>

@@ -37,7 +37,7 @@ export default function Navbar() {
   ];
 
   return (
-    <div className="fixed top-0 left-0 w-full z-[1000] flex justify-between items-center py-4 px-6 lg:px-[80px] lg:py-[20px] bg-black/60 max-h-[75px]">
+    <div className="fixed top-0 left-0 w-full z-[1000] flex justify-between items-center py-4 px-6 lg:px-[80px] lg:py-[20px] bg-black/35 max-h-[75px]">
       <Link
         href="/"
         onClick={(e) => {
@@ -118,7 +118,7 @@ export default function Navbar() {
                 );
               })}
               <Button
-                href="#contact"
+                href="/#contact"
                 variant="yellow"
                 size="sm"
                 smoothScroll={true}

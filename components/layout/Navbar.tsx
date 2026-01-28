@@ -102,7 +102,10 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    onClick={() => setActiveHash(link.hash)}
+                    onClick={(e) => {
+                      setActiveHash(link.hash); // Keep updating active state
+                      scrollTo(e, link.href); // Smooth scroll
+                    }}
                     className={cn(
                       'transition-all duration-200 hover:text-[#FCC800]',
                       isActive

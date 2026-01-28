@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/Button';
+import Drawer from '@/components/ui/drawer';
 
 export default function Navbar() {
   const [activeHash, setActiveHash] = React.useState('');
@@ -65,6 +66,32 @@ export default function Navbar() {
         <Button href="#contact" variant="yellow" size="lg" smoothScroll={true}>
           Register Now!
         </Button>
+      </div>
+
+      <div className="lg:hidden block">
+        <Drawer triggerIcon={<>Open</>} side="top" size={'40vw'}>
+          <div className="flex flex-col items-end h-full text-body-lg uppercase gap-6 text-[#E8F5E8]">
+            {navlinks.map((link) => {
+              const isActive =
+                activeHash !== '' && link.href.includes(activeHash);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setActiveHash(link.hash)}
+                  className={cn(
+                    'transition-all duration-200 hover:text-[#FCC800]',
+                    isActive
+                      ? 'text-[#FCC800] underline underline-offset-4 decoration-[#FCC800]'
+                      : 'text-inherit',
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </div>
+        </Drawer>
       </div>
     </div>
   );

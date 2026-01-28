@@ -56,7 +56,7 @@ export default function Contact() {
               <div className="w-full flex justify-center items-center">
                 <BrushedOfferContainer>
                     <p className="flex flex-col lg:max-w-[700px] md:max-w-[500px] max-w-full font-heading font-normal tracking-[0%] text-[16px] lg:text-[20px] text-center text-white p-4">
-                        <span className="font-bold text-[#FCC800]">FooLIMITED OFFER:</span>Register your team early to unlock a Tiered Registration Discount. Secure your spot before the bracket fills up!
+                        <span className="font-bold text-[#FCC800]">LIMITED OFFER:</span>Register your team early to unlock a Tiered Registration Discount. Secure your spot before the bracket fills up!
                     </p>
                 </BrushedOfferContainer>
               </div>
@@ -76,25 +76,24 @@ export default function Contact() {
                 <ul className="flex flex-col items-start p-0 gap-0 w-full self-stretch text-[14px] antialiased font-heading">
                   
                   {/* Bullet Item 1 */}
-                  <li className="flex items-center gap-2 text-white/80 leading-10">
-                    {/* Centered Bullet Dot */}
-                    <span className="h-1 w-1 rounded-full bg-white shrink-0" />
+                  <li className="flex h-auto md:items-center items-start gap-2 text-white/80 leading-normal">
+                    <span className="h-1 w-1 lg:mt-0 mt-2 rounded-full bg-white shrink-0" />
                     <p>
                       <span >Priority Selection:</span> R1VALS is a curated tournament; early applicants get first priority.
                     </p>
                   </li>
 
                   {/* Bullet Item 2 */}
-                  <li className="flex items-center gap-2 text-white/80 leading-10">
-                    <span className="h-1 w-1 rounded-full bg-white shrink-0" />
+                  <li className="flex h-auto md:items-center items-start gap-2 text-white/80 leading-normal">
+                    <span className="h-1 w-1 lg:mt-0 mt-2 rounded-full bg-white shrink-0" />
                     <p>
                       <span>Tiered Pricing:</span> The registration fee increases as we get closer to the event.
                     </p>
                   </li>
 
                   {/* Bullet Item 3 */}
-                  <li className="flex items-center gap-2 text-white/80 leading-10">
-                    <span className="h-1 w-1 rounded-full bg-white shrink-0" />
+                  <li className="flex h-auto md:items-center items-start gap-2 text-white/80 leading-normal">
+                    <span className="h-1 w-1 lg:mt-0 mt-2 rounded-full bg-white shrink-0" />
                     <p>
                       <span>Scout Visibility:</span> Get your team on the radar of our global streaming partners and scouts early.
                     </p>

@@ -3,6 +3,8 @@ import { getMessages } from 'next-intl/server';
 import type { Metadata } from 'next';
 import Script from 'next/script';
 
+import Banner from '@/components/ui/Banner';
+
 import { Inter, Orbitron, Space_Grotesk, Bebas_Neue } from 'next/font/google';
 
 import '@/app/globals.css';
@@ -83,6 +85,7 @@ export default async function LocaleLayout({
           <Navbar />
           <main className="flex-1 bg-black">{children}</main>
           <Footer />
+          <Banner />
         </NextIntlClientProvider>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-17904183438"

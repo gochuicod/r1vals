@@ -42,6 +42,8 @@ export default function HistoricStakes() {
         'flex flex-col relative',
         // Sizing
         'md:min-h-[885px]',
+        // Behavior
+        'overflow-visible',
         // Spacing
         'md:pt-0 pt-[50px]',
         'relative',
@@ -79,23 +81,7 @@ export default function HistoricStakes() {
             'z-[55]',
             // Visuals (Scaling)
             'object-contain',
-            'lg:scale-[115%] md:scale-[130%] scale-[180%] z-10',
-          )}
-        />
-
-        <Image
-          src="/historic_stakes_section/football_player_background.png"
-          alt="Historic Stakes"
-          width={1920}
-          height={1080}
-          className={cn(
-            // Positioning
-            'absolute w-full h-full',
-            'lg:top-[10%] md:top-[10%] top-[7%]',
-            'lg:left-[4%] md:left-[6%] left-[-5%]',
-            // Visuals (Scaling)
-            'object-contain',
-            'lg:scale-[75%] md:scale-[130%] scale-[180%]',
+            'lg:scale-[115%] md:scale-[130%] scale-[180%]',
           )}
         />
 
@@ -134,7 +120,7 @@ export default function HistoricStakes() {
             'relative z-[56]',
           )}
         >
-          the stage is <span className="text-brandRed-300">set</span>.
+          the stage is <span className="text-brandRed-400">set</span>.
         </p>
 
         {/* Right Text */}
@@ -148,15 +134,10 @@ export default function HistoricStakes() {
             // Sizing
             'lg:w-[400px] md:w-[200px] w-[300px]',
             // Positioning
-<<<<<<< HEAD
-            'relative z-20',
-            'md:text-start text-center',
-=======
             'relative z-[56]',
->>>>>>> staging
           )}
         >
-          the stakes are <span className="text-primary-500">historic</span>.
+          the stakes are <span className="text-primary-600">historic</span>.
         </p>
       </div>
 
@@ -166,7 +147,6 @@ export default function HistoricStakes() {
           // Layout
           'w-full relative',
           // Spacing
-          'lg:-mt-0 md:-mt-20',
           'mb-10',
           'lg:-mt-10 md:-mt-[130px]',
           // Positioning
@@ -237,7 +217,7 @@ export default function HistoricStakes() {
               // Layout & Positioning
               'absolute top-0 left-0 h-full z-10',
               // Sizing
-              'w-1/2',
+              'w-1/4',
               // Visuals
               'bg-[radial-gradient(circle_at_left,_var(--tw-gradient-stops))] from-black to-transparent',
               // Visibility
@@ -252,7 +232,7 @@ export default function HistoricStakes() {
               // Layout & Positioning
               'absolute top-0 right-0 h-full z-10',
               // Sizing
-              'w-1/2',
+              'w-1/4',
               // Visuals
               'bg-[radial-gradient(circle_at_right,_var(--tw-gradient-stops))] from-black to-transparent',
               // Visibility
@@ -291,7 +271,6 @@ export default function HistoricStakes() {
             'flex flex-col gap-4 mx-auto',
             // Typography
             'font-heading',
-            'text-white',
             // Sizing
             'lg:w-[42%] md:w-[85%] w-[80%]',
             // Spacing

@@ -76,7 +76,7 @@ export default function Hero() {
     contentWrapper: cn(
       'absolute z-[55] flex pointer-events-none transition-all',
       isVideoPlaying
-        ? 'inset-x-0 md:bottom-0 bottom-[-5vw] md:flex-row flex-col items-center md:justify-between justify-center px-8 pb-12 lg:px-24 lg:pb-16'
+        ? 'inset-x-0 md:bottom-0 bottom-[-3vw] md:flex-row flex-col items-center md:justify-between justify-center px-8 pb-12 lg:px-24 lg:pb-16 gap-2'
         : 'inset-0 flex-col items-center justify-end lg:justify-center gap-4 lg:mb-0 mb-20',
     ),
     logoContainer: cn(

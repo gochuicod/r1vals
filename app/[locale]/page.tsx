@@ -6,7 +6,7 @@ import Tournament from '@/components/sections/homepage/Tournament';
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col overflow-x-clip">
       <Hero />
       <HistoricStakes />
       <Tournament />

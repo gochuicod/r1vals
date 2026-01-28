@@ -3,7 +3,7 @@ import React from 'react';
 export const RegistrationBanner = () => {
   return (
     /* Container size matches the Figma Group (424x113) */
-    <div className="relative w-full lg:scale-110 md:scale-8 scale-75 max-w-[424px] h-[113px] flex items-center justify-center shrink-0">
+    <div className="relative w-full scale-150 max-w-[209px] h-[60px] flex items-center justify-center shrink-0">
       
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
         <svg
@@ -37,7 +37,7 @@ export const RegistrationBanner = () => {
 
       {/* TEXT CONTENT - Using Figma Typography */}
       <h2 
-        className="relative z-10 text-white font-black text-[24px] uppercase tracking-widest translate-y-[-20px] -left-6 ml-10"
+        className="relative z-10 text-white font-black text-[14px] uppercase leading-auto tracking-[0%] translate-y-[-11px] -left-6 ml-10"
         style={{ fontFamily: "'Orbitron', sans-serif" }}
       >
         Registration

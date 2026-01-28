@@ -1,6 +1,7 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import type { Metadata } from 'next';
+import Script from 'next/script';
 
 import { Inter, Orbitron, Space_Grotesk, Bebas_Neue } from 'next/font/google';
 
@@ -83,6 +84,20 @@ export default async function LocaleLayout({
           <main className="flex-1 bg-black">{children}</main>
           <Footer />
         </NextIntlClientProvider>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17904183438"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-7B5583VFKD');
+            gtag('config', 'AW-17904183438');
+          `}
+        </Script>
       </body>
     </html>
   );

@@ -29,11 +29,11 @@ export const FormsModal = ({ isOpen, onClose, type }: FormsModalProps) => {
             {isSuccess ? <CheckCircle size={32} /> : <AlertCircle size={32} />}
           </div>
 
-          <h3 className="text-xl font-bold text-white font-heading">
+          <h3 className="text-[20px] font-bold text-white font-body">
             {isSuccess ? 'Application Received!' : 'Something went wrong'}
           </h3>
 
-          <p className="text-white/70 text-sm leading-relaxed">
+          <p className="text-white/70 text-base leading-relaxed font-heading">
             {isSuccess 
               ? "We've received your details for the R1VALS Protocol. Our team will review your application and be in touch shortly." 
               : "We couldn't submit your form. Please check your connection and try again."}
@@ -42,7 +42,7 @@ export const FormsModal = ({ isOpen, onClose, type }: FormsModalProps) => {
           <Button 
             className="w-full mt-2" 
             onClick={onClose}
-            variant="default"
+            variant="yellow"
           >
             {isSuccess ? 'Done' : 'Try Again'}
           </Button>

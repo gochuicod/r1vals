@@ -61,6 +61,25 @@ export default function Tournament() {
             </defs>
           </svg>
 
+          {/* Glow Layer */}
+          <motion.div
+            className="absolute inset-0 z-0"
+            style={{
+              backgroundColor: 'rgba(0, 34, 255, 1)',
+              filter: 'blur(40px)',
+              transform: 'scaleX(1.5) scaleY(0.7)',
+            }}
+            animate={{
+              scaleY: [0.6, 0.8, 0.6],
+              opacity: [0.2, 0.6, 0.2],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+
           {/* Background Border Layer */}
           <div
             className="absolute inset-0 bg-primary-600"
@@ -100,7 +119,7 @@ export default function Tournament() {
       <section className="tournament-clips relative z-10">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-11 justify-center items-start">
-            <div className="flex flex-col gap-6 text-white w-full lg:w-[40%] lg:text-left text-center">
+            <div className="flex flex-col gap-6 text-white w-full lg:w-[40%] lg:text-left lg:items-start text-center items-center md:items-center">
               <span className="font-black text-h4 md:text-h3 lg:text-h3 uppercase leading-tight">
                 ASIA’S FIRST <span className="text-yellow-400">$100,000</span>{' '}
                 WINNER-TAKE-ALL TOURNAMENT
@@ -112,25 +131,30 @@ export default function Tournament() {
               </span>
             </div>
 
-            <div className="flex flex-col w-full lg:w-fit items-center lg:items-end justify-center">
-              <FeatureCard
-                title="Winner-Take-All"
-                description="$100,000 USD on the line. One team takes the glory; the rest take notes."
-                imageSrc="/tournament_section/item_1.png"
-                variant="1"
-              />
-              <FeatureCard
-                title="Star Power"
-                description="Featuring elite professionals and global celebrities."
-                imageSrc="/tournament_section/item_2.png"
-                variant="2"
-              />
-              <FeatureCard
-                title="Global Reach"
-                description="Built to be the #1 most-streamed 7-aside competition worldwide."
-                imageSrc="/tournament_section/item_3.png"
-                variant="3"
-              />
+            <div className="flex flex-col w-full lg:w-fit items-center lg:items-end justify-center gap-2 overflow-clip">
+            {/* Card 1 (Index 0) */}
+            <FeatureCard
+              variantIndex={0}
+              title="Winner-Take-All"
+              description="$100,000 USD on the line. One team takes the glory; the rest take notes."
+              thumbnailSrc="/tournament_section/winner-take-all.webp"
+            />
+
+            {/* Card 2 (Index 1) */}
+            <FeatureCard
+              variantIndex={1}
+              title="Star Power"
+              description="Featuring elite professionals and global celebrities."
+              thumbnailSrc="/tournament_section/star-power.webp"
+            />
+
+            {/* Card 3 (Index 2) */}
+            <FeatureCard
+              variantIndex={2}
+              title="Global Reach"
+              description="Built to be the #1 most-streamed 7-aside competition worldwide."
+              thumbnailSrc="/tournament_section/global-reach.webp"
+            />
             </div>
           </div>
         </div>

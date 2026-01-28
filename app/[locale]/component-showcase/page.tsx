@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/Button';
 import { HighlightedHeading } from '@/components/ui/HighlightedHeading';
 import { HighlightCard } from '@/components/ui/HighlightCard';
 import { FeatureCard } from '@/components/ui/FeatureCard';
-import FeatureCardFrame1 from '@/components/ui/feature-card-1.svg';
 
 export default function ComponentShowcasePage() {
   return (
@@ -116,32 +115,35 @@ export default function ComponentShowcasePage() {
         <div className="flex flex-col flex-wrap gap-0 items-center justify-center">
           
           {/* Example 1: Red Variant */}
-          <FeatureCard
-            title="Winner-Take-All"
-            description="$100,000 USD on the line. One team takes the glory; the rest take notes."
-            imageSrc="/highlight_card/cash-awards.webp"
-            variant='1'
-          />
+          {/* <FeatureCard 
+                    frameSrc="/ui/feature_card/frame-1-new.svg"     // The red border background
+                    thumbnailSrc="/highlight_card/cash-awards.webp"     // The player image
+                    mobileFrameSrc="/ui/feature_card/frame-1-mobile.svg"
+                    title="Star Power"
+                    description="Featuring elite professionals and global celebrities."
+                  />
+          <FeatureCard 
+                    frameSrc="/ui/feature_card/frame-2-new.svg"     // The red border background
+                    thumbnailSrc="/highlight_card/cash-awards.webp"     // The player image
+                    mobileFrameSrc="/ui/feature_card/frame-2-mobile.svg"
+                    title="Star Power"
+                    description="Featuring elite professionals and global celebrities."
+                  />
+          <FeatureCard 
+                    frameSrc="/ui/feature_card/frame-3-new.svg"     // The red border background
+                    thumbnailSrc="/highlight_card/cash-awards.webp"     // The player image
+                    mobileFrameSrc="/ui/feature_card/frame-3-mobile.svg"
+                    title="Star Power"
+                    description="Featuring elite professionals and global celebrities."
+                  /> */}
 
-          {/* Example 2: Blue Variant */}
-          <FeatureCard
-            title="Star Power"
-            description="Featuring elite professionals and global celebrities."
-            imageSrc="/highlight_card/cash-awards.webp"
-            variant='2'
-            
-          />
-          
-                    {/* Example 2: Blue Variant */}
-          <FeatureCard
-            title="Winner-Take-All"
-            description="Built to be the #1 most-streamed 7-aside competition worldwide."
-            imageSrc="/highlight_card/cash-awards.webp"
-            variant='3'
-          />
+                  
+
         </div>    
       </div>
     </div>
+
+
     </div>
   );
 }

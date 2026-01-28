@@ -1,54 +1,118 @@
+'use client';
+
+import React from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/Button';
+import DropDown from '@/components/ui/DropDown';
+import { BrushedBorderContainer } from '../ui/BrushedBorderContainer';
 
 export default function Navbar() {
+  const [activeHash, setActiveHash] = React.useState('');
+  React.useEffect(() => {
+    const handleSync = () => setActiveHash(window.location.hash);
+    handleSync();
+
+    window.addEventListener('hashchange', handleSync);
+    window.addEventListener('popstate', handleSync);
+    return () => {
+      window.removeEventListener('hashchange', handleSync);
+      window.removeEventListener('popstate', handleSync);
+    };
+  }, []);
+
+  // Define navigation links
+  const navlinks = [
+    {
+      href: '/#tournament-info',
+      hash: '#tournament-info',
+      label: 'tournament info',
+    },
+    { href: '/#about', hash: '#about', label: 'about' },
+    { href: '/#Mission', hash: '#Mission', label: 'mission' },
+  ];
+
   return (
-    <div
-      className={cn(
-        'fixed top-0 left-0 w-full z-50',
-        'flex flex-row',
-        'justify-between',
-        'items-center',
-        'px-[80px] py-[20px]',
-        'bg-black/35',
-        'max-h-[75px]',
-      )}
-    >
-      {/* Logo here */}
-      <Link href="/">
+    <div className="fixed top-0 left-0 w-full z-50 flex justify-between items-center py-4 px-6 lg:px-[80px] lg:py-[20px] bg-black/35 max-h-[75px]">
+      <Link href="/" onClick={() => setActiveHash('')}>
         <Image
           src="/r1vals_logo.svg"
           alt="R1Vals Logo"
           width={113}
           height={37}
+          priority
         />
       </Link>
 
-      {/* Links here */}
-      <div
-        className={cn(
-          'lg:flex hidden',
-          'flex-row',
-          'items-center',
-          'text-[#E8F5E8] text-[11px]',
-          'gap-6',
-          'uppercase',
-          'leading-[16px]',
-        )}
-      >
-        <Link href="/#wild-events">wild events</Link>
-        <Link href="/#legends">legends</Link>
-        <Link href="/#chaos-league">chaos league</Link>
-        <Link href="/#watch-live">watch live</Link>
-        <Button
-          href='#contact'
-          variant="yellow"
-          size="lg"
-        >
+      <div className="lg:flex hidden flex-row items-center text-[#E8F5E8] text-[11px] gap-6 uppercase leading-[16px]">
+        {navlinks.map((link) => {
+          const isActive = activeHash !== '' && link.href.includes(activeHash);
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setActiveHash(link.hash)}
+              className={cn(
+                'transition-all duration-200 hover:text-[#FCC800]',
+                isActive
+                  ? 'text-[#FCC800] underline underline-offset-4 decoration-[#FCC800]'
+                  : 'text-inherit',
+              )}
+            >
+              {link.label}
+            </Link>
+          );
+        })}
+        <Button href="#contact" variant="yellow" size="lg" smoothScroll={true}>
           Register Now!
         </Button>
+      </div>
+
+      <div className="lg:hidden block">
+        <DropDown
+          triggerIcon={
+            <Image
+              src="/hamburger-icon.svg"
+              alt="Menu"
+              width={50}
+              height={9.2}
+            />
+          }
+          side="bottom-right"
+        >
+          <BrushedBorderContainer className="mt-2">
+            <div className="flex flex-col w-[192px] h-[180px] p-6 gap-4 text-[#E8F5E8] text-[12px] uppercase leading-[16px]">
+              {navlinks.map((link) => {
+                const isActive =
+                  activeHash !== '' && link.href.includes(activeHash);
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setActiveHash(link.hash)}
+                    className={cn(
+                      'transition-all duration-200 hover:text-[#FCC800]',
+                      isActive
+                        ? 'text-[#FCC800] underline underline-offset-4 decoration-[#FCC800]'
+                        : 'text-inherit',
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+              <Button
+                href="#contact"
+                variant="yellow"
+                size="sm"
+                smoothScroll={true}
+              >
+                Register Now!
+              </Button>
+            </div>
+          </BrushedBorderContainer>
+        </DropDown>
       </div>
     </div>
   );

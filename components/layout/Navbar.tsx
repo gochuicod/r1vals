@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/Button';
-import Drawer from '@/components/ui/drawer';
 import DropDown from '@/components/ui/DropDown';
 
 export default function Navbar() {
@@ -73,13 +72,14 @@ export default function Navbar() {
         <DropDown
           triggerIcon={
             <Image
-              src="/hamburger_icon.svg"
+              src="/hamburger-icon.svg"
               alt="Menu"
               width={50}
               height={9.2}
             />
           }
           side="bottom-right"
+          className="flex flex-col w-[192px] h-[180px] border-2 border-white bg-black mt-2 p-6 gap-4 text-[#E8F5E8] text-[12px] uppercase leading-[16px]"
         >
           {navlinks.map((link) => {
             const isActive =

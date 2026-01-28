@@ -137,7 +137,7 @@ export default function Tournament() {
               variantIndex={0}
               title="Winner-Take-All"
               description="$100,000 USD on the line. One team takes the glory; the rest take notes."
-              thumbnailSrc="/tournament_section/item_1.png"
+              thumbnailSrc="/tournament_section/winner-take-all.webp"
             />
 
             {/* Card 2 (Index 1) */}
@@ -145,7 +145,7 @@ export default function Tournament() {
               variantIndex={1}
               title="Star Power"
               description="Featuring elite professionals and global celebrities."
-              thumbnailSrc="/tournament_section/item_2.png"
+              thumbnailSrc="/tournament_section/star-power.webp"
             />
 
             {/* Card 3 (Index 2) */}
@@ -153,7 +153,7 @@ export default function Tournament() {
               variantIndex={2}
               title="Global Reach"
               description="Built to be the #1 most-streamed 7-aside competition worldwide."
-              thumbnailSrc="/tournament_section/item_3.png"
+              thumbnailSrc="/tournament_section/global-reach.webp"
             />
             </div>
           </div>

@@ -51,7 +51,6 @@ export default function Mission() {
         'overflow-hidden',
       )}
     >
-      <BackgroundLayer />
 
       <SectionHeader />
 

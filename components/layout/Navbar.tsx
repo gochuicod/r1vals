@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/Button';
 import Drawer from '@/components/ui/drawer';
+import DropDown from '@/components/ui/DropDown';
 
 export default function Navbar() {
   const [activeHash, setActiveHash] = React.useState('');
@@ -69,48 +70,45 @@ export default function Navbar() {
       </div>
 
       <div className="lg:hidden block">
-        <Drawer
+        <DropDown
           triggerIcon={
             <Image
-              src="/hamburger-icon.svg"
+              src="/hamburger_icon.svg"
               alt="Menu"
               width={50}
               height={9.2}
             />
           }
-          side="top"
-          size={'40vw'}
+          side="bottom-right"
         >
-          <div className="flex flex-col h-full text-body-lg uppercase gap-6 text-[#E8F5E8]">
-            {navlinks.map((link) => {
-              const isActive =
-                activeHash !== '' && link.href.includes(activeHash);
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setActiveHash(link.hash)}
-                  className={cn(
-                    'transition-all duration-200 hover:text-[#FCC800]',
-                    isActive
-                      ? 'text-[#FCC800] underline underline-offset-4 decoration-[#FCC800]'
-                      : 'text-inherit',
-                  )}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-            <Button
-              href="#contact"
-              variant="yellow"
-              size="lg"
-              smoothScroll={true}
-            >
-              Register Now!
-            </Button>
-          </div>
-        </Drawer>
+          {navlinks.map((link) => {
+            const isActive =
+              activeHash !== '' && link.href.includes(activeHash);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setActiveHash(link.hash)}
+                className={cn(
+                  'transition-all duration-200 hover:text-[#FCC800]',
+                  isActive
+                    ? 'text-[#FCC800] underline underline-offset-4 decoration-[#FCC800]'
+                    : 'text-inherit',
+                )}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+          <Button
+            href="#contact"
+            variant="yellow"
+            size="sm"
+            smoothScroll={true}
+          >
+            Register Now!
+          </Button>
+        </DropDown>
       </div>
     </div>
   );

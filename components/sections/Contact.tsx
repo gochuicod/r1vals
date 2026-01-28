@@ -25,7 +25,7 @@ export default function Contact() {
             priority
           />
           <Image
-            src="/contact/contact-img-new-mobile.webp"
+            src="/contact/contact-img-v2-mobile.webp"
             alt="Registration Player"
             fill
             className="lg:hidden flex object-contain md:-translate-y-16 md:translate-x-2 translate-y-4 translate-x-2"

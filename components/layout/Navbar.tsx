@@ -7,9 +7,12 @@ import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/Button';
 import DropDown from '@/components/ui/DropDown';
 import { BrushedBorderContainer } from '../ui/BrushedBorderContainer';
+import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 
 export default function Navbar() {
   const [activeHash, setActiveHash] = React.useState('');
+  const scrollTo = useSmoothScroll();
+
   React.useEffect(() => {
     const handleSync = () => setActiveHash(window.location.hash);
     handleSync();
@@ -30,12 +33,18 @@ export default function Navbar() {
       label: 'tournament info',
     },
     { href: '/#about', hash: '#about', label: 'about' },
-    { href: '/#Mission', hash: '#Mission', label: 'mission' },
+    { href: '/#mission', hash: '#mission', label: 'mission' },
   ];
 
   return (
-    <div className="fixed top-0 left-0 w-full z-50 flex justify-between items-center py-4 px-6 lg:px-[80px] lg:py-[20px] bg-black/35 max-h-[75px]">
-      <Link href="/" onClick={() => setActiveHash('')}>
+    <div className="fixed top-0 left-0 w-full z-[1000] flex justify-between items-center py-4 px-6 lg:px-[80px] lg:py-[20px] bg-black/35 max-h-[75px]">
+      <Link
+        href="/"
+        onClick={(e) => {
+          setActiveHash('');
+          scrollTo(e, '');
+        }}
+      >
         <Image
           src="/r1vals_logo.svg"
           alt="R1Vals Logo"
@@ -52,7 +61,10 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              onClick={() => setActiveHash(link.hash)}
+              onClick={(e) => {
+                setActiveHash(link.hash); // Keep updating active state
+                scrollTo(e, link.href); // Smooth scroll
+              }}
               className={cn(
                 'transition-all duration-200 hover:text-[#FCC800]',
                 isActive

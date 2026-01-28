@@ -40,6 +40,7 @@ const FADE_IN_VARIANTS = {
 export default function Mission() {
   return (
     <section
+      id="mission"
       className={cn(
         // Layout & Positioning
         'relative flex flex-col justify-center items-center',
@@ -51,7 +52,6 @@ export default function Mission() {
         'overflow-hidden',
       )}
     >
-
       <SectionHeader />
 
       <motion.div

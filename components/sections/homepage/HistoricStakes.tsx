@@ -37,6 +37,7 @@ export default function HistoricStakes() {
 
   return (
     <div
+      id="tournament-info"
       className={cn(
         // Layout
         'flex flex-col relative',

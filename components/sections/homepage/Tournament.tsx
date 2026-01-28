@@ -34,7 +34,7 @@ export default function Tournament() {
   const y = useTransform(scrollYProgress, [0, 1], ['-5%', '-30%']);
 
   return (
-    <div className="relative w-full">
+    <div id="about" className="relative w-full">
       <div className="relative w-full overflow-hidden flex justify-center">
         <div
           ref={containerRef}

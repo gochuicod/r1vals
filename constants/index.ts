@@ -87,7 +87,6 @@ export const CONTACT_DETAILS = {
   rawNumber: '+639175074014', // Clean number for dialer/vcard
 } as const;
 
-
 export interface PolicySubsection {
   subTitle?: string;
   content?: string;
@@ -319,4 +318,26 @@ export const TERMS_CONDITIONS_CONTENT: PolicySection[] = [
       }
     ]
   }
+];
+
+import { Instagram, Mail, Phone } from 'lucide-react';
+
+export const CONTACT_NUMBER = '+63 917 507 4014';
+
+export const SOCIAL_LINKS = [
+  {
+    icon: Instagram,
+    href: 'https://www.instagram.com/r1vals.sports',
+    label: 'Instagram',
+  },
+  {
+    icon: Mail,
+    href: 'mailto:info@r1vals.com',
+    label: 'Mail',
+  },
+  {
+    icon: Phone,
+    href: '#',
+    label: 'Phone',
+  },
 ];

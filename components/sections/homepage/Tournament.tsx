@@ -96,7 +96,7 @@ export default function Tournament() {
                 src="/tournament_section/football_team.png"
                 alt="Football Field"
                 fill
-                className="object-cover object-bottom opacity-90"
+                className="md:object-cover object-contain object-center opacity-90"
                 priority
               />
             </motion.div>

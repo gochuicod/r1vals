@@ -7,12 +7,12 @@ import { RegistrationBanner } from "../ui/RegistrationBanner";
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative w-full h-auto bg-black flex flex-col items-center justify-center py-12 lg:py-20 overflow-x-hidden">              
+    <section id="contact" className="relative w-full h-auto bg-black flex flex-col items-center justify-center py-12 lg:py-20 overflow-hidden">              
         {/* INNER CONTAINER */}
         <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row justify-center items-center px-4 md:px-8">
 
       {/* LEFT COLUMN (40%) */}
-      <div className="relative w-full lg:w-[40%] h-[480px] md:h-[580px] lg:h-[775px] flex items-center justify-center overflow-visible md:top-40">
+      <div className="relative w-full lg:w-[40%] h-[480px] md:h-[580px] lg:h-[775px] flex items-center justify-center md:top-40">
         <div className="relative w-full h-full 
           scale-125
           lg:scale-[1.3] 
@@ -35,7 +35,7 @@ export default function Contact() {
       </div>
 
           {/* RIGHT COLUMN (60%) */}
-          <div className="flex flex-col flex-1 w-full lg:w-[60%] lg:max-w-[742px] justify-center items-center lg:mt-0 overflow-visible z-10 -mt-20">
+          <div className="flex flex-col flex-1 w-full lg:w-[60%] lg:max-w-[742px] justify-center items-center lg:mt-0 z-10 -mt-20">
 
             <div className="flex w-full relative z-10 justify-center lg:mb-0 lg:justify-start lg:left-2">
                <RegistrationBanner />

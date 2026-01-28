@@ -20,15 +20,8 @@ interface RivalsWelcomeEmailProps {
 }
 
 // 1. SET YOUR BASE URL
-// For local development, an empty string works if serving from public/static
-// For production, change this to "https://your-website.com"
-// const baseUrl = process.env.VERCEL_URL
-//   ? `https://${process.env.VERCEL_URL}`
-//   : "";
-
-const baseUrl = process.env.NODE_ENV === "development"
-  ? "http://localhost:3000" // Point to your running Next.js app
-  : "https://r1vals.com";   // Your production domain
+// We now exclusively use the CDN for both local dev and production.
+const baseUrl = "https://cdn.jsdelivr.net/gh/gochuicod/r1vals@staging/public";
 
 export const RivalsWelcomeEmail = ({
   fullName,
@@ -53,7 +46,6 @@ export const RivalsWelcomeEmail = ({
         <Container style={container}>
           
           {/* HEADER IMAGE */}
-          {/* You MUST export the top section (Logo + Text + Lightning BG) from Figma as a single JPG/PNG */}
           <Section>
             <Link href="https://r1vals.com" target="_blank">
               <Img
@@ -191,8 +183,6 @@ export const RivalsWelcomeEmail = ({
 
 export default RivalsWelcomeEmail;
 
-// --- STYLES BASED ON FIGMA CSS ---
-
 const main = {
   backgroundColor: "#1E1E1E",
   fontFamily: "Inter, Helvetica, Arial, sans-serif",
@@ -226,7 +216,7 @@ const greeting = {
 };
 
 const paragraph = {
-  fontSize: "20px", // From Figma "Content"
+  fontSize: "20px", 
   lineHeight: "30px",
   fontWeight: 500,
   color: "#FFFFFF",

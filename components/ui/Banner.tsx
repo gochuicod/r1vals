@@ -28,7 +28,7 @@ export default function Banner() {
     text-primary-100
 
     /* Spacing */
-    px-8 pb-8 pt-5 md:pt-6
+    px-8 pb-8 pt-5 md:pt-7
 
     /* Mobile: Centered & Responsive */
     left-1/2 -translate-x-1/2
@@ -48,7 +48,7 @@ export default function Banner() {
         {/* Close Button */}
         <button
           onClick={handleClose}
-          className="absolute top-[-10px] -right-[15px] cursor-pointer group p-1"
+          className="absolute top-[-15px] md:-right-[15px] -right-[25px] cursor-pointer group p-1"
           aria-label="Close banner"
         >
           <X className="w-5 h-5 stroke-brandRed-500 transition-transform group-hover:scale-110" />

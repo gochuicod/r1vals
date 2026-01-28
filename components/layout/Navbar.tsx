@@ -69,8 +69,19 @@ export default function Navbar() {
       </div>
 
       <div className="lg:hidden block">
-        <Drawer triggerIcon={<>Open</>} side="top" size={'40vw'}>
-          <div className="flex flex-col items-end h-full text-body-lg uppercase gap-6 text-[#E8F5E8]">
+        <Drawer
+          triggerIcon={
+            <Image
+              src="/hamburger-icon.svg"
+              alt="Menu"
+              width={50}
+              height={9.2}
+            />
+          }
+          side="top"
+          size={'40vw'}
+        >
+          <div className="flex flex-col h-full text-body-lg uppercase gap-6 text-[#E8F5E8]">
             {navlinks.map((link) => {
               const isActive =
                 activeHash !== '' && link.href.includes(activeHash);
@@ -90,6 +101,14 @@ export default function Navbar() {
                 </Link>
               );
             })}
+            <Button
+              href="#contact"
+              variant="yellow"
+              size="lg"
+              smoothScroll={true}
+            >
+              Register Now!
+            </Button>
           </div>
         </Drawer>
       </div>

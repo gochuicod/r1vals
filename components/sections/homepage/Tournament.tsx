@@ -131,7 +131,7 @@ export default function Tournament() {
               </span>
             </div>
 
-            <div className="flex flex-col w-full lg:w-fit items-center lg:items-end justify-center">
+            <div className="flex flex-col w-full lg:w-fit items-center lg:items-end justify-center gap-2 overflow-clip">
             {/* Card 1 (Index 0) */}
             <FeatureCard
               variantIndex={0}

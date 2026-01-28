@@ -62,6 +62,23 @@ export const CAROUSEL_IMAGES = [
   '/historic_stakes_section/carousel/v3/item_6.png',
   '/historic_stakes_section/carousel/v3/item_7.png',
   '/historic_stakes_section/carousel/v3/item_8.png',
+  '/historic_stakes_section/carousel/v3/item_9.png',
+  '/historic_stakes_section/carousel/v3/item_10.png',
+  '/historic_stakes_section/carousel/v3/item_11.png',
+  '/historic_stakes_section/carousel/v3/item_12.png',
+  '/historic_stakes_section/carousel/v3/item_13.png',
+  '/historic_stakes_section/carousel/v3/item_14.png',
+  '/historic_stakes_section/carousel/v3/item_15.png',
+  '/historic_stakes_section/carousel/v3/item_16.png',
+  '/historic_stakes_section/carousel/v3/item_17.png',
+  '/historic_stakes_section/carousel/v3/item_18.png',
+  '/historic_stakes_section/carousel/v3/item_19.png',
+  '/historic_stakes_section/carousel/v3/item_20.png',
+  '/historic_stakes_section/carousel/v3/item_21.png',
+  '/historic_stakes_section/carousel/v3/item_22.png',
+  '/historic_stakes_section/carousel/v3/item_23.png',
+  '/historic_stakes_section/carousel/v3/item_24.png',
+  '/historic_stakes_section/carousel/v3/item_25.png',
 ] as const;
 
 export const CONTACT_DETAILS = {

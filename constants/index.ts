@@ -21,34 +21,34 @@
 
 export const FEATURE_CARD_VARIANTS = [
   {
-    desktop: '/ui/feature_card/frame-1-new.svg', // Ensure these files exist in /public
-    mobile: '/ui/feature_card/frame-1-mobile.svg',
+    desktop: '/feature_card/frame-1-new.svg', // Ensure these files exist in /public
+    mobile: '/feature_card/frame-1-mobile.webp',
   },
   {
-    desktop: '/ui/feature_card/frame-2-new.svg',
-    mobile: '/ui/feature_card/frame-2-mobile.svg',
+    desktop: '/feature_card/frame-2-new.svg',
+    mobile: '/feature_card/frame-2-mobile.webp',
   },
   {
-    desktop: '/ui/feature_card/frame-3-new.svg',
-    mobile: '/ui/feature_card/frame-3-mobile.svg',
+    desktop: '/feature_card/frame-3-new.svg',
+    mobile: '/feature_card/frame-3-mobile.webp',
   },
 ] as const;
 
 export const HIGHLIGHT_CARDS_DATA = [
   {
-    imageSrc: '/highlight_card/Frame1.svg',
+    imageSrc: '/highlight_card/Frame1-new.svg',
     alt: 'Cash Awards',
   },
   {
-    imageSrc: '/highlight_card/Frame2.svg',
+    imageSrc: '/highlight_card/Frame2-new.svg',
     alt: 'Cash Awards',
   },
   {
-    imageSrc: '/highlight_card/Frame3.svg',
+    imageSrc: '/highlight_card/Frame3-new.svg',
     alt: 'Cash Awards',
   },
   {
-    imageSrc: '/highlight_card/Frame4.svg',
+    imageSrc: '/highlight_card/Frame4-new.svg',
     alt: 'Cash Awards',
   },
 ] as const;

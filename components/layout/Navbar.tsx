@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/Button';
+import DropDown from '@/components/ui/DropDown';
+import { BrushedBorderContainer } from '../ui/BrushedBorderContainer';
 
 export default function Navbar() {
   const [activeHash, setActiveHash] = React.useState('');
@@ -22,14 +24,17 @@ export default function Navbar() {
 
   // Define navigation links
   const navlinks = [
-    { href: '/#wild-events', hash: '#wild-events', label: 'wild events' },
-    { href: '/#legends', hash: '#legends', label: 'legends' },
-    { href: '/#chaos-league', hash: '#chaos-league', label: 'chaos league' },
-    { href: '/#watch-live', hash: '#watch-live', label: 'watch live' },
+    {
+      href: '/#tournament-info',
+      hash: '#tournament-info',
+      label: 'tournament info',
+    },
+    { href: '/#about', hash: '#about', label: 'about' },
+    { href: '/#Mission', hash: '#Mission', label: 'mission' },
   ];
 
   return (
-    <div className="fixed top-0 left-0 w-full z-50 flex flex-row justify-between items-center px-[80px] py-[20px] bg-black/35 max-h-[75px]">
+    <div className="fixed top-0 left-0 w-full z-50 flex justify-between items-center py-4 px-6 lg:px-[80px] lg:py-[20px] bg-black/35 max-h-[75px]">
       <Link href="/" onClick={() => setActiveHash('')}>
         <Image
           src="/r1vals_logo.svg"
@@ -59,9 +64,55 @@ export default function Navbar() {
             </Link>
           );
         })}
-        <Button href="#contact" variant="yellow" size="sm" smoothScroll={true}>
+        <Button href="#contact" variant="yellow" size="lg" smoothScroll={true}>
           Register Now!
         </Button>
+      </div>
+
+      <div className="lg:hidden block">
+        <DropDown
+          triggerIcon={
+            <Image
+              src="/hamburger-icon.svg"
+              alt="Menu"
+              width={50}
+              height={9.2}
+            />
+          }
+          side="bottom-right"
+        >
+          <BrushedBorderContainer className="mt-2">
+            <div className="flex flex-col w-[192px] h-[180px] p-6 gap-4 text-[#E8F5E8] text-[12px] uppercase leading-[16px]">
+              {navlinks.map((link) => {
+                const isActive =
+                  activeHash !== '' && link.href.includes(activeHash);
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setActiveHash(link.hash)}
+                    className={cn(
+                      'transition-all duration-200 hover:text-[#FCC800]',
+                      isActive
+                        ? 'text-[#FCC800] underline underline-offset-4 decoration-[#FCC800]'
+                        : 'text-inherit',
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+              <Button
+                href="#contact"
+                variant="yellow"
+                size="sm"
+                smoothScroll={true}
+              >
+                Register Now!
+              </Button>
+            </div>
+          </BrushedBorderContainer>
+        </DropDown>
       </div>
     </div>
   );

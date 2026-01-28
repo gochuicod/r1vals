@@ -1,16 +1,22 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { motion } from 'motion/react';
+import { cn } from '@/lib/utils'; // Ensure you have this utility or use template literals
+
+// --- CONFIGURATION ---
+const VIDEO_ID_MOBILE = 'TZTCZPHzuqU';
+const VIDEO_ID_DESKTOP = 'ySivgesy5X4';
 
 export default function Hero() {
   const [loadedCount, setLoadedCount] = useState(0);
   const [startAnimation, setStartAnimation] = useState(false);
   const [showGlow, setShowGlow] = useState(false);
-  // 1. NEW STATE: Controls when the video starts
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // Detect screen width
   const [isMobile, setIsMobile] = useState(true);
@@ -26,6 +32,9 @@ export default function Hero() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Determine video ID
+  const currentVideoId = !isMobile ? VIDEO_ID_DESKTOP : VIDEO_ID_MOBILE;
+
   const handleImageLoad = () => setLoadedCount((prev) => prev + 1);
   const isReady = loadedCount >= 2;
 
@@ -36,6 +45,22 @@ export default function Hero() {
     }
   }, [isReady]);
 
+  const handleIframeLoad = () => {
+    // We add a small delay to ensure the inner YouTube player is initialized
+    setTimeout(() => {
+      if (iframeRef.current && iframeRef.current.contentWindow) {
+        iframeRef.current.contentWindow.postMessage(
+          JSON.stringify({
+            event: 'command',
+            func: 'unMute', // Send the command to unmute
+            args: [],
+          }),
+          '*',
+        );
+      }
+    }, 500); // 500ms delay for stability
+  };
+
   const getVar = (mobile: string, tablet: string, desktop: string) => {
     if (isDesktop) return desktop;
     if (isMobile) return mobile;
@@ -43,11 +68,13 @@ export default function Hero() {
   };
 
   const contentY = getVar('-65vw', '-35vw', '-14vw');
-  const videoY = getVar('-35vw', '-20vw', '0vw');
-  const curtainLeft = getVar('-70%', '-40%', '-23%');
-  const curtainRight = getVar('65%', '35%', '18%');
+  const videoY = getVar('0vw', '0vw', '0vw');
+  const curtainLeft = getVar('-100%', '-100%', '-100%');
+  const curtainRight = getVar('100%', '100%', '100%');
 
   const mainTransition = { duration: 1.2, ease: [0.22, 1, 0.36, 1] as const };
+  // Slower transition for the layout shift to look cinematic
+  const layoutTransition = { duration: 1.5, ease: [0.16, 1, 0.3, 1] } as const;
 
   const pulseTransition = {
     duration: 1.5,
@@ -57,9 +84,15 @@ export default function Hero() {
   };
 
   const getTextAnimation = () => {
+    // 1. If Video is playing, reset transforms so Flexbox Layout takes over
+    if (isVideoPlaying) {
+      return { opacity: 1, scale: 1, y: 0 };
+    }
+    // 2. Start Animation (Curtains opening)
     if (startAnimation) {
       return { opacity: [0, 1, 0], scale: 0.5, y: contentY };
     }
+    // 3. Initial Load
     if (isReady) {
       return { opacity: 1, scale: 1, y: 0 };
     }
@@ -77,16 +110,16 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative w-full h-[876px] overflow-hidden bg-black">
-      {/* Layer 0: Static Background */}
-      <Image
-        src="/hero_section/football_background.png"
-        alt="background"
-        fill
-        className="object-cover opacity-60"
-        priority
-      />
-
+    <section
+      className={cn(
+        'relative w-full overflow-hidden bg-black',
+        // --- UPDATED HEIGHT LOGIC ---
+        // Mobile: Fixed height (Vertical video)
+        'h-[693px]',
+        // Tablet & Desktop: Height is Auto, controlled by Aspect Ratio (16:9)
+        'md:h-auto md:aspect-video',
+      )}
+    >
       {/* Layer 2: Left Curtain */}
       <motion.div
         className="absolute top-0 left-0 w-[59%] h-[930px] z-20"
@@ -107,17 +140,17 @@ export default function Hero() {
         onAnimationComplete={() => {
           if (startAnimation) {
             setShowGlow(true);
-            // 2. TRIGGER VIDEO: Once animation is done, allow video to load/play
             setIsVideoPlaying(true);
           }
         }}
       >
+        {/* ... Left Curtain Inner Content ... */}
         <div className="relative w-full h-full">
           <div
             className="relative w-full h-full bg-black overflow-hidden"
             style={{
               clipPath:
-                'polygon(0% 0%, 99.5% 0%, 79.5% 51.5%, 90.5% 51.5%, 82% 78%, 76% 100%, 0% 100%)',
+                'polygon(0% 0%, 99.5% 0%, 80% 51.5%, 91.5% 51.5%, 82% 78%, 76% 100%, 0% 100%)',
             }}
           >
             <Image
@@ -128,7 +161,6 @@ export default function Hero() {
               priority
               onLoad={handleImageLoad}
             />
-            {/* SVG overlay code remains the same */}
             <svg
               className="absolute inset-0 w-full h-full pointer-events-none"
               viewBox="0 0 100 100"
@@ -137,8 +169,8 @@ export default function Hero() {
               <defs>
                 <filter
                   id="roughStroke"
-                  x="-10%"
-                  y="-10%"
+                  x="5%"
+                  y="5%"
                   width="100%"
                   height="100%"
                 >
@@ -170,7 +202,7 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Layer 2: Right Curtain (Code remains identical) */}
+      {/* Layer 2: Right Curtain */}
       <motion.div
         className="absolute top-0 right-0 w-[59%] h-[930px] z-20"
         initial={{
@@ -188,6 +220,7 @@ export default function Hero() {
         }}
         transition={{ x: mainTransition, filter: pulseTransition }}
       >
+        {/* ... Right Curtain Inner Content ... */}
         <div className="relative w-full h-full">
           <div
             className="relative w-full h-full bg-black overflow-hidden"
@@ -204,7 +237,6 @@ export default function Hero() {
               priority
               onLoad={handleImageLoad}
             />
-            {/* SVG overlay code remains the same */}
             <svg
               className="absolute inset-0 w-full h-full pointer-events-none"
               viewBox="0 0 100 100"
@@ -213,8 +245,8 @@ export default function Hero() {
               <defs>
                 <filter
                   id="roughStrokePrimary"
-                  x="-10%"
-                  y="-10%"
+                  x="5%"
+                  y="5%"
                   width="100%"
                   height="100%"
                 >
@@ -234,7 +266,7 @@ export default function Hero() {
                 </filter>
               </defs>
               <polyline
-                points="26,-1 14,47 23,47 14,78 7,100"
+                points="28,-10 14,47 23,47 14,78 7,100"
                 fill="none"
                 className="stroke-primary-600 lg:stroke-[3px] stroke-[5px]"
                 strokeLinecap="round"
@@ -248,67 +280,108 @@ export default function Hero() {
 
       {/* Layer 4: Vector Image */}
       <Image
-        src="/hero_section/bottom_vector.svg"
+        src="/hero_section/v2/bottom_vector.svg"
         alt="Vector"
         width={1920}
         height={1080}
-        className="absolute bottom-0 left-0 w-full h-auto z-40 pointer-events-none translate-y-[70%]"
+        className="absolute bottom-[-1vw] left-0 w-full h-auto z-50 pointer-events-none translate-y-[70%]"
       />
 
-      {/* Layer 3: Text & Button */}
+      {/* --------------------------------------------------
+        LAYER 3: TEXT & BUTTON (Animated Layout Shift)
+        --------------------------------------------------
+      */}
       <motion.div
-        className="absolute inset-0 z-30 flex flex-col items-center lg:justify-center justify-end gap-4 lg:mb-0 mb-20 pointer-events-none"
-        initial={{ opacity: 0, y: 20, scale: 1 }}
+        layout // 1. Enables automatic smooth layout morphing
+        transition={layoutTransition}
+        className={cn(
+          // Base classes
+          'absolute z-30 flex pointer-events-none',
+          // CONDITIONAL LAYOUT:
+          isVideoPlaying
+            ? 'inset-x-0 md:bottom-0 bottom-[-5vw] md:flex-row flex-col items-center md:justify-between justify-center px-8 pb-12 lg:px-24 lg:pb-16' // Final State (Bottom Row)
+            : 'inset-0 flex-col items-center justify-end lg:justify-center gap-4 lg:mb-0 mb-20', // Initial State (Center Column)
+        )}
+        initial={{ opacity: 0, y: 20 }} // Removed scale here to let layout handle it
         animate={getTextAnimation()}
-        transition={mainTransition}
       >
-        <div className="relative w-full lg:max-w-[501px] md:max-w-[376px] max-w-[250px] h-full lg:max-h-[163px] md:max-h-[122px] max-h-[81px] pointer-events-auto">
+        {/* LOGO CONTAINER */}
+        <motion.div
+          layout="position"
+          className={cn(
+            'relative pointer-events-auto',
+            // Responsive sizing handled by class switching or keep dynamic
+            isVideoPlaying
+              ? 'w-[150px] h-[50px] lg:w-[200px] lg:h-[80px]' // Smaller logo at bottom
+              : 'w-full max-w-[250px] h-[81px] md:max-w-[376px] md:h-[122px] lg:max-w-[501px] lg:h-[163px]', // Large logo at center
+          )}
+        >
           <Image
             src="/hero_section/r1vals_text.svg"
             alt="Rivals Text"
             fill
-            className="object-contain"
+            className="object-contain object-left-bottom" // Keep anchored left-bottom
             priority
           />
-        </div>
-        <span className="text-h2 text-white text-center font-black uppercase w-full pointer-events-auto">
+        </motion.div>
+
+        {/* TEXT: $100,000 PRIZE */}
+        <motion.span
+          layout="position"
+          className={`
+            font-black uppercase pointer-events-auto
+            ${
+              isVideoPlaying
+                ? 'lg:text-h4 md:text-h6 text-h6 text-center text-white gap-2'
+                : 'text-h2 text-center w-full text-white'
+            }
+          `}
+        >
           win $100,000 cash prize
-        </span>
-        <Button variant="protocol" className="text-[20px]" size="lg">
-          7x7 PROTOCOL: ASIA’S LARGEST
-        </Button>
+        </motion.span>
+
+        {/* BUTTON */}
+        <motion.div layout="position" className="pointer-events-auto">
+          <Button
+            href="#contact"
+            variant="yellow"
+            className={cn(
+              isVideoPlaying ? 'text-base lg:text-lg' : 'text-[20px]',
+            )}
+            size={isVideoPlaying ? 'default' : 'lg'}
+            smoothScroll={true}
+          >
+            Register Now!
+          </Button>
+        </motion.div>
       </motion.div>
 
       {/* Layer 1: Video */}
       <motion.div
-        className="absolute inset-0 z-10 flex flex-col items-center justify-end lg:justify-center pointer-events-none"
+        className={cn(
+          'absolute inset-0 z-10 flex flex-col items-center justify-end lg:justify-center',
+        )}
         initial={{ opacity: 0, y: 20 }}
         animate={getVideoAnimation()}
         transition={mainTransition}
       >
         {isReady && (
-          <div
-            className="
-              pointer-events-auto
-              w-full max-w-[300px] mx-auto
-              rounded-xl overflow-hidden
-              border border-white/20 shadow-2xl bg-black
-              aspect-[9/16]
-              relative
-            "
-          >
-            {/* 3. CONDITIONAL RENDERING: Only render iframe if isVideoPlaying is true */}
+          <div className={cn('absolute inset-0 overflow-hidden bg-black')}>
             {isVideoPlaying ? (
               <iframe
-                className="w-full h-full object-cover"
-                src="https://www.youtube.com/embed/_jNYV71IBt0?autoplay=1&mute=1&controls=0&loop=1&playlist=_jNYV71IBt0&rel=0&playsinline=1&modestbranding=1"
+                ref={iframeRef}
+                onLoad={handleIframeLoad}
+                className="
+                  w-full h-full
+                  object-cover
+                  md:scale-[1.0] scale-[1.2]
+                "
+                src={`https://www.youtube.com/embed/${currentVideoId}?autoplay=1&mute=1&enablejsapi=1&controls=0&loop=1&playlist=${currentVideoId}&rel=0&playsinline=1&modestbranding=1`}
                 title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allow="autoplay; encrypted-media"
                 referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
               />
             ) : (
-              // Optional: A placeholder so the black box isn't transparent (though bg-black handles this)
               <div className="w-full h-full bg-black" />
             )}
           </div>

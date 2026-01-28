@@ -42,12 +42,18 @@ export default function HistoricStakes() {
         'flex flex-col relative',
         // Sizing
         'md:min-h-[885px]',
-        // Behavior
-        'overflow-hidden',
         // Spacing
         'md:pt-0 pt-[50px]',
+        'relative',
       )}
     >
+      <Image
+        src="/hero_section/v2/bottom_vector.svg"
+        alt="Vector"
+        width={1920}
+        height={1080}
+        className="absolute -top-[23vw] left-0 w-full h-auto z-50 pointer-events-none translate-y-[70%]"
+      />
       {/* --- HEADER SECTION --- */}
       <div
         className={cn(
@@ -70,7 +76,7 @@ export default function HistoricStakes() {
             'absolute w-full h-full',
             'lg:top-[18%] md:top-[10%] top-[7%]',
             'lg:left-[4%] md:left-[6%] left-[-5%]',
-            'z-10',
+            'z-[55]',
             // Visuals (Scaling)
             'object-contain',
             'lg:scale-[115%] md:scale-[130%] scale-[180%]',
@@ -88,6 +94,7 @@ export default function HistoricStakes() {
             'absolute w-full h-full',
             'lg:top-[18%] md:top-[10%] top-[7%]',
             'lg:left-[4%] md:left-[6%] left-[5%]',
+            'z-[54]',
             // Visuals (Scaling)
             'object-contain',
             'lg:scale-[80%] md:scale-[130%] scale-[150%]',
@@ -108,7 +115,7 @@ export default function HistoricStakes() {
             'lg:mr-[20%] md:mr-[30%]',
             'md:mb-0 mb-[65%]',
             // Positioning
-            'relative z-20',
+            'relative z-[56]',
           )}
         >
           the stage is <span className="text-brandRed-400">set</span>.
@@ -125,7 +132,7 @@ export default function HistoricStakes() {
             // Sizing
             'lg:w-[400px] md:w-[200px] w-[300px]',
             // Positioning
-            'relative z-20',
+            'relative z-[56]',
           )}
         >
           the stakes are <span className="text-primary-600">historic</span>.
@@ -141,7 +148,7 @@ export default function HistoricStakes() {
           'mb-10',
           'lg:-mt-10 md:-mt-[130px]',
           // Positioning
-          'z-20',
+          'z-[57]',
         )}
         onMouseEnter={() => plugin.current.stop()}
         onMouseLeave={() => plugin.current.reset()}
@@ -153,7 +160,7 @@ export default function HistoricStakes() {
           className={cn('w-full relative')}
         >
           <CarouselContent className="-ml-4">
-            {Array.from({ length: 25 }).map((_, index) => {
+            {Array.from({ length: 8 }).map((_, index) => {
               const imageSrc = CAROUSEL_IMAGES[index % CAROUSEL_IMAGES.length];
 
               return (

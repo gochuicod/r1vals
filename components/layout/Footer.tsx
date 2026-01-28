@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 import { ContactModal } from '@/components/ui/ContactModal'; // Import the new modal
 
-import { SOCIAL_LINKS, CONTACT_NUMBER } from '@/constants';
+import { SOCIAL_LINKS, CONTACT_NUMBER, LEGAL_LINKS } from '@/constants';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -72,13 +72,13 @@ export default function Footer() {
 
             {/* 5. Legal Links Section */}
             <div className="flex items-center gap-6 text-xs font-bold uppercase">
-              {['privacy', 'terms'].map((link) => (
+              {LEGAL_LINKS.map((link) => (
                 <Link
-                  key={link}
-                  href={`/#${link}`}
+                  key={link.href}
+                  href={link.href}                  
                   className="hover:text-primary-300 transition-colors"
                 >
-                  {link}
+                  {link.label}
                 </Link>
               ))}
             </div>

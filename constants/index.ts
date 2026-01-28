@@ -341,3 +341,14 @@ export const SOCIAL_LINKS = [
     label: 'Phone',
   },
 ];
+
+export const LEGAL_LINKS = [
+  {
+    href: '/privacy-policy',
+    label: 'Privacy',
+  },
+  {
+    href: '/terms-and-conditions',
+    label: 'Terms',
+  },
+];

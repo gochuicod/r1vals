@@ -270,8 +270,8 @@ export default function HistoricStakes() {
           )}
         >
           <span className="text-center">
-            R1VALS is coming to <b>BGC</b> on <b>May 29-31, 2026.</b> This isn't
-            just a tournament; it’s a revolution in 7-aside football. We are
+            R1VALS is coming to <b>BGC</b> on <b>June 2026.</b> This isn't just
+            a tournament; it’s a revolution in 7-aside football. We are
             gathering Legends, Professionals, Pro Clubs, and Celebrities for a
             winner-take-all showdown that will be the most-streamed football
             event in Asia.

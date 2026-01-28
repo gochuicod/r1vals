@@ -33,7 +33,7 @@ const buttonVariants = cva(
         protocol:
           'bg-black border border-[#FF1B1B] text-white text-center font-heading uppercase font-bold leading-none shadow-[0px_0px_15.6256px_#0022FF,3.12513px_3.12513px_0px_#0022FF] hover:cursor-default',
         yellow:
-          'bg-black/50 border-2 border-[#FCC800] normal-case text-[#FCC800] hover:text-black hover:bg-[#FCC800] hover:border-black hover:scale-[1.05] active:scale-[0.95] font-bold text-center hover:shadow-[0px_0px_15.6256px_#FCC800] will-change-transform',
+          'bg-black/50 border-2 border-[#FCC800] normal-case text-[#FCC800] hover:text-black hover:bg-[#FCC800] hover:border-black hover:scale-[1.05] active:scale-[0.95] font-bold text-center shadow-[0px_0px_15.6256px_#FCC800] will-change-transform',
       },
       size: {
         default: 'px-4 py-2 text-xs md:px-8 md:py-4 md:text-sm',

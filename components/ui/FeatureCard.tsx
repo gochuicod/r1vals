@@ -31,8 +31,7 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
     <div 
       className={`
         relative 
-        /* --- Mobile Dimensions (Frame 5106) --- */
-        w-[358px] h-[148px]
+        max-w-[358px] max-h-[148px]
         /* --- Desktop Dimensions (Frame 5106) --- */
         md:w-full md:max-w-[560px] md:h-[155px]
         
@@ -52,7 +51,7 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
             alt="Background"
             fill
             key={frameMobile} 
-            className="object-fill drop-shadow-[0_0_12px_rgba(255,27,27,0.4)]"
+            className="object-fill scale-[1.06] drop-shadow-[0_0_12px_rgba(255,27,27,0.4)]"
           />
         </div>
 
@@ -72,8 +71,8 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
       <div className="
         relative z-10 w-full h-full 
         /* Figma: padding: 16px 24px */
-        md:px-16 px-10 py-4
-        flex flex-row md:gap-7 gap-4
+        md:px-16 px-8 py-4
+        flex flex-row md:gap-7 gap-2
         items-center
       ">
         
@@ -82,13 +81,13 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
             relative shrink-0
             w-[138px] h-[92px]
             md:w-[150px] md:h-[100px]            
-            overflow-hidden rounded-sm bg-black/20 shadow-inner
+            overflow-hidden bg-black/20 shadow-inner
         ">
           <Image 
             src={thumbnailSrc}
             alt={title}
             fill
-            className="object-cover"
+            className="object-cover max-w-[120px] md:max-w-[150px]"
           />
         </div>
 

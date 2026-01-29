@@ -5,12 +5,14 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/Button';
-import DropDown from '@/components/ui/DropDown';
-import { BrushedBorderContainer } from '../ui/BrushedBorderContainer';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
+import { MenuButton, MenuButtonRef } from '@/components/ui/MenuButton';
+import { Menu } from 'lucide-react';
 
 export default function Navbar() {
   const [activeHash, setActiveHash] = React.useState('');
+  const [openMenu, setOpenMenu] = React.useState(false);
+  const menuButtonRef = React.useRef<MenuButtonRef>(null);
   const scrollTo = useSmoothScroll();
 
   React.useEffect(() => {
@@ -37,7 +39,7 @@ export default function Navbar() {
   ];
 
   return (
-    <div className="fixed top-0 left-0 w-full z-[1000] flex justify-between items-center py-4 px-6 lg:px-[80px] lg:py-[20px] bg-black/35 max-h-[75px]">
+    <div className="fixed top-0 left-0 w-full z-[1000] flex justify-between items-center py-4 px-6 lg:px-[80px] lg:py-[20px] bg-black/60 max-h-[75px] backdrop-blur-xl">
       <Link
         href="/"
         onClick={(e) => {
@@ -82,52 +84,7 @@ export default function Navbar() {
       </div>
 
       <div className="lg:hidden block">
-        <DropDown
-          triggerIcon={
-            <Image
-              src="/hamburger-icon.svg"
-              alt="Menu"
-              width={50}
-              height={9.2}
-            />
-          }
-          side="bottom-right"
-        >
-          <BrushedBorderContainer className="mt-2">
-            <div className="flex flex-col w-[192px] h-[180px] p-6 gap-4 text-[#E8F5E8] text-[12px] uppercase leading-[16px]">
-              {navlinks.map((link) => {
-                const isActive =
-                  activeHash !== '' && link.href.includes(activeHash);
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={(e) => {
-                      setActiveHash(link.hash); // Keep updating active state
-                      scrollTo(e, link.href); // Smooth scroll
-                    }}
-                    className={cn(
-                      'transition-all duration-200 hover:text-[#FCC800]',
-                      isActive
-                        ? 'text-[#FCC800] underline underline-offset-4 decoration-[#FCC800]'
-                        : 'text-inherit',
-                    )}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
-              <Button
-                href="/#contact"
-                variant="yellow"
-                size="sm"
-                smoothScroll={true}
-              >
-                Register Now!
-              </Button>
-            </div>
-          </BrushedBorderContainer>
-        </DropDown>
+        <MenuButton ref={menuButtonRef} className="text-white" />
       </div>
     </div>
   );

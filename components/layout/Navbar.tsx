@@ -61,8 +61,9 @@ export default function Navbar() {
             ref={menuBtnRef}
             open={openMenu}
             onToggle={() => setOpenMenu((v) => !v)}
+            className="md:hidden"
           />
-          <div className="lg:flex hidden flex-row items-center text-[#E8F5E8] text-[11px] gap-6 uppercase leading-[16px]">
+          <div className="md:flex hidden flex-row items-center text-[#E8F5E8] text-[11px] gap-6 uppercase leading-[16px]">
             {navlinks.map((link) => {
               const isActive =
                 activeHash !== '' && link.href.includes(activeHash);
@@ -96,7 +97,7 @@ export default function Navbar() {
           </div>
         </div>
         <MenuDropDown
-          className="text-white flex flex-col capitalize gap-4 mt-4"
+          className="md:hidden text-white flex flex-col capitalize gap-4 mt-4"
           open={openMenu}
           onClose={() => {
             setOpenMenu(false);

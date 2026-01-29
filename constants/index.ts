@@ -36,19 +36,19 @@ export const FEATURE_CARD_VARIANTS = [
 
 export const HIGHLIGHT_CARDS_DATA = [
   {
-    imageSrc: '/highlight_card/Frame1-new.svg',
+    imageSrc: '/highlight_card/Frame1-new.webp',
     alt: 'Cash Awards',
   },
   {
-    imageSrc: '/highlight_card/Frame2-new.svg',
+    imageSrc: '/highlight_card/Frame2-new.webp',
     alt: 'Cash Awards',
   },
   {
-    imageSrc: '/highlight_card/Frame3-new.svg',
+    imageSrc: '/highlight_card/Frame3-new.webp',
     alt: 'Cash Awards',
   },
   {
-    imageSrc: '/highlight_card/Frame4-new.svg',
+    imageSrc: '/highlight_card/Frame4-new.webp',
     alt: 'Cash Awards',
   },
 ] as const;

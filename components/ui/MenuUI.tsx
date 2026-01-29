@@ -10,33 +10,32 @@ import React, {
 import { cn } from '@/lib/utils';
 
 /* ----------------------------- MenuDropDown ----------------------------- */
-
 interface MenuDropDownProps {
-  children?: ReactNode;
+  children?: React.ReactNode;
   className?: string;
-
-  /** controlled open */
   open: boolean;
-  /** close handler (click outside, etc.) */
-  onClose: () => void;
-
-  /** panel top offset (matches your navbar height) */
-  topOffsetClassName?: string; // default: top-[75px]
 }
 
-export function MenuDropDown({
-  children,
-  className,
-  open,
-  onClose,
-  topOffsetClassName = 'top-[75px]',
-}: MenuDropDownProps) {
-  if (!open) return null;
-
+export function MenuDropDown({ children, className, open }: MenuDropDownProps) {
   return (
-    <>
-      <div className={className}>{children}</div>
-    </>
+    <div
+      className={cn(
+        // layout
+        ' overflow-hidden',
+
+        // animation
+        'transform transition-all duration-300 ease-out',
+
+        // open / closed states
+        open
+          ? 'max-h-[400px] translate-y-0 opacity-100'
+          : 'max-h-0 -translate-y-2 opacity-0 pointer-events-none',
+
+        className,
+      )}
+    >
+      {children}
+    </div>
   );
 }
 

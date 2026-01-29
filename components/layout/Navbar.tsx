@@ -40,7 +40,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-full z-[1000] py-4 px-6 lg:px-[80px] lg:py-[20px] bg-black/60 backdrop-blur-xl">
+      <div className="fixed top-0 left-0 w-full z-[1000] p-6 lg:px-24 bg-black/60 backdrop-blur-xl">
         <div className="flex justify-between items-center">
           <Link
             href="/"

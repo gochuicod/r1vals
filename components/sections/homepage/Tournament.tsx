@@ -62,7 +62,7 @@ export default function Tournament() {
             </defs>
           </svg>
 
-          <div className="pointer-events-none absolute inset-0 z-[2]">
+          <div className="pointer-events-none absolute inset-0 z-[3]">
             <div
               className="absolute inset-0"
               style={{
@@ -73,6 +73,25 @@ export default function Tournament() {
             >
               <Image
                 src="/tournament_section/brushedline2.svg"
+                alt="border"
+                fill
+                priority
+                className="object-contain object-center"
+              />
+            </div>
+          </div>
+
+          <div className="pointer-events-none absolute inset-0 z-[2]">
+            <div
+              className="absolute inset-0"
+              style={{
+                // Start here, then tweak numbers until perfect
+                transform: 'translateY(-1%) scaleX(1.23) scaleY(0.97)',
+                transformOrigin: 'center',
+              }}
+            >
+              <Image
+                src="/tournament_section/brushedline2shadow.svg"
                 alt="border"
                 fill
                 priority

@@ -37,6 +37,7 @@ export default function HistoricStakes() {
 
   return (
     <div
+      id="tournament-info"
       className={cn(
         // Layout
         'flex flex-col relative',
@@ -162,7 +163,7 @@ export default function HistoricStakes() {
           className={cn('w-full relative')}
         >
           <CarouselContent className="-ml-4">
-            {Array.from({ length: 8 }).map((_, index) => {
+            {Array.from({ length: 25 }).map((_, index) => {
               const imageSrc = CAROUSEL_IMAGES[index % CAROUSEL_IMAGES.length];
 
               return (

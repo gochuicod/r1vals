@@ -3,37 +3,11 @@
 import { useState } from 'react';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
-import { Instagram, Mail, Phone } from 'lucide-react';
+import Image from 'next/image';
+
 import { ContactModal } from '@/components/ui/ContactModal'; // Import the new modal
 
-// 1. Configuration Constants
-const CONTACT_NUMBER = '+63 917 507 4014';
-
-const SOCIAL_LINKS = [
-  {
-    icon: Instagram,
-    href: 'https://www.instagram.com/r1vals.sports',
-    label: 'Instagram',
-  },
-  {
-    icon: Mail,
-    href: 'mailto:info@r1vals.com',
-    label: 'Mail',
-  },
-  {
-    icon: Phone,
-    href: '#',
-    label: 'Phone',
-  },
-];
-
-const POLYGONS = {
-  mobile: 'polygon(0% 10%, 30% 20%, 50% 0%, 100% 20%, 100% 100%, 0% 100%)',
-  tablet:
-    'polygon(0% 10%, 15% 20%, 25% 0%, 55% 30%, 100% 5%, 100% 100%, 0% 100%)',
-  desktop:
-    'polygon(0% 15%, 8% 25%, 15% 0%, 30% 30%, 55% 5%, 65% 25%, 85% 10%, 95% 20%, 100% 0%, 100% 100%, 0% 100%)',
-};
+import { SOCIAL_LINKS, CONTACT_NUMBER, LEGAL_LINKS } from '@/constants';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -52,38 +26,24 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="w-full bg-black">
+      <footer className="w-full bg-black relative">
         {/* 2. Responsive Shape Container */}
         <div
           className={cn(
-            'bg-primary-deep text-white',
+            'bg-black text-white relative',
             'lg:px-[182px] px-[34px]',
-            'md:pt-[114px] pt-[70px] pb-[51px]',
+            'md:pt-[114px] pt-[120px] pb-[51px]',
           )}
-          style={
-            {
-              clipPath: `var(--footer-polygon)`,
-            } as React.CSSProperties
-          }
         >
-          {/* Responsive Polygon Logic */}
-          <style jsx>{`
-            div {
-              --footer-polygon: ${POLYGONS.mobile};
-            }
-            @media (min-width: 768px) {
-              div {
-                --footer-polygon: ${POLYGONS.tablet};
-              }
-            }
-            @media (min-width: 1440px) {
-              div {
-                --footer-polygon: ${POLYGONS.desktop};
-              }
-            }
-          `}</style>
-
-          <div className="flex flex-col md:flex-row justify-between items-center w-full gap-6 md:gap-0">
+          <Image
+            src="/footer/footer_bg.png"
+            alt="Footer Background"
+            layout="fill"
+            objectFit="cover"
+            // It's good practice to keep the background Z-index low (e.g., z-0)
+            className="z-0 absolute top-0 left-0"
+          />
+          <div className="flex flex-col md:flex-row justify-between items-center w-full gap-6 md:gap-0 z-[100] relative">
             {/* 3. Social Media Section */}
             <div className="flex gap-3">
               {SOCIAL_LINKS.map(({ icon: Icon, label, href }) => (
@@ -112,13 +72,13 @@ export default function Footer() {
 
             {/* 5. Legal Links Section */}
             <div className="flex items-center gap-6 text-xs font-bold uppercase">
-              {['privacy', 'terms'].map((link) => (
+              {LEGAL_LINKS.map((link) => (
                 <Link
-                  key={link}
-                  href={`/#${link}`}
+                  key={link.href}
+                  href={link.href}                  
                   className="hover:text-primary-300 transition-colors"
                 >
-                  {link}
+                  {link.label}
                 </Link>
               ))}
             </div>

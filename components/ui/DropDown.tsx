@@ -2,15 +2,22 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 
 interface DropDownProps {
+  open: boolean;
+  onClose: () => void;
   triggerIcon: React.ReactNode;
   children: React.ReactNode;
   side?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
   className?: string;
 }
 
-function DropDown({ triggerIcon, children, side, className }: DropDownProps) {
-  const [open, setOpen] = React.useState(false);
-  //utils for handling clicks outside the dropdown to close it
+function DropDown({
+  triggerIcon,
+  children,
+  side,
+  className,
+  open,
+  onClose,
+}: DropDownProps) {
   const wrapperRef = React.useRef<HTMLDivElement | null>(null);
   React.useEffect(() => {
     if (!open) return;
@@ -20,17 +27,17 @@ function DropDown({ triggerIcon, children, side, className }: DropDownProps) {
         wrapperRef.current &&
         !wrapperRef.current.contains(e.target as Node)
       ) {
-        setOpen(false);
+        onClose();
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [open]);
+  }, [onClose, open]);
 
   return (
     <div ref={wrapperRef} className="relative">
-      <button type="button" onClick={() => setOpen(!open)}>
+      <button type="button" onClick={() => onClose()}>
         {triggerIcon}
       </button>
 

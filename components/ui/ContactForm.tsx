@@ -48,7 +48,6 @@ const ContactForm = () => {
 
   const currentInterest = watch('interest');
 
-  // 3. Submit Logic matches reference
   const onSubmit = async (data: ContactFormData) => {
     try {
       const res = await fetch('/api/contact', {
@@ -60,6 +59,15 @@ const ContactForm = () => {
       if (res.ok) {
         reset();
         setModalState({ isOpen: true, type: 'success' });
+
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+          (window as any).gtag('event', 'conversion', {
+            'send_to': 'AW-17904183438/K-nRCPnNrewbEI7RsNlC',
+            'value': 1.0,
+            'currency': 'PHP'
+          });
+        }
+
       } else {
         setModalState({ isOpen: true, type: 'error' });
       }

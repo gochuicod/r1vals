@@ -43,6 +43,8 @@ export default function HistoricStakes() {
         'flex flex-col relative',
         // Sizing
         'md:min-h-[885px]',
+        // Behavior
+        'overflow-visible',
         // Spacing
         'md:pt-0 pt-[50px]',
         'relative',

@@ -5,24 +5,6 @@ import { FeatureCard } from '@/components/ui/FeatureCard';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'motion/react';
 
-// Keep this for the Image container (CSS Clip Path needs %)
-// const DESKTOP_CLIP = `
-//   polygon(
-//     0% 22%, 4% 14%, 10% 17%, 18% 19%, 26% 18%, 34% 19%, 42% 17%, 50% 19%,
-//     58% 21%, 66% 19%, 74% 20%, 82% 18%, 90% 20%, 100% 18%,
-//     100% 78%, 96% 88%, 90% 84%, 82% 81%, 74% 82%, 66% 80%, 58% 84%,
-//     50% 82%, 42% 80%, 34% 83%, 26% 82%, 18% 84%, 10% 82%, 0% 82%
-//   )
-// `;
-
-// // NEW: Clean version for SVG (Removed '%' for SVG coordinate system 0-100)
-// const SVG_POINTS = `
-//   0,22 4,14 10,17 18,19 26,18 34,19 42,17 50,19
-//   58,21 66,19 74,20 82,18 90,20 100,18
-//   100,78 96,88 90,84 82,81 74,82 66,80 58,84
-//   50,82 42,80 34,83 26,82 18,84 10,82 0,82
-// `;
-
 // teamPhotoMask.svg path
 const MASK_PATH =
   'M0 0L61 95L393 84.5L672 95L831.5 84.5L994 74.5L1065 95L1380 51L1537 149V670L1474.5 565.5L1138 580.5L851.5 565.5L672 580.5H496L164.5 606L0 521.5V0Z'; // CSS clip-path references this inline <clipPath>
